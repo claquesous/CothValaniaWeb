@@ -1,0 +1,76 @@
+= form_for @character do |f|
+  - if @character.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@character.errors.count, "error")} prohibited this character from being saved:"
+      %ul
+        - @character.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :remarks
+    = f.text_field :remarks
+  .field
+    = f.label :war
+    = f.check_box :war
+  .field
+    = f.label :mnk
+    = f.check_box :mnk
+  .field
+    = f.label :thf
+    = f.check_box :thf
+  .field
+    = f.label :whm
+    = f.check_box :whm
+  .field
+    = f.label :blm
+    = f.check_box :blm
+  .field
+    = f.label :rdm
+    = f.check_box :rdm
+  .field
+    = f.label :pld
+    = f.check_box :pld
+  .field
+    = f.label :drk
+    = f.check_box :drk
+  .field
+    = f.label :bst
+    = f.check_box :bst
+  .field
+    = f.label :brd
+    = f.check_box :brd
+  .field
+    = f.label :rng
+    = f.check_box :rng
+  .field
+    = f.label :sam
+    = f.check_box :sam
+  .field
+    = f.label :nin
+    = f.check_box :nin
+  .field
+    = f.label :drg
+    = f.check_box :drg
+  .field
+    = f.label :smn
+    = f.check_box :smn
+  .field
+    = f.label :blu
+    = f.check_box :blu
+  .field
+    = f.label :cor
+    = f.check_box :cor
+  .field
+    = f.label :pup
+    = f.check_box :pup
+  .field
+    = f.label :dnc
+    = f.check_box :dnc
+  .field
+    = f.label :sch
+    = f.check_box :sch
+  .actions
+    = f.submit 'Save'

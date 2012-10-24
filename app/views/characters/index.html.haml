@@ -1,0 +1,61 @@
+%h1 Listing characters
+
+%table
+  %tr
+    %th Name
+    %th Remarks
+    %th War
+    %th Mnk
+    %th Thf
+    %th Whm
+    %th Blm
+    %th Rdm
+    %th Pld
+    %th Drk
+    %th Bst
+    %th Brd
+    %th Rng
+    %th Sam
+    %th Nin
+    %th Drg
+    %th Smn
+    %th Blu
+    %th Cor
+    %th Pup
+    %th Dnc
+    %th Sch
+    %th
+    %th
+    %th
+
+  - @characters.each do |character|
+    %tr
+      %td= character.name
+      %td= character.remarks
+      %td= character.war
+      %td= character.mnk
+      %td= character.thf
+      %td= character.whm
+      %td= character.blm
+      %td= character.rdm
+      %td= character.pld
+      %td= character.drk
+      %td= character.bst
+      %td= character.brd
+      %td= character.rng
+      %td= character.sam
+      %td= character.nin
+      %td= character.drg
+      %td= character.smn
+      %td= character.blu
+      %td= character.cor
+      %td= character.pup
+      %td= character.dnc
+      %td= character.sch
+      %td= link_to 'Show', character
+      %td= link_to 'Edit', edit_character_path(character)
+      %td= link_to 'Destroy', character, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Character', new_character_path

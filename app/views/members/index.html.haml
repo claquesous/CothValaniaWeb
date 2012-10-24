@@ -1,0 +1,35 @@
+%h1 Listing members
+
+%table
+  %tr
+    %th Name
+    %th Password
+    %th Join date
+    %th Url
+    %th Remarks
+    %th Active
+    %th Admin
+    %th Reward cycle
+    %th Cycle date
+    %th
+    %th
+    %th
+
+  - @members.each do |member|
+    %tr
+      %td= member.name
+      %td= member.password
+      %td= member.join_date
+      %td= member.url
+      %td= member.remarks
+      %td= member.active
+      %td= member.admin
+      %td= member.reward_cycle
+      %td= member.cycle_date
+      %td= link_to 'Show', member
+      %td= link_to 'Edit', edit_member_path(member)
+      %td= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Member', new_member_path

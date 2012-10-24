@@ -1,13 +1,10 @@
 Cvweb::Application.routes.draw do
-<<<<<<< HEAD
   resources :characters
 
   resources :members
 
   get "home/index"
 
-=======
->>>>>>> 3de971f8b1ab30937762417800c301a21cf15c00
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -58,10 +55,7 @@ Cvweb::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
-<<<<<<< HEAD
  root :to => "home#index"
-=======
->>>>>>> 3de971f8b1ab30937762417800c301a21cf15c00
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,0 +1,33 @@
+%h1 Listing character_rewards
+
+%table
+  %tr
+    %th Character
+    %th Reward
+    %th Preference
+    %th Obtained
+    %th Obtained date
+    %th Reward cycle
+    %th Obtained points
+    %th Remarks
+    %th
+    %th
+    %th
+
+  - @character_rewards.each do |character_reward|
+    %tr
+      %td= character_reward.character
+      %td= character_reward.reward
+      %td= character_reward.preference
+      %td= character_reward.obtained
+      %td= character_reward.obtained_date
+      %td= character_reward.reward_cycle
+      %td= character_reward.obtained_points
+      %td= character_reward.remarks
+      %td= link_to 'Show', character_reward
+      %td= link_to 'Edit', edit_character_reward_path(character_reward)
+      %td= link_to 'Destroy', character_reward, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Character reward', new_character_reward_path

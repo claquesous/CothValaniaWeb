@@ -1,0 +1,18 @@
+class CreateCharacterRewards < ActiveRecord::Migration
+  def change
+    create_table :character_rewards do |t|
+      t.references :character
+      t.references :reward
+      t.integer :preference
+      t.boolean :obtained
+      t.datetime :obtained_date
+      t.integer :reward_cycle
+      t.integer :obtained_points
+      t.string :remarks
+
+      t.timestamps
+    end
+    add_index :character_rewards, :character_id
+    add_index :character_rewards, :reward_id
+  end
+end

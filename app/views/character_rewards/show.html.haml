@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Character:
+  = @character_reward.character
+%p
+  %b Reward:
+  = @character_reward.reward
+%p
+  %b Preference:
+  = @character_reward.preference
+%p
+  %b Obtained:
+  = @character_reward.obtained
+%p
+  %b Obtained date:
+  = @character_reward.obtained_date
+%p
+  %b Reward cycle:
+  = @character_reward.reward_cycle
+%p
+  %b Obtained points:
+  = @character_reward.obtained_points
+%p
+  %b Remarks:
+  = @character_reward.remarks
+
+= link_to 'Edit', edit_character_reward_path(@character_reward)
+\|
+= link_to 'Back', character_rewards_path

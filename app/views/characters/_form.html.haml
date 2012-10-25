@@ -13,7 +13,7 @@
     = f.label :remarks
     = f.text_field :remarks
   = label :member, :name, 'Member'
-  = select(:member, :name, @members, {:include_blank => ""})
+  = select_tag(:member, options_for_select(@members), {:include_blank => ""})
   .field
     = f.label :war
     = f.check_box :war

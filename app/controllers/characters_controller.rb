@@ -42,7 +42,7 @@ class CharactersController < ApplicationController
   # POST /characters
   # POST /characters.json
   def create
-    @character = Member.find_by_name(params[:member][:name]).characters.create(params[:character])
+    @character = Member.find_by_name(params[:member]).characters.create(params[:character])
 
     respond_to do |format|
       if @character.save

@@ -1,0 +1,22 @@
+= form_for @event_occurrence do |f|
+  - if @event_occurrence.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@event_occurrence.errors.count, "error")} prohibited this event_occurrence from being saved:"
+      %ul
+        - @event_occurrence.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :remarks
+    = f.text_field :remarks
+  .field
+    = f.label :start_time
+    = f.datetime_select :start_time
+  .field
+    = f.label :end_time
+    = f.datetime_select :end_time
+  .field
+    = f.label :success
+    = f.check_box :success
+  .actions
+    = f.submit 'Save'

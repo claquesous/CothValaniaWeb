@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Remarks:
+  = @event_occurrence.remarks
+%p
+  %b Start time:
+  = @event_occurrence.start_time
+%p
+  %b End time:
+  = @event_occurrence.end_time
+%p
+  %b Success:
+  = @event_occurrence.success
+
+= link_to 'Edit', edit_event_occurrence_path(@event_occurrence)
+\|
+= link_to 'Back', event_occurrences_path

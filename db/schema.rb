@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025161636) do
+ActiveRecord::Schema.define(:version => 20121025170814) do
 
   create_table "characters", :force => true do |t|
     t.string   "name"
@@ -41,6 +41,32 @@ ActiveRecord::Schema.define(:version => 20121025161636) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "event_attendances", :force => true do |t|
+    t.integer  "event_occurrence_id"
+    t.integer  "character_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "event_attendances", ["character_id"], :name => "index_event_attendances_on_character_id"
+  add_index "event_attendances", ["event_occurrence_id"], :name => "index_event_attendances_on_event_occurrence_id"
+
+  create_table "event_occurrences", :force => true do |t|
+    t.string   "remarks"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.boolean  "success"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "event_rewards", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "reward_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "events", :force => true do |t|
     t.string   "name"
     t.integer  "points"
@@ -63,6 +89,14 @@ ActiveRecord::Schema.define(:version => 20121025161636) do
     t.date     "cycle_date"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "rewards", :force => true do |t|
+    t.string   "name"
+    t.integer  "external_value"
+    t.string   "remarks"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
 end

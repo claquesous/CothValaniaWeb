@@ -1,4 +1,10 @@
 Cvweb::Application.routes.draw do
+  resources :event_attendances
+
+  resources :event_occurrences
+
+  resources :event_rewards
+
   resources :rewards
 
   resources :events

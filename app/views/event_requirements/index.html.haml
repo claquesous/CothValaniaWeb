@@ -1,0 +1,21 @@
+%h1 Listing event_requirements
+
+%table
+  %tr
+    %th Requirement
+    %th Event
+    %th
+    %th
+    %th
+
+  - @event_requirements.each do |event_requirement|
+    %tr
+      %td= event_requirement.requirement
+      %td= event_requirement.event
+      %td= link_to 'Show', event_requirement
+      %td= link_to 'Edit', edit_event_requirement_path(event_requirement)
+      %td= link_to 'Destroy', event_requirement, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Event requirement', new_event_requirement_path

@@ -1,4 +1,12 @@
 Cvweb::Application.routes.draw do
+  resources :event_requirements
+
+  resources :character_requirements
+
+  resources :requirement_attainments
+
+  resources :requirements
+
   resources :news
 
   resources :shouts

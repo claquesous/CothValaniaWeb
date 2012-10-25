@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Requirement attainment:
+  = @character_requirement.requirement_attainment
+%p
+  %b Character:
+  = @character_requirement.character
+%p
+  %b Obtained date:
+  = @character_requirement.obtained_date
+%p
+  %b Used date:
+  = @character_requirement.used_date
+%p
+  %b Used:
+  = @character_requirement.used
+
+= link_to 'Edit', edit_character_requirement_path(@character_requirement)
+\|
+= link_to 'Back', character_requirements_path

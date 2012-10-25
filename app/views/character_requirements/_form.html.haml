@@ -1,0 +1,25 @@
+= form_for @character_requirement do |f|
+  - if @character_requirement.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@character_requirement.errors.count, "error")} prohibited this character_requirement from being saved:"
+      %ul
+        - @character_requirement.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :requirement_attainment
+    = f.text_field :requirement_attainment
+  .field
+    = f.label :character
+    = f.text_field :character
+  .field
+    = f.label :obtained_date
+    = f.datetime_select :obtained_date
+  .field
+    = f.label :used_date
+    = f.datetime_select :used_date
+  .field
+    = f.label :used
+    = f.check_box :used
+  .actions
+    = f.submit 'Save'

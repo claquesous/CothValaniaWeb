@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025171943) do
+ActiveRecord::Schema.define(:version => 20121025191449) do
+
+  create_table "character_requirements", :force => true do |t|
+    t.integer  "requirement_attainment_id"
+    t.integer  "character_id"
+    t.datetime "obtained_date"
+    t.datetime "used_date"
+    t.boolean  "used"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "character_requirements", ["character_id"], :name => "index_character_requirements_on_character_id"
+  add_index "character_requirements", ["requirement_attainment_id"], :name => "index_character_requirements_on_requirement_attainment_id"
 
   create_table "character_rewards", :force => true do |t|
     t.integer  "character_id"
@@ -76,6 +89,16 @@ ActiveRecord::Schema.define(:version => 20121025171943) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "event_requirements", :force => true do |t|
+    t.integer  "requirement_id"
+    t.integer  "event_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "event_requirements", ["event_id"], :name => "index_event_requirements_on_event_id"
+  add_index "event_requirements", ["requirement_id"], :name => "index_event_requirements_on_requirement_id"
+
   create_table "event_rewards", :force => true do |t|
     t.integer  "event_id"
     t.integer  "reward_id"
@@ -89,8 +112,9 @@ ActiveRecord::Schema.define(:version => 20121025171943) do
     t.string   "remarks"
     t.boolean  "hidden"
     t.time     "time"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.boolean  "requirements_mixable"
   end
 
   create_table "members", :force => true do |t|
@@ -107,6 +131,33 @@ ActiveRecord::Schema.define(:version => 20121025171943) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "news", :force => true do |t|
+    t.text     "text"
+    t.datetime "date"
+    t.integer  "character_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "news", ["character_id"], :name => "index_news_on_character_id"
+
+  create_table "requirement_attainments", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "requirement_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "requirement_attainments", ["event_id"], :name => "index_requirement_attainments_on_event_id"
+  add_index "requirement_attainments", ["requirement_id"], :name => "index_requirement_attainments_on_requirement_id"
+
+  create_table "requirements", :force => true do |t|
+    t.text     "name"
+    t.boolean  "reusable"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "rewards", :force => true do |t|
     t.string   "name"
     t.integer  "external_value"
@@ -114,5 +165,15 @@ ActiveRecord::Schema.define(:version => 20121025171943) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
+
+  create_table "shouts", :force => true do |t|
+    t.text     "text"
+    t.datetime "date"
+    t.integer  "character_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "shouts", ["character_id"], :name => "index_shouts_on_character_id"
 
 end

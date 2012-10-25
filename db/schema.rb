@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121024133819) do
+ActiveRecord::Schema.define(:version => 20121025161636) do
 
   create_table "characters", :force => true do |t|
     t.string   "name"
@@ -37,6 +37,16 @@ ActiveRecord::Schema.define(:version => 20121024133819) do
     t.boolean  "dnc"
     t.boolean  "sch"
     t.integer  "member_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "events", :force => true do |t|
+    t.string   "name"
+    t.integer  "points"
+    t.string   "remarks"
+    t.boolean  "hidden"
+    t.time     "time"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

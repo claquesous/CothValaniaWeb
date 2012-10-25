@@ -1,0 +1,17 @@
+%h1 Listing event_rewards
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @event_rewards.each do |event_reward|
+    %tr
+      %td= link_to 'Show', event_reward
+      %td= link_to 'Edit', edit_event_reward_path(event_reward)
+      %td= link_to 'Destroy', event_reward, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Event reward', new_event_reward_path

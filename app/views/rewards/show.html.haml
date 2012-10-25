@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @reward.name
+%p
+  %b External value:
+  = @reward.external_value
+%p
+  %b Remarks:
+  = @reward.remarks
+
+= link_to 'Edit', edit_reward_path(@reward)
+\|
+= link_to 'Back', rewards_path

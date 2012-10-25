@@ -11,7 +11,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121024023143) do
+ActiveRecord::Schema.define(:version => 20121024133819) do
+
+  create_table "characters", :force => true do |t|
+    t.string   "name"
+    t.string   "remarks"
+    t.boolean  "war"
+    t.boolean  "mnk"
+    t.boolean  "thf"
+    t.boolean  "whm"
+    t.boolean  "blm"
+    t.boolean  "rdm"
+    t.boolean  "pld"
+    t.boolean  "drk"
+    t.boolean  "bst"
+    t.boolean  "brd"
+    t.boolean  "rng"
+    t.boolean  "sam"
+    t.boolean  "nin"
+    t.boolean  "drg"
+    t.boolean  "smn"
+    t.boolean  "blu"
+    t.boolean  "cor"
+    t.boolean  "pup"
+    t.boolean  "dnc"
+    t.boolean  "sch"
+    t.integer  "member_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "members", :force => true do |t|
     t.string   "name"

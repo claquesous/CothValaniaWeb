@@ -25,6 +25,7 @@ class CharactersController < ApplicationController
   # GET /characters/new.json
   def new
     @character = Character.new
+    @members = Member.pluck(:name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,12 +36,13 @@ class CharactersController < ApplicationController
   # GET /characters/1/edit
   def edit
     @character = Character.find(params[:id])
+    @members = Member.pluck(:name)
   end
 
   # POST /characters
   # POST /characters.json
   def create
-    @character = Character.new(params[:character])
+    @character = Member.find_by_name(params[:member][:name]).characters.create(params[:character])
 
     respond_to do |format|
       if @character.save

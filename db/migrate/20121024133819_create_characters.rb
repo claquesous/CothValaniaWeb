@@ -23,7 +23,7 @@ class CreateCharacters < ActiveRecord::Migration
       t.boolean :pup
       t.boolean :dnc
       t.boolean :sch
-      t.references :members
+      t.references :member
 
       t.timestamps
     end

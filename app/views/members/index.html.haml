@@ -3,7 +3,6 @@
 %table
   %tr
     %th Name
-    %th Password
     %th Join date
     %th Url
     %th Remarks
@@ -18,7 +17,6 @@
   - @members.each do |member|
     %tr
       %td= member.name
-      %td= member.password
       %td= member.join_date
       %td= member.url
       %td= member.remarks

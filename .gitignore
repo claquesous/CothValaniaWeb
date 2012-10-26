@@ -14,5 +14,8 @@
 /log/*.log
 /tmp
 
-#Ignore changes in public
+# Ignore changes in public
 /public/*
+
+# Ignore my database defs
+/config/database.yml

@@ -13,8 +13,8 @@
     = f.label :password
     = f.text_field :password
   .field
-    = f.label :join_date
-    = f.date_select :join_date
+    = f.label :password_confirmation
+    = f.text_field :password_confirmation
   .field
     = f.label :url
     = f.text_field :url
@@ -24,14 +24,5 @@
   .field
     = f.label :active
     = f.text_field :active
-  .field
-    = f.label :admin
-    = f.text_field :admin
-  .field
-    = f.label :reward_cycle
-    = f.text_field :reward_cycle
-  .field
-    = f.label :cycle_date
-    = f.date_select :cycle_date
   .actions
     = f.submit 'Save'

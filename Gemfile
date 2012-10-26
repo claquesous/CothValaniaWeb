@@ -13,6 +13,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'launchy'
+  gem 'rspec-rails'
 end
 group :test do
   gem 'cucumber-rails'
@@ -52,4 +53,3 @@ gem 'bcrypt-ruby'
 gem 'haml'
 gem 'haml-rails'
 
-gem 'rspec-rails'

@@ -29,6 +29,11 @@ Cvweb::Application.routes.draw do
 
   get "home/index"
 
+  get "login" => "sessions#new", :as => "login"
+  get "logout" => "sessions#destroy", :as => "logout"
+
+  resources :sessions 
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

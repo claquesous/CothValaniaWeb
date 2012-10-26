@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025191449) do
+ActiveRecord::Schema.define(:version => 20121025200515) do
 
   create_table "character_requirements", :force => true do |t|
     t.integer  "requirement_attainment_id"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20121025191449) do
 
   create_table "members", :force => true do |t|
     t.string   "name"
-    t.string   "password"
+    t.string   "password_digest"
     t.date     "join_date"
     t.string   "url"
     t.string   "remarks"
@@ -127,8 +127,8 @@ ActiveRecord::Schema.define(:version => 20121025191449) do
     t.boolean  "admin"
     t.integer  "reward_cycle"
     t.date     "cycle_date"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "news", :force => true do |t|

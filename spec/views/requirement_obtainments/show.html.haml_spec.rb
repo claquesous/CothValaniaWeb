@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "requirement_attainments/show" do
+describe "requirement_obtainments/show" do
   before(:each) do
-    @requirement_attainment = assign(:requirement_attainment, stub_model(RequirementAttainment,
+    @requirement_obtainment = assign(:requirement_obtainment, stub_model(RequirementObtainment,
       :event => nil,
       :requirement => nil
     ))

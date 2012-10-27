@@ -1,0 +1,21 @@
+%h1 Listing requirement_obtainments
+
+%table
+  %tr
+    %th Event
+    %th Requirement
+    %th
+    %th
+    %th
+
+  - @requirement_obtainments.each do |requirement_obtainment|
+    %tr
+      %td= requirement_obtainment.event
+      %td= requirement_obtainment.requirement
+      %td= link_to 'Show', requirement_obtainment
+      %td= link_to 'Edit', edit_requirement_obtainment_path(requirement_obtainment)
+      %td= link_to 'Destroy', requirement_obtainment, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Requirement obtainment', new_requirement_obtainment_path

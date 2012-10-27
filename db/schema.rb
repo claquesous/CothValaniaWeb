@@ -11,20 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025200515) do
+ActiveRecord::Schema.define(:version => 20121027052456) do
 
   create_table "character_requirements", :force => true do |t|
-    t.integer  "requirement_attainment_id"
     t.integer  "character_id"
-    t.datetime "obtained_date"
-    t.datetime "used_date"
     t.boolean  "used"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.integer  "obtained_event_occurrence_id"
+    t.integer  "used_event_occurrence_id"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   add_index "character_requirements", ["character_id"], :name => "index_character_requirements_on_character_id"
-  add_index "character_requirements", ["requirement_attainment_id"], :name => "index_character_requirements_on_requirement_attainment_id"
+  add_index "character_requirements", ["obtained_event_occurrence_id"], :name => "index_character_requirements_on_obtained_event_occurrence_id"
+  add_index "character_requirements", ["used_event_occurrence_id"], :name => "index_character_requirements_on_used_event_occurrence_id"
 
   create_table "character_rewards", :force => true do |t|
     t.integer  "character_id"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20121025200515) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.boolean  "success"
+    t.integer  "event_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -141,15 +142,15 @@ ActiveRecord::Schema.define(:version => 20121025200515) do
 
   add_index "news", ["character_id"], :name => "index_news_on_character_id"
 
-  create_table "requirement_attainments", :force => true do |t|
+  create_table "requirement_obtainments", :force => true do |t|
     t.integer  "event_id"
     t.integer  "requirement_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
 
-  add_index "requirement_attainments", ["event_id"], :name => "index_requirement_attainments_on_event_id"
-  add_index "requirement_attainments", ["requirement_id"], :name => "index_requirement_attainments_on_requirement_id"
+  add_index "requirement_obtainments", ["event_id"], :name => "index_requirement_obtainments_on_event_id"
+  add_index "requirement_obtainments", ["requirement_id"], :name => "index_requirement_obtainments_on_requirement_id"
 
   create_table "requirements", :force => true do |t|
     t.text     "name"

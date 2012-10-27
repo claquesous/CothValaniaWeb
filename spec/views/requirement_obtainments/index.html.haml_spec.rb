@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-describe "requirement_attainments/index" do
+describe "requirement_obtainments/index" do
   before(:each) do
-    assign(:requirement_attainments, [
-      stub_model(RequirementAttainment,
+    assign(:requirement_obtainments, [
+      stub_model(RequirementObtainment,
         :event => nil,
         :requirement => nil
       ),
-      stub_model(RequirementAttainment,
+      stub_model(RequirementObtainment,
         :event => nil,
         :requirement => nil
       )
     ])
   end
 
-  it "renders a list of requirement_attainments" do
+  it "renders a list of requirement_obtainments" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => nil.to_s, :count => 2

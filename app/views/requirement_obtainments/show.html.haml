@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Event:
+  = @requirement_obtainment.event
+%p
+  %b Requirement:
+  = @requirement_obtainment.requirement
+
+= link_to 'Edit', edit_requirement_obtainment_path(@requirement_obtainment)
+\|
+= link_to 'Back', requirement_obtainments_path

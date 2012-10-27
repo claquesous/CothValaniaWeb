@@ -3,6 +3,7 @@ class CreateCharacterRewards < ActiveRecord::Migration
     create_table :character_rewards do |t|
       t.references :character
       t.references :reward
+      t.references :event_occurrence
       t.integer :preference
       t.boolean :obtained
       t.datetime :obtained_date
@@ -14,5 +15,6 @@ class CreateCharacterRewards < ActiveRecord::Migration
     end
     add_index :character_rewards, :character_id
     add_index :character_rewards, :reward_id
+    add_index :character_rewards, :event_occurrence_id
   end
 end

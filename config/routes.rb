@@ -1,9 +1,9 @@
 Cvweb::Application.routes.draw do
+  resources :requirement_obtainments
+
   resources :event_requirements
 
   resources :character_requirements
-
-  resources :requirement_attainments
 
   resources :requirements
 

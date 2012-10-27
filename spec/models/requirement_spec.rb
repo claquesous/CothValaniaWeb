@@ -6,5 +6,5 @@ describe Requirement do
   end
 
   it { should have_many(:requirement_obtainments) }
-  it { should have_many(:event_requirement) }
+  it { should have_many(:event_requirements) }
 end

@@ -9,5 +9,5 @@ describe Member do
     Member.create(name: :Cvweb, password: :cvwebpass).should be_persisted
   end
 
-  it { should have_many(:members) }
+  it { should have_many(:characters) }
 end

@@ -24,7 +24,9 @@ describe RewardsController do
   # Reward. As you add validations to Reward, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :name => 'Reward'
+    }
   end
 
   # This should return the minimal set of values that should be in the session

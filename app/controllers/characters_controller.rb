@@ -42,10 +42,11 @@ class CharactersController < ApplicationController
   # POST /characters
   # POST /characters.json
   def create
-    @character = Member.find_by_name(params[:member]).characters.create(params[:character])
+    member = Member.find_by_name(params[:member])
+    @character = member.characters.create(params[:character]) unless member.nil?
 
     respond_to do |format|
-      if @character.save
+      if @character && @character.save
         format.html { redirect_to @character, notice: 'Character was successfully created.' }
         format.json { render json: @character, status: :created, location: @character }
       else

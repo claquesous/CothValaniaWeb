@@ -24,7 +24,7 @@ describe CharactersController do
   # Character. As you add validations to Character, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    FactoryGirl.attributes_for(:character)
   end
 
   # This should return the minimal set of values that should be in the session
@@ -36,7 +36,7 @@ describe CharactersController do
 
   describe "GET index" do
     it "assigns all characters as @characters" do
-      character = Character.create! valid_attributes
+      character = FactoryGirl.create(:character)
       get :index, {}, valid_session
       assigns(:characters).should eq([character])
     end
@@ -44,7 +44,7 @@ describe CharactersController do
 
   describe "GET show" do
     it "assigns the requested character as @character" do
-      character = Character.create! valid_attributes
+      character = FactoryGirl.create(:character)
       get :show, {:id => character.to_param}, valid_session
       assigns(:character).should eq(character)
     end
@@ -59,7 +59,7 @@ describe CharactersController do
 
   describe "GET edit" do
     it "assigns the requested character as @character" do
-      character = Character.create! valid_attributes
+      character = FactoryGirl.create(:character)
       get :edit, {:id => character.to_param}, valid_session
       assigns(:character).should eq(character)
     end
@@ -68,31 +68,26 @@ describe CharactersController do
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Character" do
+        valid_hash = {:character => valid_attributes}
+        valid_hash[:member] = FactoryGirl.create(:member).name
         expect {
-          post :create, {:character => valid_attributes}, valid_session
+          post :create, valid_hash, valid_session
         }.to change(Character, :count).by(1)
       end
 
       it "assigns a newly created character as @character" do
-        post :create, {:character => valid_attributes}, valid_session
+        post :create, {:member => FactoryGirl.create(:member).name, :character => valid_attributes}, valid_session
         assigns(:character).should be_a(Character)
         assigns(:character).should be_persisted
       end
 
       it "redirects to the created character" do
-        post :create, {:character => valid_attributes}, valid_session
+        post :create, {:member => FactoryGirl.create(:member).name, :character => valid_attributes}, valid_session
         response.should redirect_to(Character.last)
       end
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved character as @character" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Character.any_instance.stub(:save).and_return(false)
-        post :create, {:character => {}}, valid_session
-        assigns(:character).should be_a_new(Character)
-      end
-
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Character.any_instance.stub(:save).and_return(false)
@@ -105,7 +100,7 @@ describe CharactersController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested character" do
-        character = Character.create! valid_attributes
+        character = FactoryGirl.create(:character)
         # Assuming there are no other characters in the database, this
         # specifies that the Character created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -115,13 +110,13 @@ describe CharactersController do
       end
 
       it "assigns the requested character as @character" do
-        character = Character.create! valid_attributes
+        character = FactoryGirl.create(:character)
         put :update, {:id => character.to_param, :character => valid_attributes}, valid_session
         assigns(:character).should eq(character)
       end
 
       it "redirects to the character" do
-        character = Character.create! valid_attributes
+        character = FactoryGirl.create(:character)
         put :update, {:id => character.to_param, :character => valid_attributes}, valid_session
         response.should redirect_to(character)
       end
@@ -129,7 +124,7 @@ describe CharactersController do
 
     describe "with invalid params" do
       it "assigns the character as @character" do
-        character = Character.create! valid_attributes
+        character = FactoryGirl.create(:character)
         # Trigger the behavior that occurs when invalid params are submitted
         Character.any_instance.stub(:save).and_return(false)
         put :update, {:id => character.to_param, :character => {}}, valid_session
@@ -137,7 +132,7 @@ describe CharactersController do
       end
 
       it "re-renders the 'edit' template" do
-        character = Character.create! valid_attributes
+        character = FactoryGirl.create(:character)
         # Trigger the behavior that occurs when invalid params are submitted
         Character.any_instance.stub(:save).and_return(false)
         put :update, {:id => character.to_param, :character => {}}, valid_session
@@ -148,14 +143,14 @@ describe CharactersController do
 
   describe "DELETE destroy" do
     it "destroys the requested character" do
-      character = Character.create! valid_attributes
+      character = FactoryGirl.create(:character)
       expect {
         delete :destroy, {:id => character.to_param}, valid_session
       }.to change(Character, :count).by(-1)
     end
 
     it "redirects to the characters list" do
-      character = Character.create! valid_attributes
+      character = FactoryGirl.create(:character)
       delete :destroy, {:id => character.to_param}, valid_session
       response.should redirect_to(characters_url)
     end

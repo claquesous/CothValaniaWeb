@@ -4,12 +4,12 @@ describe "character_requirements/index" do
   before(:each) do
     assign(:character_requirements, [
       stub_model(CharacterRequirement,
-        :requirement_attainment => nil,
+        :requirement_obtainment => nil,
         :character => nil,
         :used => false
       ),
       stub_model(CharacterRequirement,
-        :requirement_attainment => nil,
+        :requirement_obtainment => nil,
         :character => nil,
         :used => false
       )

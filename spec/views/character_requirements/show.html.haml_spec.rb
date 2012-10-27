@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "character_requirements/show" do
   before(:each) do
     @character_requirement = assign(:character_requirement, stub_model(CharacterRequirement,
-      :requirement_attainment => nil,
+      :requirement_obtainment => nil,
       :character => nil,
       :used => false
     ))

@@ -3,10 +3,10 @@ class CreateShouts < ActiveRecord::Migration
     create_table :shouts do |t|
       t.text :text
       t.datetime :date
-      t.references :character
+      t.references :member
 
       t.timestamps
     end
-    add_index :shouts, :character_id
+    add_index :shouts, :member_id
   end
 end

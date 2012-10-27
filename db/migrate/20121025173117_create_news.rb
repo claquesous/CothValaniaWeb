@@ -3,10 +3,10 @@ class CreateNews < ActiveRecord::Migration
     create_table :news do |t|
       t.text :text
       t.datetime :date
-      t.references :character
+      t.references :member
 
       t.timestamps
     end
-    add_index :news, :character_id
+    add_index :news, :member_id
   end
 end

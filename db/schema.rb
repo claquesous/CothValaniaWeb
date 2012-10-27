@@ -136,12 +136,12 @@ ActiveRecord::Schema.define(:version => 20121027052456) do
   create_table "news", :force => true do |t|
     t.text     "text"
     t.datetime "date"
-    t.integer  "character_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "member_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "news", ["character_id"], :name => "index_news_on_character_id"
+  add_index "news", ["member_id"], :name => "index_news_on_member_id"
 
   create_table "requirement_obtainments", :force => true do |t|
     t.integer  "event_id"
@@ -171,11 +171,11 @@ ActiveRecord::Schema.define(:version => 20121027052456) do
   create_table "shouts", :force => true do |t|
     t.text     "text"
     t.datetime "date"
-    t.integer  "character_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "member_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "shouts", ["character_id"], :name => "index_shouts_on_character_id"
+  add_index "shouts", ["member_id"], :name => "index_shouts_on_member_id"
 
 end

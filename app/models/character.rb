@@ -4,7 +4,5 @@ class Character < ActiveRecord::Base
   validates_presence_of :name, :member
   has_many :character_requirements
   has_many :character_rewards
-  has_many :news
-  has_many :shouts
   has_many :event_attendances
 end

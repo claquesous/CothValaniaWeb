@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe News do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "can be instantiated" do
+    News.new.should be_an_instance_of(News)
+  end
+
+  it "can be saved successfully" do
+    News.create.should be_persisted
+  end
+
+  it { should belong_to(:character) }
 end

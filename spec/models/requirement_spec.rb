@@ -1,5 +1,10 @@
 require 'spec_helper'
 
 describe Requirement do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "can be instantiated" do 
+    Requirement.new.should be_an_instance_of(Requirement)
+  end
+
+  it { should have_many(:requirement_obtainments) }
+  it { should have_many(:event_requirement) }
 end

@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe EventAttendance do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to(:character) }
+  it { should belong_to(:event_occurrence) }
 end

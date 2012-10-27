@@ -1,15 +1,15 @@
 class CreateCharacterRequirements < ActiveRecord::Migration
   def change
     create_table :character_requirements do |t|
-      t.references :requirement_attainment
       t.references :character
-      t.datetime :obtained_date
-      t.datetime :used_date
       t.boolean :used
+      t.references :obtained_event_occurrence
+      t.references :used_event_occurrence
 
       t.timestamps
     end
-    add_index :character_requirements, :requirement_attainment_id
     add_index :character_requirements, :character_id
+    add_index :character_requirements, :obtained_event_occurrence_id
+    add_index :character_requirements, :used_event_occurrence_id
   end
 end

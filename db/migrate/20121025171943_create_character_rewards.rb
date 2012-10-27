@@ -6,7 +6,6 @@ class CreateCharacterRewards < ActiveRecord::Migration
       t.references :event_occurrence
       t.integer :preference
       t.boolean :obtained
-      t.datetime :obtained_date
       t.integer :reward_cycle
       t.integer :obtained_points
       t.string :remarks

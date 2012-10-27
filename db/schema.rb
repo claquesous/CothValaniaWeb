@@ -29,17 +29,18 @@ ActiveRecord::Schema.define(:version => 20121027052456) do
   create_table "character_rewards", :force => true do |t|
     t.integer  "character_id"
     t.integer  "reward_id"
+    t.integer  "event_occurrence_id"
     t.integer  "preference"
     t.boolean  "obtained"
-    t.datetime "obtained_date"
     t.integer  "reward_cycle"
     t.integer  "obtained_points"
     t.string   "remarks"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   add_index "character_rewards", ["character_id"], :name => "index_character_rewards_on_character_id"
+  add_index "character_rewards", ["event_occurrence_id"], :name => "index_character_rewards_on_event_occurrence_id"
   add_index "character_rewards", ["reward_id"], :name => "index_character_rewards_on_reward_id"
 
   create_table "characters", :force => true do |t|

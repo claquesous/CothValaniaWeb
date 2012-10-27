@@ -3,6 +3,6 @@ class CharacterRequirement < ActiveRecord::Base
   # that can be used to satisfy an event_occurrences requirements
   belongs_to :character
   attr_accessible :used
-  has_one :obtained_event_occurrence, :class_name => "EventOccurrence"
-  has_one :used_event_occurrence, :class_name => "EventOccurrence"
+  belongs_to :obtained_event_occurrence, :class_name => "EventOccurrence"
+  belongs_to :used_event_occurrence, :class_name => "EventOccurrence"
 end

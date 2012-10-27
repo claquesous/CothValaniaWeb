@@ -3,4 +3,6 @@ class Event < ActiveRecord::Base
   validates_presence_of :name, :points
   has_many :event_rewards
   has_many :event_occurrences
+  has_many :event_requirements
+  has_many :requirement_obtainments
 end

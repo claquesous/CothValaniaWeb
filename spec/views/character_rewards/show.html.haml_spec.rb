@@ -5,6 +5,7 @@ describe "character_rewards/show" do
     @character_reward = assign(:character_reward, stub_model(CharacterReward,
       :character => nil,
       :reward => nil,
+      :event_occurrence => nil,
       :preference => 1,
       :obtained => false,
       :reward_cycle => 2,
@@ -16,6 +17,7 @@ describe "character_rewards/show" do
   it "renders attributes in <p>" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
+    rendered.should match(//)
     rendered.should match(//)
     rendered.should match(//)
     rendered.should match(/1/)

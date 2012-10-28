@@ -10,4 +10,6 @@ describe Member do
   end
 
   it { should have_many(:characters) }
+  it { should have_many(:news) }
+  it { should have_many(:shouts) }
 end

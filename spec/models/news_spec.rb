@@ -9,5 +9,5 @@ describe News do
     News.create.should be_persisted
   end
 
-  it { should belong_to(:character) }
+  it { should belong_to(:member) }
 end

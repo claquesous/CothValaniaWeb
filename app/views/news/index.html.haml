@@ -13,7 +13,7 @@
     %tr
       %td= news.text
       %td= news.date
-      %td= news.character
+      %td= news.member
       %td= link_to 'Show', news
       %td= link_to 'Edit', edit_news_path(news)
       %td= link_to 'Destroy', news, method: :delete, data: { confirm: 'Are you sure?' }

@@ -4,11 +4,9 @@ describe "members/show" do
   before(:each) do
     @member = assign(:member, stub_model(Member,
       :name => "Name",
-      :password => "Password",
       :url => "Url",
       :remarks => "Remarks",
       :active => "",
-      :admin => "",
       :reward_cycle => ""
     ))
   end
@@ -17,10 +15,8 @@ describe "members/show" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Name/)
-    rendered.should match(/Password/)
     rendered.should match(/Url/)
     rendered.should match(/Remarks/)
-    rendered.should match(//)
     rendered.should match(//)
     rendered.should match(//)
   end

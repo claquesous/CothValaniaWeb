@@ -8,8 +8,6 @@ describe "members/edit" do
       :url => "MyString",
       :remarks => "MyString",
       :active => "",
-      :admin => "",
-      :reward_cycle => ""
     ))
   end
 
@@ -23,8 +21,6 @@ describe "members/edit" do
       assert_select "input#member_url", :name => "member[url]"
       assert_select "input#member_remarks", :name => "member[remarks]"
       assert_select "input#member_active", :name => "member[active]"
-      assert_select "input#member_admin", :name => "member[admin]"
-      assert_select "input#member_reward_cycle", :name => "member[reward_cycle]"
     end
   end
 end

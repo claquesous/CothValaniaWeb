@@ -3,9 +3,10 @@ require 'spec_helper'
 describe "character_requirements/show" do
   before(:each) do
     @character_requirement = assign(:character_requirement, stub_model(CharacterRequirement,
-      :requirement_obtainment => nil,
+      :obtained_event_occurrence => nil,
       :character => nil,
-      :used => false
+      :used => false,
+      :used_event_occurrence => nil
     ))
   end
 
@@ -15,5 +16,6 @@ describe "character_requirements/show" do
     rendered.should match(//)
     rendered.should match(//)
     rendered.should match(/false/)
+    rendered.should match(//)
   end
 end

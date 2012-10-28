@@ -2,22 +2,20 @@
 
 %table
   %tr
-    %th Requirement obtainment
+    %th Obtained event occurrence
     %th Character
-    %th Obtained date
-    %th Used date
     %th Used
+    %th Used event occurrence
     %th
     %th
     %th
 
   - @character_requirements.each do |character_requirement|
     %tr
-      %td= character_requirement.requirement_obtainment
+      %td= character_requirement.obtained_event_occurrence
       %td= character_requirement.character
-      %td= character_requirement.obtained_date
-      %td= character_requirement.used_date
       %td= character_requirement.used
+      %td= character_requirement.used_event_occurrence
       %td= link_to 'Show', character_requirement
       %td= link_to 'Edit', edit_character_requirement_path(character_requirement)
       %td= link_to 'Destroy', character_requirement, method: :delete, data: { confirm: 'Are you sure?' }

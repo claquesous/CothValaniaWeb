@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  layout 'logged_out'
   skip_before_filter :require_login
 
   def new

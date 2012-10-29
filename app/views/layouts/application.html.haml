@@ -13,5 +13,16 @@
       - elsif flash[:warning]
         #warning.message= flash[:warning]
 
+    #menu 
+      =link_to_unless_current 'Home', home_index_path
+      =link_to_unless_current 'My Page', @current_member
+      =link_to_unless_current 'Roster', members_path
+      =link_to_unless_current 'Events', events_path
+      =link_to_unless_current 'Drops', rewards_path
+      =#link_to_unless_current 'Statistics', statistics_path
+      =link_to_unless_current 'Shout!', shouts_path
+      =#link_to_unless_current 'Admin', admin_path
+      =link_to 'Logout', logout_url
+
     = yield
 

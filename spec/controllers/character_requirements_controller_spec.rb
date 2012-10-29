@@ -34,6 +34,10 @@ describe CharacterRequirementsController do
     {}
   end
 
+  before :each do
+    controller.stub!(:require_login).and_return(:true)
+  end
+
   describe "GET index" do
     it "assigns all character_requirements as @character_requirements" do
       character_requirement = CharacterRequirement.create! valid_attributes

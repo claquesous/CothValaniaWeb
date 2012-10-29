@@ -34,6 +34,10 @@ describe EventOccurrencesController do
     {}
   end
 
+  before :each do
+    controller.stub!(:require_login).and_return(:true)
+  end
+
   describe "GET index" do
     it "assigns all event_occurrences as @event_occurrences" do
       event_occurrence = EventOccurrence.create! valid_attributes

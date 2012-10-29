@@ -34,6 +34,10 @@ describe ShoutsController do
     {}
   end
 
+  before :each do
+    controller.stub!(:require_login).and_return(:true)
+  end
+
   describe "GET index" do
     it "assigns all shouts as @shouts" do
       shout = Shout.create! valid_attributes

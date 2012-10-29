@@ -1,11 +1,13 @@
 class SessionsController < ApplicationController
+  skip_before_filter :require_login
+
   def new
   end
 
   def create
     member = Member.find_by_name(params[:member])
     if member && member.authenticate(params[:password]) 
-      session[:member_id] = params[:member_id]
+      session[:member_id] = member.id
       redirect_to root_url, :notice => "Logged in"
     else
       flash[:warning] = "Invalid member or password"
@@ -15,6 +17,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:member_id] = nil
-    redirect_to root_url, :notice => "Logged out"
+    redirect_to login_url, :notice => "Logged out"
   end
 end

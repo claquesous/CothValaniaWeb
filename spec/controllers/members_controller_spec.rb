@@ -37,6 +37,10 @@ describe MembersController do
     { :member_id => 1 }
   end
 
+  before :each do
+    controller.stub!(:require_login).and_return(:true)
+  end
+
   describe "GET index" do
     it "assigns all members as @members" do
       member = Member.create! valid_attributes

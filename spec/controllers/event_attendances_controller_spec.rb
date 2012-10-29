@@ -34,6 +34,10 @@ describe EventAttendancesController do
     {}
   end
 
+  before :each do
+    controller.stub!(:require_login).and_return(:true)
+  end
+
   describe "GET index" do
     it "assigns all event_attendances as @event_attendances" do
       event_attendance = EventAttendance.create! valid_attributes

@@ -34,6 +34,10 @@ describe RequirementsController do
     {}
   end
 
+  before :each do
+    controller.stub!(:require_login).and_return(:true)
+  end
+
   describe "GET index" do
     it "assigns all requirements as @requirements" do
       requirement = Requirement.create! valid_attributes

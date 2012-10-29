@@ -42,3 +42,9 @@ def build_attributes(*args)
     ["id", "created_at", "updated_at"].member?(k)
   end
 end
+
+# Create a new member and login with them
+def login
+  member = FactoryGirl.create :member
+  post login_url, :member => member.name, :password => member.password
+end

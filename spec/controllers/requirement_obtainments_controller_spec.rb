@@ -34,6 +34,10 @@ describe RequirementObtainmentsController do
     {}
   end
 
+  before :each do
+    controller.stub!(:require_login).and_return(:true)
+  end
+
   describe "GET index" do
     it "assigns all requirement_obtainments as @requirement_obtainments" do
       requirement_obtainment = RequirementObtainment.create! valid_attributes

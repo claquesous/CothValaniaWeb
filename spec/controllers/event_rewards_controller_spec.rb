@@ -34,6 +34,10 @@ describe EventRewardsController do
     {}
   end
 
+  before :each do
+    controller.stub!(:require_login).and_return(:true)
+  end
+
   describe "GET index" do
     it "assigns all event_rewards as @event_rewards" do
       event_reward = EventReward.create! valid_attributes

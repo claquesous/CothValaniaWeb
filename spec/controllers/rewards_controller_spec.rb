@@ -36,6 +36,10 @@ describe RewardsController do
     {}
   end
 
+  before :each do
+    controller.stub!(:require_login).and_return(:true)
+  end
+
   describe "GET index" do
     it "assigns all rewards as @rewards" do
       reward = Reward.create! valid_attributes

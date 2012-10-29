@@ -34,6 +34,10 @@ describe EventRequirementsController do
     {}
   end
 
+  before :each do
+    controller.stub!(:require_login).and_return(:true)
+  end
+
   describe "GET index" do
     it "assigns all event_requirements as @event_requirements" do
       event_requirement = EventRequirement.create! valid_attributes

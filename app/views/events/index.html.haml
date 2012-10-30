@@ -9,16 +9,14 @@
     %th Time
     %th
     %th
-    %th
 
   - @events.each do |event|
     %tr
-      %td= event.name
+      %td= link_to event.name, event
       %td= event.points
       %td= event.remarks
       %td= event.hidden
       %td= event.time
-      %td= link_to 'Show', event
       %td= link_to 'Edit', edit_event_path(event)
       %td= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }
 

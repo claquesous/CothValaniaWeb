@@ -4,7 +4,10 @@ end
 
 Given /^I am logged in$/ do
   member = FactoryGirl.create(:member)
-  post login_url, :member => member.name, :password => member.password
+  visit '/login'
+  fill_in 'Member', :with => member.name
+  fill_in 'Password', :with => member.password
+  click_button 'Log In'
 end
 
 When /^I login with invalid credentials$/ do

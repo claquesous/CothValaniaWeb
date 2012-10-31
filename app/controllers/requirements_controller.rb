@@ -1,4 +1,5 @@
 class RequirementsController < ApplicationController
+  before_filter(:except => :index) { |a| a.send(:authorize,:admin) }
   # GET /requirements
   # GET /requirements.json
   def index

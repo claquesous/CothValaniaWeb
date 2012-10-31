@@ -36,6 +36,8 @@ describe EventAttendancesController do
 
   before :each do
     controller.stub!(:require_login).and_return(:true)
+    controller.stub!(:leader?).and_return(:true)
+    controller.stub!(:admin?).and_return(:true)
   end
 
   describe "GET index" do

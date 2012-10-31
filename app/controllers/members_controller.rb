@@ -1,4 +1,5 @@
 class MembersController < ApplicationController
+  before_filter(:except => [:index, :show]) { |a| a.send(:authorize,:admin) }
   # GET /members
   # GET /members.json
   def index

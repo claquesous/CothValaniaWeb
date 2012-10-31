@@ -1,4 +1,5 @@
 class NewsController < ApplicationController
+  #before_filter(:except => :index) { |a| a.send(:authorize,:admin) }
   # GET /news
   # GET /news.json
   def index

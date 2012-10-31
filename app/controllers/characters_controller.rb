@@ -1,4 +1,5 @@
 class CharactersController < ApplicationController
+  before_filter(:except => :index) { |a| a.send(:authorize,:admin) }
   # GET /characters
   # GET /characters.json
   def index

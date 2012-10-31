@@ -1,4 +1,5 @@
 class EventOccurrencesController < ApplicationController
+  before_filter(:except => :index) { |a| a.send(:authorize,:admin) }
   # GET /event_occurrences
   # GET /event_occurrences.json
   def index

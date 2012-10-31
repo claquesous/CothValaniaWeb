@@ -1,4 +1,5 @@
 class EventRewardsController < ApplicationController
+  before_filter(:except => :index) { |a| a.send(:authorize,:admin) }
   # GET /event_rewards
   # GET /event_rewards.json
   def index

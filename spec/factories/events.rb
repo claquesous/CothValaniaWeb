@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :event do
-  	name 'Event'
-	points { rand(3) }
+    sequence(:name) { |n| "Event#{n}" }
+    points { rand(3) }
   end
 end

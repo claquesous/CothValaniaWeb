@@ -5,4 +5,9 @@ class Member < ActiveRecord::Base
   has_many :characters
   has_many :news
   has_many :shouts
+  validates_uniqueness_of :name
+
+  def name=(s)
+    write_attribute(:name, s.to_s.titleize) 
+  end
 end

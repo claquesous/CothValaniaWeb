@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :reward do
-  	name 'Reward'
+    sequence(:name) { |n| "Reward#{n}" }
   end
 end

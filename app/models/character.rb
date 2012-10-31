@@ -5,4 +5,9 @@ class Character < ActiveRecord::Base
   has_many :character_requirements
   has_many :character_rewards
   has_many :event_attendances
+  validates_uniqueness_of :name
+
+  def name=(s)
+    write_attribute(:name, s.to_s.titleize) 
+  end 
 end

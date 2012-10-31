@@ -1,5 +1,9 @@
 When /^I click the "(.*)" link$/ do |link|
-  click_link link
+  begin
+    click_link link 
+  rescue
+    click_link link.downcase
+  end
 end
 
 Given /^I am on the "Login" page$/ do

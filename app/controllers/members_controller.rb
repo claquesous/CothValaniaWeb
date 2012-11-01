@@ -1,5 +1,7 @@
 class MembersController < ApplicationController
-  before_filter(:except => [:index, :show]) { |a| a.send(:authorize,:admin) }
+  before_filter(:except => [:index, :show, :edit]) { |a| a.send(:authorize,:admin) }
+  before_filter :validate_member, :only => :edit
+
   # GET /members
   # GET /members.json
   def index
@@ -82,6 +84,15 @@ class MembersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to members_url }
       format.json { head :no_content }
+    end
+  end
+
+  private
+
+  def validate_member
+    unless current_member.id == params[:id].to_i || admin?
+      flash[:warning] = 'You may only edit yourself!'
+      redirect_to :back
     end
   end
 end

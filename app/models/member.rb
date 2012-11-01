@@ -5,9 +5,14 @@ class Member < ActiveRecord::Base
   has_many :characters
   has_many :news
   has_many :shouts
+  has_many :event_attendances, :through => :characters
   validates_uniqueness_of :name
 
   def name=(s)
     write_attribute(:name, s.to_s.titleize) 
+  end
+
+  def points
+    event_attendances.collect {|a| a.event_occurrence.event.points }.sum
   end
 end

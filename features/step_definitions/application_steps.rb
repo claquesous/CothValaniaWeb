@@ -6,8 +6,8 @@ When /^I click the "(.*)" link$/ do |link|
   end
 end
 
-Given /^I am on the "Login" page$/ do
-  visit '/login'
+Given /^I am on the "(.*)" page$/ do |page|
+  visit "/#{page.downcase}"
 end
 
 Given /^I am on the home page$/ do

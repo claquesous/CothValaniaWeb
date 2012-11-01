@@ -4,3 +4,7 @@ Given /^There are events named: (".*")$/ do |events|
   end
 end
 
+Given /^There is an event named "(.*?)" which is worth (\d+) points$/ do |event, points|
+  Event.create(name: event, points: points)
+end
+

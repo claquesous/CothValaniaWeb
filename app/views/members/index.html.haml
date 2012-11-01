@@ -3,28 +3,30 @@
 %table
   %tr
     %th Name
+    %th Points
     %th Join date
     %th Url
     %th Remarks
     %th Active
     %th Admin
+    %th Leader
     %th Reward cycle
     %th Cycle date
     %th
     %th
-    %th
 
   - @members.each do |member|
-    %tr
-      %td= member.name
+    %tr{id: member.name}
+      %td= link_to member.name, member
+      %td= member.points
       %td= member.join_date
       %td= member.url
       %td= member.remarks
       %td= member.active
       %td= member.admin
+      %td= member.leader
       %td= member.reward_cycle
       %td= member.cycle_date
-      %td= link_to 'Show', member
       %td= link_to 'Edit', edit_member_path(member)
       %td= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' }
 

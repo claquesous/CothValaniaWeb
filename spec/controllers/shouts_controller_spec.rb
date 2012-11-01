@@ -24,7 +24,10 @@ describe ShoutsController do
   # Shout. As you add validations to Shout, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      text: "Shout!",
+      date: Time.now
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -43,7 +46,7 @@ describe ShoutsController do
 
   describe "GET index" do
     it "assigns all shouts as @shouts" do
-      shout = Shout.create! valid_attributes
+      shout = FactoryGirl.create(:shout)
       get :index, {}, valid_session
       assigns(:shouts).should eq([shout])
     end
@@ -51,7 +54,7 @@ describe ShoutsController do
 
   describe "GET show" do
     it "assigns the requested shout as @shout" do
-      shout = Shout.create! valid_attributes
+      shout = FactoryGirl.create(:shout)
       get :show, {:id => shout.to_param}, valid_session
       assigns(:shout).should eq(shout)
     end
@@ -66,7 +69,7 @@ describe ShoutsController do
 
   describe "GET edit" do
     it "assigns the requested shout as @shout" do
-      shout = Shout.create! valid_attributes
+      shout = FactoryGirl.create(:shout)
       get :edit, {:id => shout.to_param}, valid_session
       assigns(:shout).should eq(shout)
     end
@@ -112,7 +115,7 @@ describe ShoutsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested shout" do
-        shout = Shout.create! valid_attributes
+        shout = FactoryGirl.create(:shout)
         # Assuming there are no other shouts in the database, this
         # specifies that the Shout created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -122,13 +125,13 @@ describe ShoutsController do
       end
 
       it "assigns the requested shout as @shout" do
-        shout = Shout.create! valid_attributes
+        shout = FactoryGirl.create(:shout)
         put :update, {:id => shout.to_param, :shout => valid_attributes}, valid_session
         assigns(:shout).should eq(shout)
       end
 
       it "redirects to the shout" do
-        shout = Shout.create! valid_attributes
+        shout = FactoryGirl.create(:shout)
         put :update, {:id => shout.to_param, :shout => valid_attributes}, valid_session
         response.should redirect_to(shout)
       end
@@ -136,7 +139,7 @@ describe ShoutsController do
 
     describe "with invalid params" do
       it "assigns the shout as @shout" do
-        shout = Shout.create! valid_attributes
+        shout = FactoryGirl.create(:shout)
         # Trigger the behavior that occurs when invalid params are submitted
         Shout.any_instance.stub(:save).and_return(false)
         put :update, {:id => shout.to_param, :shout => {}}, valid_session
@@ -144,7 +147,7 @@ describe ShoutsController do
       end
 
       it "re-renders the 'edit' template" do
-        shout = Shout.create! valid_attributes
+        shout = FactoryGirl.create(:shout)
         # Trigger the behavior that occurs when invalid params are submitted
         Shout.any_instance.stub(:save).and_return(false)
         put :update, {:id => shout.to_param, :shout => {}}, valid_session
@@ -155,14 +158,14 @@ describe ShoutsController do
 
   describe "DELETE destroy" do
     it "destroys the requested shout" do
-      shout = Shout.create! valid_attributes
+      shout = FactoryGirl.create(:shout)
       expect {
         delete :destroy, {:id => shout.to_param}, valid_session
       }.to change(Shout, :count).by(-1)
     end
 
     it "redirects to the shouts list" do
-      shout = Shout.create! valid_attributes
+      shout = FactoryGirl.create(:shout)
       delete :destroy, {:id => shout.to_param}, valid_session
       response.should redirect_to(shouts_url)
     end

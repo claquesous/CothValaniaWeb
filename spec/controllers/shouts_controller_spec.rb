@@ -38,6 +38,7 @@ describe ShoutsController do
     controller.stub!(:require_login).and_return(:true)
     controller.stub!(:leader?).and_return(:true)
     controller.stub!(:admin?).and_return(:true)
+    controller.stub(:current_member).and_return(mock_model("Member"))
   end
 
   describe "GET index" do

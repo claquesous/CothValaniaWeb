@@ -13,7 +13,7 @@
     %tr
       %td= shout.text
       %td= shout.date
-      %td= shout.member
+      %td= shout.member.name
       %td= link_to 'Show', shout
       %td= link_to 'Edit', edit_shout_path(shout)
       %td= link_to 'Destroy', shout, method: :delete, data: { confirm: 'Are you sure?' }

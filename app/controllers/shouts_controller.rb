@@ -42,6 +42,8 @@ class ShoutsController < ApplicationController
   # POST /shouts.json
   def create
     @shout = Shout.new(params[:shout])
+    @shout.member = current_member
+    @shout.date = Time.now
 
     respond_to do |format|
       if @shout.save

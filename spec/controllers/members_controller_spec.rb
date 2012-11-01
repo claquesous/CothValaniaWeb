@@ -34,7 +34,7 @@ describe MembersController do
   # in order to pass any filters (e.g. authentication) defined in
   # MembersController. Be sure to keep this updated too.
   def valid_session
-    { :member_id => 1 }
+    {}
   end
 
   before :each do
@@ -69,6 +69,7 @@ describe MembersController do
   describe "GET edit" do
     it "assigns the requested member as @member" do
       member = Member.create! valid_attributes
+      controller.stub(:current_member).and_return(member)
       get :edit, {:id => member.to_param}, valid_session
       assigns(:member).should eq(member)
     end

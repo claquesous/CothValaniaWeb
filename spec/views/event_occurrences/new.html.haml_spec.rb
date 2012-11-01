@@ -6,6 +6,8 @@ describe "event_occurrences/new" do
       :remarks => "MyString",
       :success => false
     ).as_new_record)
+    assign(:events, ["Event","Other Event"])
+    assign(:characters, ["Character"])
   end
 
   it "renders new event_occurrence form" do

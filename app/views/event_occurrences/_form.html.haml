@@ -5,6 +5,9 @@
       %ul
         - @event_occurrence.errors.full_messages.each do |msg|
           %li= msg
+  
+  = label_tag :event
+  = select_tag(:event, options_for_select(@events))
 
   .field
     = f.label :remarks
@@ -18,5 +21,11 @@
   .field
     = f.label :success
     = f.check_box :success
+
+  - @characters.each do |c|
+    .field
+      = label :character, c
+      = check_box  :character, c
+
   .actions
     = f.submit 'Save'

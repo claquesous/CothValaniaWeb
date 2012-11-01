@@ -8,5 +8,7 @@ class EventOccurrence < ActiveRecord::Base
   has_many :character_requirements, :foreign_key => "obtained_event_occurrence_id"
   # It may have requirements
   has_many :character_requirements, :foreign_key => "used_event_occurrence_id"
+  # Most important is that it is an occurrence of Event
   belongs_to :event
+  validates_presence_of :event
 end

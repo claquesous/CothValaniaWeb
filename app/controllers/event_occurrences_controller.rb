@@ -26,6 +26,8 @@ class EventOccurrencesController < ApplicationController
   # GET /event_occurrences/new.json
   def new
     @event_occurrence = EventOccurrence.new
+    @events = Event.pluck(:name)
+    @characters = Character.pluck(:name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,12 +38,22 @@ class EventOccurrencesController < ApplicationController
   # GET /event_occurrences/1/edit
   def edit
     @event_occurrence = EventOccurrence.find(params[:id])
+    @events = Event.pluck(:name)
+    @characters = Character.pluck(:name)
   end
 
   # POST /event_occurrences
   # POST /event_occurrences.json
   def create
     @event_occurrence = EventOccurrence.new(params[:event_occurrence])
+    @event_occurrence.event = Event.find_by_name(params[:event])
+
+    params[:character].each do |c,v|
+      if v=="1"
+        a = @event_occurrence.event_attendances.build
+        a.character = Character.find_by_name(c)
+      end
+    end unless params[:character].nil?
 
     respond_to do |format|
       if @event_occurrence.save

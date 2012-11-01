@@ -6,6 +6,8 @@ describe "event_occurrences/edit" do
       :remarks => "MyString",
       :success => false
     ))
+    assign(:events, ["Event", "Other Event"])
+    assign(:characters, ["Character"])
   end
 
   it "renders the edit event_occurrence form" do
@@ -13,6 +15,7 @@ describe "event_occurrences/edit" do
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => event_occurrences_path(@event_occurrence), :method => "post" do
+      assert_select "select#event", :name => "event"
       assert_select "input#event_occurrence_remarks", :name => "event_occurrence[remarks]"
       assert_select "input#event_occurrence_success", :name => "event_occurrence[success]"
     end

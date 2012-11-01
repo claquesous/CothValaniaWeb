@@ -2,6 +2,7 @@
 
 %table
   %tr
+    %th Event
     %th Remarks
     %th Start time
     %th End time
@@ -12,6 +13,7 @@
 
   - @event_occurrences.each do |event_occurrence|
     %tr
+      %td= event_occurrence.event.name
       %td= event_occurrence.remarks
       %td= event_occurrence.start_time
       %td= event_occurrence.end_time

@@ -6,6 +6,7 @@ class Character < ActiveRecord::Base
   has_many :character_rewards
   has_many :event_attendances
   validates_uniqueness_of :name
+  belongs_to :race
 
   def name=(s)
     write_attribute(:name, s.to_s.titleize) 

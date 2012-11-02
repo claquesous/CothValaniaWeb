@@ -15,6 +15,11 @@
   = label_tag :member
   = select_tag(:member, options_for_select(@members), {:include_blank => ""})
   .field
+  = label_tag :race
+  - @races.each do |r|
+    = radio_button_tag :race, r
+    = label_tag r
+  .field
     = f.label :war
     = f.check_box :war
   .field

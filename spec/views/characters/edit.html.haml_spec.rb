@@ -27,6 +27,7 @@ describe "characters/edit" do
       :sch => false
     ))
     @members = assign(:members, ["Member"])
+    @races = assign(:races, ["Race"])
   end
 
   it "renders the edit character form" do
@@ -57,6 +58,7 @@ describe "characters/edit" do
       assert_select "input#character_pup", :name => "character[pup]"
       assert_select "input#character_dnc", :name => "character[dnc]"
       assert_select "input#character_sch", :name => "character[sch]"
+      assert_select "input#race_Race", :name => "race"
     end
   end
 end

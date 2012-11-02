@@ -1,4 +1,6 @@
 Cvweb::Application.routes.draw do
+  resources :races
+
   resources :requirement_obtainments
 
   resources :event_requirements

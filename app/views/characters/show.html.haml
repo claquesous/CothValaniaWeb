@@ -69,6 +69,10 @@
 %p
   %b Member:
   = @character.member.name
+- if @character.race
+  %p
+    %b Race:
+    = @character.race.name
 
 = link_to 'Edit', edit_character_path(@character)
 \|

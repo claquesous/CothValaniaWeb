@@ -27,6 +27,7 @@ describe "characters/new" do
       :sch => false
     ).as_new_record)
     assign(:members, ["Member"])
+    assign(:races, ["Race"])
   end
 
   it "renders new character form" do
@@ -57,6 +58,7 @@ describe "characters/new" do
       assert_select "input#character_pup", :name => "character[pup]"
       assert_select "input#character_dnc", :name => "character[dnc]"
       assert_select "input#character_sch", :name => "character[sch]"
+      assert_select "input#race_Race", :name => "race"
     end
   end
 end

@@ -27,6 +27,7 @@ class CharactersController < ApplicationController
   def new
     @character = Character.new
     @members = Member.pluck(:name)
+    @races = Race.pluck(:name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,6 +39,7 @@ class CharactersController < ApplicationController
   def edit
     @character = Character.find(params[:id])
     @members = Member.pluck(:name)
+    @races = Race.pluck(:name)
   end
 
   # POST /characters
@@ -45,6 +47,7 @@ class CharactersController < ApplicationController
   def create
     member = Member.find_by_name(params[:member])
     @character = member.characters.create(params[:character]) unless member.nil?
+    @character.race = Race.find_by_name(params[:race]) unless params[:race].nil?
 
     respond_to do |format|
       if @character && @character.save
@@ -61,6 +64,7 @@ class CharactersController < ApplicationController
   # PUT /characters/1.json
   def update
     @character = Character.find(params[:id])
+    @character.race = Race.find_by_name(params[:race])
 
     respond_to do |format|
       if @character.update_attributes(params[:character])

@@ -25,6 +25,7 @@
     %th Dnc
     %th Sch
     %th Member
+    %th Race
     %th
     %th
 
@@ -53,6 +54,7 @@
       %td= character.dnc
       %td= character.sch
       %td= character.member.name
+      %td= character.race.name unless character.race.nil?
       %td= link_to 'Edit', edit_character_path(character)
       %td= link_to 'Destroy', character, method: :delete, data: { confirm: 'Are you sure?' }
 

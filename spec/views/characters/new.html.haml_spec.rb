@@ -26,7 +26,7 @@ describe "characters/new" do
       :dnc => false,
       :sch => false
     ).as_new_record)
-    assign(:members, ['Member'])
+    assign(:members, ["Member"])
   end
 
   it "renders new character form" do

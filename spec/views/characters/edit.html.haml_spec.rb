@@ -26,7 +26,7 @@ describe "characters/edit" do
       :dnc => false,
       :sch => false
     ))
-    @members = assign(:members, ['Member'])
+    @members = assign(:members, ["Member"])
   end
 
   it "renders the edit character form" do

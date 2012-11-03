@@ -60,6 +60,8 @@ class EventOccurrencesController < ApplicationController
         format.html { redirect_to @event_occurrence, notice: 'Event occurrence was successfully created.' }
         format.json { render json: @event_occurrence, status: :created, location: @event_occurrence }
       else
+        @events = Event.pluck(:name)
+        @characters = Character.pluck(:name)
         format.html { render action: "new" }
         format.json { render json: @event_occurrence.errors, status: :unprocessable_entity }
       end
@@ -76,6 +78,8 @@ class EventOccurrencesController < ApplicationController
         format.html { redirect_to @event_occurrence, notice: 'Event occurrence was successfully updated.' }
         format.json { head :no_content }
       else
+        @events = Event.pluck(:name)
+        @characters = Character.pluck(:name)
         format.html { render action: "edit" }
         format.json { render json: @event_occurrence.errors, status: :unprocessable_entity }
       end

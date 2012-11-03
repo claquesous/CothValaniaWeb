@@ -45,15 +45,18 @@ class CharactersController < ApplicationController
   # POST /characters
   # POST /characters.json
   def create
+    @character = Character.new(params[:character])
     member = Member.find_by_name(params[:member])
-    @character = member.characters.create(params[:character]) unless member.nil?
+    @character.member = member unless member.nil?
     @character.race = Race.find_by_name(params[:race]) unless params[:race].nil?
 
     respond_to do |format|
-      if @character && @character.save
+      if @character.save
         format.html { redirect_to @character, notice: 'Character was successfully created.' }
         format.json { render json: @character, status: :created, location: @character }
       else
+        @members = Member.pluck(:name)
+        @races = Race.pluck(:name)
         format.html { render action: "new" }
         format.json { render json: @character.errors, status: :unprocessable_entity }
       end
@@ -71,6 +74,8 @@ class CharactersController < ApplicationController
         format.html { redirect_to @character, notice: 'Character was successfully updated.' }
         format.json { head :no_content }
       else
+        @members = Member.pluck(:name)
+        @races = Race.pluck(:name)
         format.html { render action: "edit" }
         format.json { render json: @character.errors, status: :unprocessable_entity }
       end

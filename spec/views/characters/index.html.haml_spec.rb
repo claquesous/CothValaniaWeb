@@ -27,7 +27,8 @@ describe "characters/index" do
         :dnc => false,
         :sch => false,
 	:member => mock_model("Member", :name => "Member"),
-	:race => mock_model("Race", :name => "Race")
+	:race => mock_model("Race", :name => "Race"),
+	:sex => "Male",
       ),
       stub_model(Character,
         :name => "Name",
@@ -53,7 +54,8 @@ describe "characters/index" do
         :dnc => false,
         :sch => false,
 	:member => mock_model("Member", :name => "Member"),
-	:race => mock_model("Race", :name => "Race")
+	:race => mock_model("Race", :name => "Race"),
+	:sex => "Male",
       )
     ])
   end
@@ -66,5 +68,6 @@ describe "characters/index" do
     assert_select "tr>td", :text => false.to_s, :count => 40
     assert_select "tr>td", :text => "Member".to_s, :count => 2
     assert_select "tr>td", :text => "Race".to_s, :count => 2
+    assert_select "tr>td", :text => "Male".to_s, :count => 2
   end
 end

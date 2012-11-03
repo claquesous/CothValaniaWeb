@@ -24,7 +24,8 @@ describe "characters/new" do
       :cor => false,
       :pup => false,
       :dnc => false,
-      :sch => false
+      :sch => false,
+      :sex => "Male"
     ).as_new_record)
     assign(:members, ["Member"])
     assign(:races, ["Race"])
@@ -59,6 +60,7 @@ describe "characters/new" do
       assert_select "input#character_dnc", :name => "character[dnc]"
       assert_select "input#character_sch", :name => "character[sch]"
       assert_select "input#race_Race", :name => "race"
+      assert_select "input#character_sex_male", :name => "character[sex]"
     end
   end
 end

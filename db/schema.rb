@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102171152) do
+ActiveRecord::Schema.define(:version => 20121102231828) do
 
   create_table "character_requirements", :force => true do |t|
     t.integer  "character_id"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20121102171152) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "race_id"
+    t.integer  "sex"
   end
 
   add_index "characters", ["race_id"], :name => "index_characters_on_race_id"

@@ -27,6 +27,7 @@ describe "characters/show" do
       :sch => false,
       :member => stub_model(Member, :name => "Member"),
       :race => stub_model(Race, :name => "Race"),
+      :sex => "Male",
     ))
   end
 
@@ -57,5 +58,6 @@ describe "characters/show" do
     rendered.should match(/false/)
     rendered.should match(/Member/)
     rendered.should match(/Race/)
+    rendered.should match(/Male/)
   end
 end

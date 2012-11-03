@@ -79,5 +79,12 @@
   .field
     = f.label :sch
     = f.check_box :sch
+  .field
+    = f.label :sex
+    = f.hidden_field :sex, :value => "none" 
+    = f.label :sex, :Male, :value => "Male"
+    = f.radio_button :sex, "Male"
+    = f.label :sex, :Female, :value => "Female"
+    = f.radio_button :sex, "Female"
   .actions
     = f.submit 'Save'

@@ -24,7 +24,8 @@ describe "characters/edit" do
       :cor => false,
       :pup => false,
       :dnc => false,
-      :sch => false
+      :sch => false,
+      :sex => "Male",
     ))
     @members = assign(:members, ["Member"])
     @races = assign(:races, ["Race"])
@@ -59,6 +60,7 @@ describe "characters/edit" do
       assert_select "input#character_dnc", :name => "character[dnc]"
       assert_select "input#character_sch", :name => "character[sch]"
       assert_select "input#race_Race", :name => "race"
+      assert_select "input#character_sex_male", :name => "character[sex]"
     end
   end
 end

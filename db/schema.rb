@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102231828) do
+ActiveRecord::Schema.define(:version => 20121104021456) do
+
+  create_table "character_jobs", :force => true do |t|
+    t.integer  "character_id"
+    t.integer  "job_id"
+    t.integer  "level"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "character_jobs", ["character_id"], :name => "index_character_jobs_on_character_id"
+  add_index "character_jobs", ["job_id"], :name => "index_character_jobs_on_job_id"
 
   create_table "character_requirements", :force => true do |t|
     t.integer  "character_id"
@@ -46,26 +57,6 @@ ActiveRecord::Schema.define(:version => 20121102231828) do
   create_table "characters", :force => true do |t|
     t.string   "name"
     t.string   "remarks"
-    t.boolean  "war"
-    t.boolean  "mnk"
-    t.boolean  "thf"
-    t.boolean  "whm"
-    t.boolean  "blm"
-    t.boolean  "rdm"
-    t.boolean  "pld"
-    t.boolean  "drk"
-    t.boolean  "bst"
-    t.boolean  "brd"
-    t.boolean  "rng"
-    t.boolean  "sam"
-    t.boolean  "nin"
-    t.boolean  "drg"
-    t.boolean  "smn"
-    t.boolean  "blu"
-    t.boolean  "cor"
-    t.boolean  "pup"
-    t.boolean  "dnc"
-    t.boolean  "sch"
     t.integer  "member_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -121,6 +112,14 @@ ActiveRecord::Schema.define(:version => 20121102231828) do
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
     t.boolean  "requirements_mixable"
+  end
+
+  create_table "jobs", :force => true do |t|
+    t.string   "name"
+    t.string   "short_name"
+    t.string   "remarks"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "members", :force => true do |t|

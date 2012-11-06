@@ -1,0 +1,23 @@
+%h1 Listing character_jobs
+
+%table
+  %tr
+    %th Character
+    %th Job
+    %th Level
+    %th
+    %th
+    %th
+
+  - @character_jobs.each do |character_job|
+    %tr
+      %td= character_job.character.name
+      %td= character_job.job.name
+      %td= character_job.level
+      %td= link_to 'Show', character_job
+      %td= link_to 'Edit', edit_character_job_path(character_job)
+      %td= link_to 'Destroy', character_job, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Character job', new_character_job_path

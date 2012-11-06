@@ -1,4 +1,8 @@
 Cvweb::Application.routes.draw do
+  resources :character_jobs
+
+  resources :jobs
+
   resources :races
 
   resources :requirement_obtainments

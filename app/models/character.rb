@@ -1,10 +1,12 @@
 class Character < ActiveRecord::Base
-  attr_accessible :blm, :blu, :brd, :bst, :cor, :dnc, :drg, :drk, :mnk, :name, :nin, :pld, :pup, :rdm, :remarks, :rng, :sam, :sch, :smn, :thf, :war, :whm, :sex
+  attr_accessible :name, :remarks, :sex
   belongs_to :member
   validates_presence_of :name, :member
   has_many :character_requirements
   has_many :character_rewards
   has_many :event_attendances
+  has_many :character_jobs
+  has_many :jobs, :through => :character_jobs
   validates_uniqueness_of :name
   belongs_to :race
 

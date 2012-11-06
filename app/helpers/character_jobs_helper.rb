@@ -1,0 +1,2 @@
+module CharacterJobsHelper
+end

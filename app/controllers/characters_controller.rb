@@ -4,6 +4,7 @@ class CharactersController < ApplicationController
   # GET /characters.json
   def index
     @characters = Character.all
+    @jobs = Job.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,6 +16,7 @@ class CharactersController < ApplicationController
   # GET /characters/1.json
   def show
     @character = Character.find(params[:id])
+    @jobs = Job.all
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,6 +30,7 @@ class CharactersController < ApplicationController
     @character = Character.new
     @members = Member.pluck(:name)
     @races = Race.pluck(:name)
+    @jobs = Job.pluck(:name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,6 +43,7 @@ class CharactersController < ApplicationController
     @character = Character.find(params[:id])
     @members = Member.pluck(:name)
     @races = Race.pluck(:name)
+    @jobs = Job.pluck(:name)
   end
 
   # POST /characters
@@ -47,8 +51,18 @@ class CharactersController < ApplicationController
   def create
     @character = Character.new(params[:character])
     member = Member.find_by_name(params[:member])
-    @character.member = member unless member.nil?
+    @character.member = member
     @character.race = Race.find_by_name(params[:race]) unless params[:race].nil?
+    @jobs = Job.all
+    params[:jobs] ||= []
+    @jobs.each do |j|
+      if params[:jobs].include?(j.name)
+        cj = @character.character_jobs.build
+        cj.job = j
+      else
+        @character.character_jobs.where(:job == j).destroy_all
+      end
+    end
 
     respond_to do |format|
       if @character.save
@@ -57,6 +71,7 @@ class CharactersController < ApplicationController
       else
         @members = Member.pluck(:name)
         @races = Race.pluck(:name)
+        @jobs = Job.pluck(:name)
         format.html { render action: "new" }
         format.json { render json: @character.errors, status: :unprocessable_entity }
       end
@@ -68,6 +83,16 @@ class CharactersController < ApplicationController
   def update
     @character = Character.find(params[:id])
     @character.race = Race.find_by_name(params[:race])
+    @jobs = Job.all
+    params[:jobs] ||= []
+    @jobs.each do |j|
+      if params[:jobs].include?(j.name)
+        cj = @character.character_jobs.build
+        cj.job = j
+      else
+        @character.character_jobs.where(:job == j).destroy_all
+      end
+    end
 
     respond_to do |format|
       if @character.update_attributes(params[:character])
@@ -76,6 +101,7 @@ class CharactersController < ApplicationController
       else
         @members = Member.pluck(:name)
         @races = Race.pluck(:name)
+        @jobs = Job.pluck(:name)
         format.html { render action: "edit" }
         format.json { render json: @character.errors, status: :unprocessable_entity }
       end

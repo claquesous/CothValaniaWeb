@@ -4,29 +4,11 @@
   %tr
     %th Name
     %th Remarks
-    %th War
-    %th Mnk
-    %th Thf
-    %th Whm
-    %th Blm
-    %th Rdm
-    %th Pld
-    %th Drk
-    %th Bst
-    %th Brd
-    %th Rng
-    %th Sam
-    %th Nin
-    %th Drg
-    %th Smn
-    %th Blu
-    %th Cor
-    %th Pup
-    %th Dnc
-    %th Sch
     %th Member
     %th Race
     %th Sex
+    - @jobs.each do |j|
+      %th= j.short_name
     %th
     %th
 
@@ -34,29 +16,11 @@
     %tr
       %td= link_to character.name, character
       %td= character.remarks
-      %td= character.war
-      %td= character.mnk
-      %td= character.thf
-      %td= character.whm
-      %td= character.blm
-      %td= character.rdm
-      %td= character.pld
-      %td= character.drk
-      %td= character.bst
-      %td= character.brd
-      %td= character.rng
-      %td= character.sam
-      %td= character.nin
-      %td= character.drg
-      %td= character.smn
-      %td= character.blu
-      %td= character.cor
-      %td= character.pup
-      %td= character.dnc
-      %td= character.sch
       %td= character.member.name
       %td= character.race.name unless character.race.nil?
       %td= character.sex
+      - @jobs.each do |j|
+        %td= character.character_jobs.to_a.map { |cj| cj.job }.include?(j)
       %td= link_to 'Edit', edit_character_path(character)
       %td= link_to 'Destroy', character, method: :delete, data: { confirm: 'Are you sure?' }
 

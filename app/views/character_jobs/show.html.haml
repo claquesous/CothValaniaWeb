@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Character:
+  = @character_job.character
+%p
+  %b Job:
+  = @character_job.job
+%p
+  %b Level:
+  = @character_job.level
+
+= link_to 'Edit', edit_character_job_path(@character_job)
+\|
+= link_to 'Back', character_jobs_path

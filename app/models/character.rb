@@ -36,4 +36,8 @@ class Character < ActiveRecord::Base
       write_attribute(:sex, 0)
     end
   end
+
+  def points
+    event_attendances.collect {|a| a.event_occurrence.event.points }.sum
+  end
 end

@@ -7,6 +7,9 @@
   %b Join date:
   = @member.join_date
 %p
+  %b Points:
+  = @member.points
+%p
   %b Url:
   = @member.url
 %p
@@ -28,6 +31,7 @@
 %table
   %tr
     %th Name
+    %th Points
     %th Remarks
     %th Sex
     %th Race
@@ -36,6 +40,7 @@
   - @member.characters.each do |c|
     %tr
       %td= c.name
+      %td= c.points
       %td= c.remarks
       %td= c.sex
       %td= c.race.name unless c.race.nil?

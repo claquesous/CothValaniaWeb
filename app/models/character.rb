@@ -1,14 +1,15 @@
 class Character < ActiveRecord::Base
-  attr_accessible :name, :remarks, :sex
+  attr_accessible :name, :remarks, :sex, :race_id, :character_jobs_attributes
   belongs_to :member
   validates_presence_of :name, :member
   has_many :character_requirements
   has_many :character_rewards
   has_many :event_attendances
-  has_many :character_jobs
+  has_many :character_jobs, :inverse_of => :character
   has_many :jobs, :through => :character_jobs
   validates_uniqueness_of :name
   belongs_to :race
+  accepts_nested_attributes_for :character_jobs, :reject_if => :all_blank, :allow_destroy => true
 
   def name=(s)
     write_attribute(:name, s.to_s.titleize) 

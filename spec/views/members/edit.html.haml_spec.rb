@@ -9,6 +9,14 @@ describe "members/edit" do
       :remarks => "MyString",
       :active => "",
     ))
+    assign(:jobs, [stub_model(Job,
+      :name => "Job",
+      )]
+    )
+    assign(:races, [stub_model(Race,
+      :name => "Race",
+      )]
+    )
   end
 
   it "renders the edit member form" do

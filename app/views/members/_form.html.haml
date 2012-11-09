@@ -24,5 +24,9 @@
   .field
     = f.label :active
     = f.text_field :active
+  .field
+    = f.fields_for :characters do |c|
+      = render 'character', :f => c
+    = link_to_add_fields "Add Character", f, :characters
   .actions
     = f.submit 'Save'

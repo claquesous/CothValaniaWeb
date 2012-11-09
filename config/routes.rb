@@ -1,6 +1,4 @@
 Cvweb::Application.routes.draw do
-  resources :character_jobs
-
   resources :jobs
 
   resources :races
@@ -28,8 +26,6 @@ Cvweb::Application.routes.draw do
   resources :rewards
 
   resources :events
-
-  resources :characters
 
   resources :members
 

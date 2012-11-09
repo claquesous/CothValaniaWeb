@@ -25,6 +25,23 @@
   %b Cycle date:
   = @member.cycle_date
 
+%table
+  %tr
+    %th Name
+    %th Remarks
+    %th Sex
+    %th Race
+    - @jobs.each do |j|
+      %th= j.name
+  - @member.characters.each do |c|
+    %tr
+      %td= c.name
+      %td= c.remarks
+      %td= c.sex
+      %td= c.race.name unless c.race.nil?
+      - @jobs.each do |j|
+        %td= c.jobs.include?(j)
+
 = link_to 'Edit', edit_member_path(@member)
 \|
 = link_to 'Back', members_path

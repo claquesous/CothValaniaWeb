@@ -9,6 +9,14 @@ describe "members/new" do
       :remarks => "MyString",
       :active => "",
     ).as_new_record)
+    assign(:jobs, [stub_model(Job,
+      :name => "Job",
+      )]
+    )
+    assign(:races, [stub_model(Race,
+      :name => "Race",
+      )]
+    )
   end
 
   it "renders new member form" do

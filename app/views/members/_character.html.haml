@@ -1,0 +1,26 @@
+%h3 Character
+.field
+  = f.label :name
+  = f.text_field :name
+.field
+  = f.label :remarks
+  = f.text_field :remarks
+.field
+  = label_tag :race
+  - @races.each do |r|
+    = f.radio_button :race_id, r.id
+    = f.label r.name
+.field
+  = f.label :jobs
+  - @jobs.each_with_index do |j,i|
+    - if new = (new_cj = f.object.character_jobs.select{|s| s.job == j}).empty?
+      - new_cj = f.object.class.reflect_on_association(:character_jobs).klass.new
+    = f.fields_for :character_jobs, new_cj, :child_index => i do |cj|
+      = render 'character_jobs', :f => cj, :j => j, :existing => !new
+.field
+  = f.label :sex
+  = f.hidden_field :sex, :value => "none" 
+  = f.label :sex, :Male, :value => "Male"
+  = f.radio_button :sex, "Male"
+  = f.label :sex, :Female, :value => "Female"
+  = f.radio_button :sex, "Female"

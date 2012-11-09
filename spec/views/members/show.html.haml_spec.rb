@@ -9,6 +9,10 @@ describe "members/show" do
       :active => "",
       :reward_cycle => ""
     ))
+    assign(:jobs, [stub_model(Job,
+      :name => "Job",
+      )]
+    )
   end
 
   it "renders attributes in <p>" do

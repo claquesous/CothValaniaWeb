@@ -17,6 +17,7 @@ class MembersController < ApplicationController
   # GET /members/1.json
   def show
     @member = Member.find(params[:id])
+    @jobs = Job.all
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,6 +29,9 @@ class MembersController < ApplicationController
   # GET /members/new.json
   def new
     @member = Member.new
+    c = @member.characters.build
+    @races = Race.all
+    @jobs = Job.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,6 +42,8 @@ class MembersController < ApplicationController
   # GET /members/1/edit
   def edit
     @member = Member.find(params[:id])
+    @races = Race.all
+    @jobs = Job.all
   end
 
   # POST /members
@@ -53,6 +59,8 @@ class MembersController < ApplicationController
         format.html { redirect_to @member, notice: 'Member was successfully created.' }
         format.json { render json: @member, status: :created, location: @member }
       else
+        @races = Race.all
+        @jobs = Job.all
         format.html { render action: "new" }
         format.json { render json: @member.errors, status: :unprocessable_entity }
       end
@@ -69,6 +77,8 @@ class MembersController < ApplicationController
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
         format.json { head :no_content }
       else
+        @races = Race.all
+        @jobs = Job.all
         format.html { render action: "edit" }
         format.json { render json: @member.errors, status: :unprocessable_entity }
       end

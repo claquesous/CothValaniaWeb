@@ -24,7 +24,9 @@ describe CharacterRewardsController do
   # CharacterReward. As you add validations to CharacterReward, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      preference: 1
+    }
   end
 
   # This should return the minimal set of values that should be in the session

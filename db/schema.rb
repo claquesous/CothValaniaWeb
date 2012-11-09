@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121104021456) do
+ActiveRecord::Schema.define(:version => 20121107014929) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -48,10 +48,12 @@ ActiveRecord::Schema.define(:version => 20121104021456) do
     t.string   "remarks"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.integer  "member_id"
   end
 
   add_index "character_rewards", ["character_id"], :name => "index_character_rewards_on_character_id"
   add_index "character_rewards", ["event_occurrence_id"], :name => "index_character_rewards_on_event_occurrence_id"
+  add_index "character_rewards", ["member_id"], :name => "index_character_rewards_on_member_id"
   add_index "character_rewards", ["reward_id"], :name => "index_character_rewards_on_reward_id"
 
   create_table "characters", :force => true do |t|

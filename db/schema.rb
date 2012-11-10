@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107014929) do
+ActiveRecord::Schema.define(:version => 20121110200701) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -167,10 +167,11 @@ ActiveRecord::Schema.define(:version => 20121107014929) do
   add_index "requirement_obtainments", ["requirement_id"], :name => "index_requirement_obtainments_on_requirement_id"
 
   create_table "requirements", :force => true do |t|
-    t.text     "name"
+    t.string   "name"
     t.boolean  "reusable"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.boolean  "multiple"
   end
 
   create_table "rewards", :force => true do |t|

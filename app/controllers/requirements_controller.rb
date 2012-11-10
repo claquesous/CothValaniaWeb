@@ -26,6 +26,7 @@ class RequirementsController < ApplicationController
   # GET /requirements/new.json
   def new
     @requirement = Requirement.new
+    @events = Event.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,6 +37,7 @@ class RequirementsController < ApplicationController
   # GET /requirements/1/edit
   def edit
     @requirement = Requirement.find(params[:id])
+    @events = Event.all
   end
 
   # POST /requirements
@@ -48,6 +50,7 @@ class RequirementsController < ApplicationController
         format.html { redirect_to @requirement, notice: 'Requirement was successfully created.' }
         format.json { render json: @requirement, status: :created, location: @requirement }
       else
+        @events = Event.all
         format.html { render action: "new" }
         format.json { render json: @requirement.errors, status: :unprocessable_entity }
       end
@@ -64,6 +67,7 @@ class RequirementsController < ApplicationController
         format.html { redirect_to @requirement, notice: 'Requirement was successfully updated.' }
         format.json { head :no_content }
       else
+        @events = Event.all
         format.html { render action: "edit" }
         format.json { render json: @requirement.errors, status: :unprocessable_entity }
       end

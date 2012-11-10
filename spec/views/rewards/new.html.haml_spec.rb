@@ -7,6 +7,7 @@ describe "rewards/new" do
       :external_value => 1,
       :remarks => "MyString"
     ).as_new_record)
+    assign(:events, [stub_model(Event)])
   end
 
   it "renders new reward form" do

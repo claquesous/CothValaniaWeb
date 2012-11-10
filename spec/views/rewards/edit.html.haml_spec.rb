@@ -7,6 +7,7 @@ describe "rewards/edit" do
       :external_value => 1,
       :remarks => "MyString"
     ))
+    assign(:events, [stub_model(Event)])
   end
 
   it "renders the edit reward form" do

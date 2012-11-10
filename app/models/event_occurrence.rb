@@ -1,7 +1,7 @@
 class EventOccurrence < ActiveRecord::Base
   attr_accessible :end_time, :remarks, :start_time, :success
   # An event can have many attendees
-  has_many :event_attendances
+  has_many :event_attendances, :dependent => :destroy
   # It can provide many rewards to characters
   has_many :character_rewards
   # It can provide requirements

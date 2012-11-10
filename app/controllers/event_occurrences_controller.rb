@@ -27,7 +27,7 @@ class EventOccurrencesController < ApplicationController
   def new
     @event_occurrence = EventOccurrence.new
     @events = Event.pluck(:name)
-    @characters = Character.pluck(:name)
+    @members = Member.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,7 +39,7 @@ class EventOccurrencesController < ApplicationController
   def edit
     @event_occurrence = EventOccurrence.find(params[:id])
     @events = Event.pluck(:name)
-    @characters = Character.pluck(:name)
+    @members = Member.all
   end
 
   # POST /event_occurrences
@@ -48,20 +48,13 @@ class EventOccurrencesController < ApplicationController
     @event_occurrence = EventOccurrence.new(params[:event_occurrence])
     @event_occurrence.event = Event.find_by_name(params[:event])
 
-    params[:character].each do |c,v|
-      if v=="1"
-        a = @event_occurrence.event_attendances.build
-        a.character = Character.find_by_name(c)
-      end
-    end unless params[:character].nil?
-
     respond_to do |format|
       if @event_occurrence.save
         format.html { redirect_to @event_occurrence, notice: 'Event occurrence was successfully created.' }
         format.json { render json: @event_occurrence, status: :created, location: @event_occurrence }
       else
         @events = Event.pluck(:name)
-        @characters = Character.pluck(:name)
+        @members = Member.all
         format.html { render action: "new" }
         format.json { render json: @event_occurrence.errors, status: :unprocessable_entity }
       end
@@ -79,7 +72,7 @@ class EventOccurrencesController < ApplicationController
         format.json { head :no_content }
       else
         @events = Event.pluck(:name)
-        @characters = Character.pluck(:name)
+        @members = Member.all
         format.html { render action: "edit" }
         format.json { render json: @event_occurrence.errors, status: :unprocessable_entity }
       end

@@ -22,10 +22,23 @@
     = f.label :success
     = f.check_box :success
 
-  - @characters.each do |c|
-    .field
-      = label :character, c
-      = check_box  :character, c
+  %table
+    - @members.each_with_index do |m,i|
+      - if new = (new_ea = f.object.event_attendances.select{|s| !s.character.nil? && s.character.member == m}).empty?
+        - new_ea = f.object.class.reflect_on_association(:event_attendances).klass.new
+      = f.fields_for :event_attendances, new_ea, :child_index => i do |ea|
+        %tr
+          %td
+            .field
+              = ea.check_box :_destroy, {:checked => !new}, 0, 1
+              = ea.label :_destroy, m.name
+          %td
+            - if m.characters.many?
+              - m.characters.each do |c|
+                = ea.radio_button :character_id, c.id, :checked => (new && c.name==m.name) || ea.object.character_id == c.id
+                = ea.label :character, c.name
+            - else
+              = ea.hidden_field :character_id, :value => m.characters.first.id
 
   .actions
     = f.submit 'Save'

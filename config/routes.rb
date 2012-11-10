@@ -17,8 +17,6 @@ Cvweb::Application.routes.draw do
 
   resources :character_rewards
 
-  resources :event_attendances
-
   resources :event_occurrences
 
   resources :event_rewards

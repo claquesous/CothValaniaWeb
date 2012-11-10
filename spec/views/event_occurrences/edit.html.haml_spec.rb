@@ -7,7 +7,9 @@ describe "event_occurrences/edit" do
       :success => false
     ))
     assign(:events, ["Event", "Other Event"])
-    assign(:characters, ["Character"])
+    member = stub_model(Member)
+    member.characters.build
+    assign(:members, [member] )
   end
 
   it "renders the edit event_occurrence form" do
@@ -18,6 +20,8 @@ describe "event_occurrences/edit" do
       assert_select "select#event", :name => "event"
       assert_select "input#event_occurrence_remarks", :name => "event_occurrence[remarks]"
       assert_select "input#event_occurrence_success", :name => "event_occurrence[success]"
+      assert_select "input#event_occurrence_event_attendances_attributes_0__destroy",
+        :name => "event_occurrence[event_attendances_attributes][0][_destroy]"
     end
   end
 end

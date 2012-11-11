@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EventOccurrence do
+describe Occurrence do
   it { should belong_to(:event) }
   it { should have_many(:event_attendances) }
   it { should have_many(:character_rewards) }

@@ -13,13 +13,14 @@ Cvweb::Application.routes.draw do
 
   resources :character_rewards
 
-  resources :event_occurrences
 
   resources :event_rewards
 
   resources :rewards
 
-  resources :events
+  resources :events do
+    resources :occurrences
+  end
 
   resources :members
 

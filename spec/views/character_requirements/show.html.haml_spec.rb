@@ -3,10 +3,10 @@ require 'spec_helper'
 describe "character_requirements/show" do
   before(:each) do
     @character_requirement = assign(:character_requirement, stub_model(CharacterRequirement,
-      :obtained_event_occurrence => nil,
+      :obtained_occurrence => nil,
       :character => nil,
       :used => false,
-      :used_event_occurrence => nil
+      :used_occurrence => nil
     ))
   end
 

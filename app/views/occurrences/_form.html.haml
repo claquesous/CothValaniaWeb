@@ -1,14 +1,11 @@
-= form_for @event_occurrence do |f|
-  - if @event_occurrence.errors.any?
+= form_for [@event, @occurrence] do |f|
+  - if @occurrence.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@event_occurrence.errors.count, "error")} prohibited this event_occurrence from being saved:"
+      %h2= "#{pluralize(@occurrence.errors.count, "error")} prohibited this occurrence from being saved:"
       %ul
-        - @event_occurrence.errors.full_messages.each do |msg|
+        - @occurrence.errors.full_messages.each do |msg|
           %li= msg
   
-  = label_tag :event
-  = select_tag(:event, options_for_select(@events))
-
   .field
     = f.label :remarks
     = f.text_field :remarks
@@ -21,7 +18,7 @@
   .field
     = f.label :success
     = f.check_box :success
-
+  %h3 Attendees
   %table
     - @members.each_with_index do |m,i|
       - if new = (new_ea = f.object.event_attendances.select{|s| !s.character.nil? && s.character.member == m}).empty?
@@ -39,6 +36,7 @@
                 = ea.label :character, c.name
             - else
               = ea.hidden_field :character_id, :value => m.characters.first.id
+  %h3 Requirements
 
   .actions
     = f.submit 'Save'

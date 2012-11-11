@@ -1,11 +1,15 @@
 require 'spec_helper'
 
-describe "event_occurrences/show" do
+describe "occurrences/show" do
   before(:each) do
-    @event_occurrence = assign(:event_occurrence, stub_model(EventOccurrence,
+    @event = assign(:event, stub_model(Event,
+      :name => "Event",
+    ))
+    @occurrence = assign(:occurrence, stub_model(Occurrence,
       :remarks => "Remarks",
       :success => false
     ))
+    params[:event_id] = @event.id
   end
 
   it "renders attributes in <p>" do

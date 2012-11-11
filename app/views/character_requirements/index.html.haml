@@ -12,10 +12,10 @@
 
   - @character_requirements.each do |character_requirement|
     %tr
-      %td= character_requirement.obtained_event_occurrence
+      %td= character_requirement.obtained_occurrence
       %td= character_requirement.character
       %td= character_requirement.used
-      %td= character_requirement.used_event_occurrence
+      %td= character_requirement.used_occurrence
       %td= link_to 'Show', character_requirement
       %td= link_to 'Edit', edit_character_requirement_path(character_requirement)
       %td= link_to 'Destroy', character_requirement, method: :delete, data: { confirm: 'Are you sure?' }

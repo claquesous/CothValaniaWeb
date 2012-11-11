@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121110200701) do
+ActiveRecord::Schema.define(:version => 20121111053025) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -27,33 +27,33 @@ ActiveRecord::Schema.define(:version => 20121110200701) do
   create_table "character_requirements", :force => true do |t|
     t.integer  "character_id"
     t.boolean  "used"
-    t.integer  "obtained_event_occurrence_id"
-    t.integer  "used_event_occurrence_id"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.integer  "obtained_occurrence_id"
+    t.integer  "used_occurrence_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
   end
 
   add_index "character_requirements", ["character_id"], :name => "index_character_requirements_on_character_id"
-  add_index "character_requirements", ["obtained_event_occurrence_id"], :name => "index_character_requirements_on_obtained_event_occurrence_id"
-  add_index "character_requirements", ["used_event_occurrence_id"], :name => "index_character_requirements_on_used_event_occurrence_id"
+  add_index "character_requirements", ["obtained_occurrence_id"], :name => "index_character_requirements_on_obtained_occurrence_id"
+  add_index "character_requirements", ["used_occurrence_id"], :name => "index_character_requirements_on_used_occurrence_id"
 
   create_table "character_rewards", :force => true do |t|
     t.integer  "character_id"
     t.integer  "reward_id"
-    t.integer  "event_occurrence_id"
+    t.integer  "occurrence_id"
     t.integer  "preference"
     t.boolean  "obtained"
     t.integer  "reward_cycle"
     t.integer  "obtained_points"
     t.string   "remarks"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.integer  "member_id"
   end
 
   add_index "character_rewards", ["character_id"], :name => "index_character_rewards_on_character_id"
-  add_index "character_rewards", ["event_occurrence_id"], :name => "index_character_rewards_on_event_occurrence_id"
   add_index "character_rewards", ["member_id"], :name => "index_character_rewards_on_member_id"
+  add_index "character_rewards", ["occurrence_id"], :name => "index_character_rewards_on_occurrence_id"
   add_index "character_rewards", ["reward_id"], :name => "index_character_rewards_on_reward_id"
 
   create_table "characters", :force => true do |t|
@@ -69,24 +69,14 @@ ActiveRecord::Schema.define(:version => 20121110200701) do
   add_index "characters", ["race_id"], :name => "index_characters_on_race_id"
 
   create_table "event_attendances", :force => true do |t|
-    t.integer  "event_occurrence_id"
+    t.integer  "occurrence_id"
     t.integer  "character_id"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   add_index "event_attendances", ["character_id"], :name => "index_event_attendances_on_character_id"
-  add_index "event_attendances", ["event_occurrence_id"], :name => "index_event_attendances_on_event_occurrence_id"
-
-  create_table "event_occurrences", :force => true do |t|
-    t.string   "remarks"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.boolean  "success"
-    t.integer  "event_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+  add_index "event_attendances", ["occurrence_id"], :name => "index_event_attendances_on_occurrence_id"
 
   create_table "event_requirements", :force => true do |t|
     t.integer  "requirement_id"
@@ -148,6 +138,16 @@ ActiveRecord::Schema.define(:version => 20121110200701) do
   end
 
   add_index "news", ["member_id"], :name => "index_news_on_member_id"
+
+  create_table "occurrences", :force => true do |t|
+    t.string   "remarks"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.boolean  "success"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "races", :force => true do |t|
     t.string   "name"

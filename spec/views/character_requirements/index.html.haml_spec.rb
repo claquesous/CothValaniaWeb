@@ -4,16 +4,16 @@ describe "character_requirements/index" do
   before(:each) do
     assign(:character_requirements, [
       stub_model(CharacterRequirement,
-        :obtained_event_occurrence => nil,
+        :obtained_occurrence => nil,
         :character => nil,
         :used => false,
-        :used_event_occurrence => nil
+        :used_occurrence => nil
       ),
       stub_model(CharacterRequirement,
-        :obtained_event_occurrence => nil,
+        :obtained_occurrence => nil,
         :character => nil,
         :used => false,
-        :used_event_occurrence => nil
+        :used_occurrence => nil
       )
     ])
   end

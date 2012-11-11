@@ -5,7 +5,7 @@ describe "character_rewards/show" do
     @character_reward = assign(:character_reward, stub_model(CharacterReward,
       :character => nil,
       :reward => nil,
-      :event_occurrence => nil,
+      :occurrence => nil,
       :preference => 1,
       :obtained => false,
       :reward_cycle => 2,

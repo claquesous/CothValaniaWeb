@@ -1,0 +1,27 @@
+%h1 Listing occurrences
+
+%table
+  %tr
+    %th Event
+    %th Remarks
+    %th Start time
+    %th End time
+    %th Success
+    %th
+    %th
+    %th
+
+  - @occurrences.each do |occurrence|
+    %tr
+      %td= occurrence.event.name
+      %td= occurrence.remarks
+      %td= occurrence.start_time
+      %td= occurrence.end_time
+      %td= occurrence.success
+      %td= link_to 'Show', event_occurrence_path(@event,occurrence)
+      %td= link_to 'Edit', edit_event_occurrence_path(@event,occurrence)
+      %td= link_to 'Destroy', event_occurrence_path(@event,occurrence), method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Event occurrence', new_event_occurrence_path(@event)

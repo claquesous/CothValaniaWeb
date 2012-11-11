@@ -15,6 +15,6 @@ class Member < ActiveRecord::Base
   end
 
   def points
-    event_attendances.collect {|a| a.event_occurrence.event.points }.sum
+    event_attendances.collect {|a| a.occurrence.event.points }.sum
   end
 end

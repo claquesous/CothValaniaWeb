@@ -19,3 +19,6 @@
 
 # Ignore my database defs
 /config/database.yml
+
+# Ignore simplecov coverage
+/coverage

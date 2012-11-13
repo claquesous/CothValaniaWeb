@@ -15,6 +15,7 @@ group :development, :test do
   gem 'launchy'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'railroady'
 end
 group :test do
   gem 'cucumber-rails'

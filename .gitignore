@@ -22,3 +22,6 @@
 
 # Ignore simplecov coverage
 /coverage
+
+# Ignore railroady models
+/doc/*.svg

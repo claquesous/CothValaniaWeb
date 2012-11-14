@@ -3,8 +3,6 @@ Cvweb::Application.routes.draw do
 
   resources :races
 
-  resources :character_requirements
-
   resources :requirements
 
   resources :news

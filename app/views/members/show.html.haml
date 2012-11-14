@@ -52,7 +52,7 @@
   %table
     - @member.event_attendances.each do |e|
       %tr
-        %td= e.event_occurrence.end_time.strftime("%Y-%m-%d")
+        %td= e.occurrence.end_time.strftime("%Y-%m-%d")
         %td= e.event.name
         %td (#{e.character.name} #{e.event.points})
 

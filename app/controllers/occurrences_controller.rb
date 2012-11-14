@@ -50,6 +50,10 @@ class OccurrencesController < ApplicationController
     @event = Event.find(params[:event_id])
     @occurrence = @event.occurrences.build(params[:occurrence])
 
+    used_requirements = []
+    used_requirements = CharacterRequirement.find(params[:character_requirement_id]) if params[:character_requirement_id]
+    @occurrence.used_requirements = used_requirements
+
     respond_to do |format|
       if @occurrence.save
         format.html { redirect_to event_occurrence_url(@event,@occurrence), notice: 'Event occurrence was successfully created.' }
@@ -67,6 +71,10 @@ class OccurrencesController < ApplicationController
   def update
     @event = Event.find(params[:event_id])
     @occurrence = Occurrence.find(params[:id])
+
+    used_requirements = []
+    used_requirements = CharacterRequirement.find(params[:character_requirement_id]) if params[:character_requirement_id]
+    @occurrence.used_requirements = used_requirements
 
     respond_to do |format|
       if @occurrence.update_attributes(params[:occurrence])

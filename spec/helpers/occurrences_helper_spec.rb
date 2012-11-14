@@ -11,4 +11,43 @@ require 'spec_helper'
 #   end
 # end
 describe OccurrencesHelper do
+  before :each do
+    @occurrence = stub_model(Occurrence)
+    @character = stub_model(Character)
+  end
+
+  describe "get requirements" do
+    it "should give nothing if there are no matches" do
+      requirements = [stub_model(CharacterRequirement),
+        stub_model(CharacterRequirement)
+      ]
+      get_requirements(requirements,@character).should eq(nil)
+    end
+
+    it "should give a used character_requirement matching occurrence" do
+      unused = stub_model(CharacterRequirement,
+        :character => @character,
+        :used_occurrence => nil,
+      )
+      match =  stub_model(CharacterRequirement,
+        :character => @character,
+        :used_occurrence => @occurrence,
+      )
+      requirements = [unused, match]
+      get_requirements(requirements,@character).should eq(match)
+    end
+
+    it "should give an unused character_requirement" do
+      unused = stub_model(CharacterRequirement,
+        :character => @character,
+        :used_occurrence => nil,
+      )
+      mismatch =  stub_model(CharacterRequirement,
+        :character => stub_model(Character),
+        :used_occurrence => nil,
+      )
+      requirements = [unused, mismatch]
+      get_requirements(requirements,@character).should eq(unused)
+    end
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121111053025) do
+ActiveRecord::Schema.define(:version => 20121114033328) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -26,15 +26,16 @@ ActiveRecord::Schema.define(:version => 20121111053025) do
 
   create_table "character_requirements", :force => true do |t|
     t.integer  "character_id"
-    t.boolean  "used"
     t.integer  "obtained_occurrence_id"
     t.integer  "used_occurrence_id"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
+    t.integer  "requirement_id"
   end
 
   add_index "character_requirements", ["character_id"], :name => "index_character_requirements_on_character_id"
   add_index "character_requirements", ["obtained_occurrence_id"], :name => "index_character_requirements_on_obtained_occurrence_id"
+  add_index "character_requirements", ["requirement_id"], :name => "index_character_requirements_on_requirement_id"
   add_index "character_requirements", ["used_occurrence_id"], :name => "index_character_requirements_on_used_occurrence_id"
 
   create_table "character_rewards", :force => true do |t|

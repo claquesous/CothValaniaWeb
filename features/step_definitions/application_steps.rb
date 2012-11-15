@@ -30,3 +30,7 @@ Then /^I should see an? "([^\"]+)" link$/ do |l|
   page.should have_link(l)
 end
 
+Then /^I should see "(.*?)" before "(.*?)"$/ do |arg1, arg2|
+  page.body.gsub("\n","").should match("#{arg1}.*#{arg2}")
+end
+

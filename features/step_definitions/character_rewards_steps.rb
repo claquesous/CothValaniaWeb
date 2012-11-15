@@ -1,7 +1,7 @@
 Given /^"(.*?)" listed "(.*?)" as their #(\d+) preference$/ do |member, reward, preference|
   member = Member.find_by_name(member)
   reward = Reward.find_by_name(reward)
-  member.characters.first.character_rewards.create!(:member => member, :preference => preference, :reward => reward)
+  member.character_rewards.create!(:character => member.characters.first, :preference => preference, :reward => reward)
 end
 
 Then /^I should see a tie between "([^\"]*)" and "([^\"]*)"$/ do |mem1, mem2|

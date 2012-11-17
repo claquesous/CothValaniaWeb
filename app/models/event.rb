@@ -9,5 +9,9 @@ class Event < ActiveRecord::Base
 
   def name=(s)
     write_attribute(:name, s.to_s.titleize) 
-  end 
+  end
+
+  def rewards
+    event_rewards.collect {|er| er.reward}
+  end
 end

@@ -1,0 +1,8 @@
+%ol
+  - points = {}
+  - reward.character_rewards.each do |cr|
+    - member = cr.member
+    - points[member.name] = member.points.to_f/cr.preference
+  - points = points.sort_by {|k,v| -v}
+  - points.each do |mp|
+    %li= %Q{#{mp[0]} #{mp[1]}}

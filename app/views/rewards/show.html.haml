@@ -10,14 +10,7 @@
   %b Remarks:
   = @reward.remarks
 
-%ol
-  - points = {}
-  - @reward.character_rewards.each do |cr|
-    - member = cr.character.member
-    - points[member.name] = member.points/cr.preference
-  - points = points.sort_by {|k,v| -v}
-  - points.each do |mp|
-    %li= %Q{#{mp[0]} #{mp[1]}}
+=render 'list', :reward => @reward
 
 = link_to 'Edit', edit_reward_path(@reward)
 \|

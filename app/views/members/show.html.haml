@@ -59,6 +59,28 @@
         %td= e.event.name
         %td (#{e.character.name} #{e.event.points})
 
+%p
+  %b Drops List
+  %table
+    - @member.character_rewards.order(:preference).each do |r|
+      %tr
+        %td #{r.preference}.
+        %td= r.reward.name
+        - if r.obtained
+          %td Obtained (#{r.obtained_points})
+        - else
+          %td Points: #{@member.points.to_f/r.preference}
+
+%p
+  %b Drops Obtained
+  %table
+    - @member.character_rewards.order(:preference).each do |r|
+      - if r.obtained
+        %tr
+          %td= r.reward.name
+          %td= r.occurrence.end_time
+          %td= r.obtained_points
+
 = link_to 'Edit', edit_member_path(@member)
 \|
 = link_to 'Back', members_path

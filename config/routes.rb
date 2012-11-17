@@ -9,9 +9,6 @@ Cvweb::Application.routes.draw do
 
   resources :shouts
 
-  resources :character_rewards
-
-
   resources :event_rewards
 
   resources :rewards

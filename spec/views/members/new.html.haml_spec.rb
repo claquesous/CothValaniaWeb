@@ -17,6 +17,8 @@ describe "members/new" do
       :name => "Race",
       )]
     )
+    assign(:available_rewards, [])
+    assign(:selected_rewards, [])
   end
 
   it "renders new member form" do

@@ -32,6 +32,8 @@ class MembersController < ApplicationController
     c = @member.characters.build
     @races = Race.all
     @jobs = Job.all
+    @selected_rewards = []
+    @available_rewards = Reward.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,6 +46,8 @@ class MembersController < ApplicationController
     @member = Member.find(params[:id])
     @races = Race.all
     @jobs = Job.all
+    @selected_rewards = @member.selected_rewards
+    @available_rewards = @member.available_rewards
   end
 
   # POST /members
@@ -53,6 +57,7 @@ class MembersController < ApplicationController
     @member.join_date = Time.now
     @member.reward_cycle = 1
     @member.cycle_date = Time.now
+    @member.set_rewards(params[:reward_preferences].split(" "))
 
     respond_to do |format|
       if @member.save
@@ -61,6 +66,8 @@ class MembersController < ApplicationController
       else
         @races = Race.all
         @jobs = Job.all
+        @selected_rewards = []
+        @available_rewards = Reward.all
         format.html { render action: "new" }
         format.json { render json: @member.errors, status: :unprocessable_entity }
       end
@@ -71,6 +78,7 @@ class MembersController < ApplicationController
   # PUT /members/1.json
   def update
     @member = Member.find(params[:id])
+    @member.set_rewards(params[:reward_preferences].split(" "))
 
     respond_to do |format|
       if @member.update_attributes(params[:member])
@@ -79,6 +87,8 @@ class MembersController < ApplicationController
       else
         @races = Race.all
         @jobs = Job.all
+        @selected_rewards = @member.selected_rewards
+        @available_rewards = @member.available_rewards
         format.html { render action: "edit" }
         format.json { render json: @member.errors, status: :unprocessable_entity }
       end

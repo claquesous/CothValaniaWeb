@@ -41,6 +41,7 @@ describe MembersController do
     controller.stub!(:require_login).and_return(:true)
     controller.stub!(:leader?).and_return(:true)
     controller.stub!(:admin?).and_return(:true)
+    Member.any_instance.stub(:set_rewards)
   end
 
   describe "GET index" do
@@ -79,18 +80,18 @@ describe MembersController do
     describe "with valid params" do
       it "creates a new Member" do
         expect {
-          post :create, {:member => valid_attributes}, valid_session
+          post :create, {:member => valid_attributes, :reward_preferences => "" }, valid_session
         }.to change(Member, :count).by(1)
       end
 
       it "assigns a newly created member as @member" do
-        post :create, {:member => valid_attributes}, valid_session
+        post :create, {:member => valid_attributes, :reward_preferences => "" }, valid_session
         assigns(:member).should be_a(Member)
         assigns(:member).should be_persisted
       end
 
       it "redirects to the created member" do
-        post :create, {:member => valid_attributes}, valid_session
+        post :create, {:member => valid_attributes, :reward_preferences => "" }, valid_session
         response.should redirect_to(Member.last)
       end
     end
@@ -99,14 +100,14 @@ describe MembersController do
       it "assigns a newly created but unsaved member as @member" do
         # Trigger the behavior that occurs when invalid params are submitted
         Member.any_instance.stub(:save).and_return(false)
-        post :create, {:member => {}}, valid_session
+        post :create, {:member => {}, :reward_preferences => "" }, valid_session
         assigns(:member).should be_a_new(Member)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Member.any_instance.stub(:save).and_return(false)
-        post :create, {:member => {}}, valid_session
+        post :create, {:member => {}, :reward_preferences => "" }, valid_session
         response.should render_template("new")
       end
     end
@@ -121,18 +122,18 @@ describe MembersController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Member.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => member.to_param, :member => {'these' => 'params'}}, valid_session
+        put :update, {:id => member.to_param, :member => {'these' => 'params'}, :reward_preferences => "" }, valid_session
       end
 
       it "assigns the requested member as @member" do
         member = Member.create! valid_attributes
-        put :update, {:id => member.to_param, :member => valid_attributes}, valid_session
+        put :update, {:id => member.to_param, :member => valid_attributes, :reward_preferences => "" }, valid_session
         assigns(:member).should eq(member)
       end
 
       it "redirects to the member" do
         member = Member.create! valid_attributes
-        put :update, {:id => member.to_param, :member => valid_attributes}, valid_session
+        put :update, {:id => member.to_param, :member => valid_attributes, :reward_preferences => "" }, valid_session
         response.should redirect_to(member)
       end
     end
@@ -142,7 +143,7 @@ describe MembersController do
         member = Member.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Member.any_instance.stub(:save).and_return(false)
-        put :update, {:id => member.to_param, :member => {}}, valid_session
+        put :update, {:id => member.to_param, :member => {}, :reward_preferences => "" }, valid_session
         assigns(:member).should eq(member)
       end
 
@@ -150,7 +151,7 @@ describe MembersController do
         member = Member.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Member.any_instance.stub(:save).and_return(false)
-        put :update, {:id => member.to_param, :member => {}}, valid_session
+        put :update, {:id => member.to_param, :member => {}, :reward_preferences => "" }, valid_session
         response.should render_template("edit")
       end
     end

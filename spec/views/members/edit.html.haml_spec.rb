@@ -17,6 +17,8 @@ describe "members/edit" do
       :name => "Race",
       )]
     )
+    assign(:available_rewards, [])
+    assign(:selected_rewards, [])
   end
 
   it "renders the edit member form" do

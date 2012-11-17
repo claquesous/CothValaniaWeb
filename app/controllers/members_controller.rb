@@ -57,7 +57,7 @@ class MembersController < ApplicationController
     @member.join_date = Time.now
     @member.reward_cycle = 1
     @member.cycle_date = Time.now
-    @member.set_rewards(params[:reward_preferences].split(" "))
+    @member.build_rewards(params[:reward_preferences].split(" "))
 
     respond_to do |format|
       if @member.save
@@ -78,7 +78,7 @@ class MembersController < ApplicationController
   # PUT /members/1.json
   def update
     @member = Member.find(params[:id])
-    @member.set_rewards(params[:reward_preferences].split(" "))
+    @member.build_rewards(params[:reward_preferences].split(" "))
 
     respond_to do |format|
       if @member.update_attributes(params[:member])

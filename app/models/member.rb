@@ -17,6 +17,12 @@ class Member < ActiveRecord::Base
   def points
     event_attendances.collect {|a| a.occurrence.event.points }.sum
   end
+  
+  def current_points
+    event_attendances.collect do |a|
+      a.occurrence.end_time >= cycle_date ? a.occurrence.event.points : 0
+    end.sum
+  end
 
   def selected_rewards
     character_rewards.where("occurrence_id is null").collect {|cr| cr.reward}

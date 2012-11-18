@@ -18,7 +18,7 @@
   - @members.each do |member|
     %tr{id: member.name}
       %td= link_to member.name, member
-      %td= member.points
+      %td= member.current_points
       %td= member.join_date
       %td= member.url
       %td= member.remarks

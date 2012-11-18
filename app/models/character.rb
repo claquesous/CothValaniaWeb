@@ -40,4 +40,8 @@ class Character < ActiveRecord::Base
   def points
     event_attendances.collect {|a| a.occurrence.event.points }.sum
   end
+
+  def current_points
+    event_attendances.where("event_date >= ?", member.cycle_date).collect {|a| a.occurrence.event.points}.sum
+  end
 end

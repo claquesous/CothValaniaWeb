@@ -15,13 +15,11 @@ class Member < ActiveRecord::Base
   end
 
   def points
-    event_attendances.collect {|a| a.occurrence.event.points }.sum
+    event_attendances.includes(:occurrence).joins(:event).sum("points").to_i
   end
   
   def current_points
-    event_attendances.collect do |a|
-      a.occurrence.end_time >= cycle_date ? a.occurrence.event.points : 0
-    end.sum
+    event_attendances.includes(:occurrence).where("end_time >=?", cycle_date).joins(:event).sum("points").to_i
   end
 
   def selected_rewards

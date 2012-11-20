@@ -23,21 +23,21 @@ class Member < ActiveRecord::Base
   end
 
   def selected_rewards
-    character_rewards.where("occurrence_id is null").collect {|cr| cr.reward}
+    character_rewards.where("obtained=? or obtained is null",false).collect {|cr| cr.reward}
   end
 
   def available_rewards
     if character_rewards.empty?
       Reward.all
     else
-      Reward.where("id not in (?)", character_rewards.collect {|cr| cr.reward})
+      Reward.where("id not in (?)", character_rewards.pluck(:reward_id))
     end
   end
 
   def build_rewards(rewards)
     preference = 1
-    character_rewards.where("occurrence_id is null").destroy_all
-    preferences = character_rewards.where("occurrence_id is not null").pluck(:preference)
+    character_rewards.where("obtained=? or obtained is null", false).destroy_all
+    preferences = character_rewards.where("obtained=true").pluck(:preference)
     rewards.each do |rid|
       preference +=1 while preferences.include?(preference)
       character_rewards.build(:preference => preference, :reward => Reward.find(rid))

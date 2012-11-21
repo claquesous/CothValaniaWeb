@@ -1,5 +1,5 @@
 Given /^"(.*?)" attended "(.*?)"$/ do |character, event|
-  o = Occurrence.new
+  o = FactoryGirl.build(:occurrence)
   o.event = Event.find_by_name(event)
   o.save
   ea = EventAttendance.new

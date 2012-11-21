@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121114033328) do
+ActiveRecord::Schema.define(:version => 20121117235718) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20121114033328) do
     t.integer  "preference"
     t.boolean  "obtained"
     t.integer  "reward_cycle"
-    t.integer  "obtained_points"
+    t.float    "obtained_points"
     t.string   "remarks"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false

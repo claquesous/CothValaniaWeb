@@ -5,5 +5,6 @@ FactoryGirl.define do
     sequence(:name) { |n| "Member#{n}" }
     password "Password"
     cycle_date {1.year.ago}
+    active true
   end
 end

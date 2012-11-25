@@ -26,7 +26,7 @@ class Member < ActiveRecord::Base
   end
 
   def selected_rewards
-    character_rewards.where("obtained=? or obtained is null",false).collect {|cr| cr.reward}
+    character_rewards.unobtained.collect(&:reward)
   end
 
   def available_rewards
@@ -38,9 +38,9 @@ class Member < ActiveRecord::Base
   end
 
   def build_rewards(rewards)
+    character_rewards.unobtained.destroy_all
+    preferences = character_rewards.obtained.pluck(:preference)
     preference = 1
-    character_rewards.where("obtained=? or obtained is null", false).destroy_all
-    preferences = character_rewards.where("obtained=true").pluck(:preference)
     rewards.each do |rid|
       preference +=1 while preferences.include?(preference)
       character_rewards.build(:preference => preference, :reward => Reward.find(rid))

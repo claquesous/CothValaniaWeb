@@ -55,8 +55,8 @@
   %table
     - @member.event_attendances.each do |e|
       %tr
-        %td= e.occurrence.end_time.strftime("%Y-%m-%d")
-        %td= e.event.name
+        %td= link_to e.occurrence.end_time.to_date, event_occurrence_path(e.occurrence.event_id, e.occurrence)
+        %td= link_to e.event.name, event_path(e.event)
         %td (#{e.character.name} #{e.event.points})
 
 %p
@@ -65,7 +65,7 @@
     - @member.character_rewards.order(:preference).each do |r|
       %tr
         %td #{r.preference}.
-        %td= r.reward.name
+        %td= link_to r.reward.name, reward_path(r.reward)
         - if r.obtained
           %td Obtained (#{r.obtained_points})
         - else
@@ -77,8 +77,8 @@
     - @member.character_rewards.order(:preference).each do |r|
       - if r.obtained
         %tr
-          %td= r.reward.name
-          %td= r.occurrence.end_time
+          %td= link_to r.reward.name, reward_path(r.reward)
+          %td= link_to r.occurrence.end_time.to_date, event_occurrence_path(r.occurrence.event_id, r.occurrence) unless r.occurrence.nil?
           %td= r.obtained_points
 
 = link_to 'Edit', edit_member_path(@member)

@@ -9,6 +9,11 @@
 %p
   %b Remarks:
   = @reward.remarks
+%p
+  %b Obtained From:
+  - @reward.events.each do |e|
+    = link_to e.name, event_path(e)
+
 
 =render 'list', :reward => @reward
 

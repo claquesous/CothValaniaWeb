@@ -53,7 +53,7 @@
 %p
   %b Event Attendance 
   %table
-    - @member.event_attendances.each do |e|
+    - @member.event_attendances.order_by_date.each do |e|
       %tr
         %td= link_to e.occurrence.end_time.to_date, event_occurrence_path(e.occurrence.event_id, e.occurrence)
         %td= link_to e.event.name, event_path(e.event)

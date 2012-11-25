@@ -1,4 +1,5 @@
 class EventAttendance < ActiveRecord::Base
+  scope :order_by_date, joins(:occurrence).order("occurrences.end_time")
   attr_accessible :character_id
   belongs_to :occurrence
   belongs_to :character

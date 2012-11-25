@@ -1,4 +1,5 @@
 class Requirement < ActiveRecord::Base
+  default_scope order(:name)
   attr_accessible :name, :reusable, :multiple, :requirement_obtainments_attributes, :event_requirements_attributes
   has_many :requirement_obtainments
   accepts_nested_attributes_for :requirement_obtainments, :allow_destroy => true

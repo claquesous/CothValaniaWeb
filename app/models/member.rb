@@ -1,4 +1,7 @@
 class Member < ActiveRecord::Base
+  scope :active, where("active=? or active is null", true)
+  scope :inactive, where("active=?", false)
+  default_scope order(:name)
   attr_accessible :active, :name, :password, :password_confirmation, :remarks, :url, :characters_attributes
   has_secure_password
   validates_presence_of :name, :password, :on => :create

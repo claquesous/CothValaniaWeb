@@ -2,6 +2,7 @@ class Event < ActiveRecord::Base
   attr_accessible :hidden, :name, :points, :remarks, :time
   validates_presence_of :name, :points
   has_many :event_rewards
+  has_many :rewards, :through => :event_rewards
   has_many :occurrences
   has_many :event_requirements
   has_many :requirement_obtainments
@@ -9,9 +10,5 @@ class Event < ActiveRecord::Base
 
   def name=(s)
     write_attribute(:name, s.to_s.titleize) 
-  end
-
-  def rewards
-    event_rewards.collect {|er| er.reward}
   end
 end

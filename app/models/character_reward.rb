@@ -1,6 +1,7 @@
 class CharacterReward < ActiveRecord::Base
   scope :unobtained, where("obtained=? or obtained is null", false)
   scope :obtained, where("obtained=?",true)
+  scope :active, joins(:member).where("members.active")
   belongs_to :member
   belongs_to :character
   belongs_to :reward

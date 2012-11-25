@@ -36,32 +36,33 @@
                 = ea.label :character, c.name
             - else
               = ea.hidden_field :character_id, :value => m.characters.first.id
-  %h3 Requirements
   - er = @event.event_requirements
   - ro = @event.requirement_obtainments
-  %table
-    %tr
-      - er.each do |r|
-        %th= r.requirement.name
-      %th Character
-      - ro.each do |r|
-        %th= r.requirement.name
-    - @members.each do |m|
-      - m.characters.each do |c|
-        %tr
-          - er.each do |r|
-            %td
-              -unless (new = get_requirements(r.requirement.character_requirements,c)).nil?
-                = check_box_tag "character_requirement_id[]", new.id, new.used_occurrence == @occurrence
-          %td= c.name
-          - ro.each do |r|
-            - if new = (new_ocr = f.object.obtained_requirements.select{|s| s.character == c}).empty?
-              - new_ocr = f.object.class.reflect_on_association(:obtained_requirements).klass.new
-            = f.fields_for :obtained_requirements, new_ocr, :child_index => c.name do |ocr|
+  - if er.count>0 || ro.count>0
+    %h3 Requirements
+    %table
+      %tr
+        - er.each do |r|
+          %th= r.requirement.name
+        %th Character
+        - ro.each do |r|
+          %th= r.requirement.name
+      - @members.each do |m|
+        - m.characters.each do |c|
+          %tr
+            - er.each do |r|
               %td
-                = ocr.check_box :_destroy, {:checked => !new}, 0, 1
-                = ocr.hidden_field :character_id, :value => c.id
-                = ocr.hidden_field :requirement_id, :value => r.requirement.id
+                -unless (new = get_requirements(r.requirement.character_requirements,c)).nil?
+                  = check_box_tag "character_requirement_id[]", new.id, new.used_occurrence == @occurrence
+            %td= c.name
+            - ro.each do |r|
+              - if new = (new_ocr = f.object.obtained_requirements.select{|s| s.character == c}).empty?
+                - new_ocr = f.object.class.reflect_on_association(:obtained_requirements).klass.new
+              = f.fields_for :obtained_requirements, new_ocr, :child_index => c.name do |ocr|
+                %td
+                  = ocr.check_box :_destroy, {:checked => !new}, 0, 1
+                  = ocr.hidden_field :character_id, :value => c.id
+                  = ocr.hidden_field :requirement_id, :value => r.requirement.id
 
   .actions
     = f.submit 'Save'

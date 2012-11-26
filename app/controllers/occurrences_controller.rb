@@ -29,7 +29,7 @@ class OccurrencesController < ApplicationController
   def new
     @event = Event.find(params[:event_id])
     @occurrence = @event.occurrences.build
-    @members = Member.all
+    @members = Member.active
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,7 +41,7 @@ class OccurrencesController < ApplicationController
   def edit
     @event = Event.find(params[:event_id])
     @occurrence = Occurrence.find(params[:id])
-    @members = Member.all
+    @members = Member.where("active=? or id in (?)",true,@occurrence.characters.joins(:member).select("members.id"))
   end
 
   # POST /occurrences
@@ -59,7 +59,7 @@ class OccurrencesController < ApplicationController
         format.html { redirect_to event_occurrence_url(@event,@occurrence), notice: 'Event occurrence was successfully created.' }
         format.json { render json: @occurrence, status: :created, location: @occurrence }
       else
-        @members = Member.all
+        @members = Member.active
         format.html { render action: "new" }
         format.json { render json: @occurrence.errors, status: :unprocessable_entity }
       end
@@ -81,7 +81,7 @@ class OccurrencesController < ApplicationController
         format.html { redirect_to event_occurrence_url(@event), notice: 'Event occurrence was successfully updated.' }
         format.json { head :no_content }
       else
-        @members = Member.all
+        @members = Member.where("active=? or id in (?)",true,@occurrence.characters.joins(:member).select("members.id"))
         format.html { render action: "edit" }
         format.json { render json: @occurrence.errors, status: :unprocessable_entity }
       end

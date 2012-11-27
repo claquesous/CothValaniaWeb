@@ -6,4 +6,5 @@ class CharacterRequirement < ActiveRecord::Base
   belongs_to :obtained_occurrence, :class_name => "Occurrence"
   belongs_to :used_occurrence, :class_name => "Occurrence"
   belongs_to :requirement
+  validates_presence_of :character, :requirement
 end

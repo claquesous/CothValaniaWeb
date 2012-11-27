@@ -48,14 +48,14 @@ describe Member do
       member = FactoryGirl.create(:member)
       member.character_rewards.create
       member.build_rewards([])
-      member.save!
+      member.save
       member.reload
       member.character_rewards.should eq([])
     end
 
     it "should not delete any existing obtained rewards" do
       member = FactoryGirl.create(:member)
-      cr = member.character_rewards.build(:preference => 2)
+      cr = member.character_rewards.build(:preference => 2, :reward => FactoryGirl.create(:reward))
       cr.occurrence_id = 2
       cr.save!
       member.build_rewards([])

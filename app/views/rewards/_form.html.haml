@@ -18,7 +18,7 @@
   .field
     = f.label :events
     - @events.each_with_index do |e,i|
-      - if new = (new_ro = f.object.event_rewards.select{|s| s.event == e}).empty?
+      - if new = (new_er = f.object.event_rewards.select{|s| s.event == e}).empty?
         - new_er = f.object.class.reflect_on_association(:event_rewards).klass.new
       = f.fields_for :event_rewards, new_er, :child_index => i do |er|
         = er.check_box :_destroy, {:checked => !new}, 0, 1

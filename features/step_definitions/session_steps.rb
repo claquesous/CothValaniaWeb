@@ -2,8 +2,18 @@ Given /^I have an account named "([^\"]+)" with password "([^\"]+)"$/ do |member
   member = FactoryGirl.create(:member, :name => member, :password => pass)
 end
 
-Given /^I am logged in$/ do
-  member = FactoryGirl.create(:member)
+Given /^I am logged in( as .*)?$/ do |role|
+  case role
+  when " as an admin"
+    conditions = {:admin => true}
+  when " as the leader"
+    conditions = {:leader => true}
+  when " as (.*)"
+    conditions = {:name => $1}
+  else
+    conditions = {}
+  end
+  member = FactoryGirl.create(:member, conditions)
   visit '/login'
   fill_in 'Member', :with => member.name
   fill_in 'Password', :with => member.password

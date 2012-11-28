@@ -42,6 +42,8 @@ class NewsController < ApplicationController
   # POST /news.json
   def create
     @news = News.new(params[:news])
+    @news.member = current_member
+    @news.date = Time.now
 
     respond_to do |format|
       if @news.save

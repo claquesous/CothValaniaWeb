@@ -21,7 +21,7 @@
   %h3 Attendees
   %table
     - @members.each_with_index do |m,i|
-      - if new = (new_ea = f.object.event_attendances.select{|s| !s.character.nil? && s.character.member == m}).empty?
+      - if new = (new_ea = f.object.event_attendances.find{|s| !s.character.nil? && s.character.member == m}).nil?
         - new_ea = f.object.class.reflect_on_association(:event_attendances).klass.new
       = f.fields_for :event_attendances, new_ea, :child_index => i do |ea|
         %tr
@@ -56,7 +56,7 @@
                   = check_box_tag "character_requirement_id[]", new.id, new.used_occurrence == @occurrence
             %td= c.name
             - ro.each do |r|
-              - if new = (new_ocr = f.object.obtained_requirements.select{|s| s.character == c}).empty?
+              - if new = (new_ocr = f.object.obtained_requirements.find{|s| s.character == c}).nil?
                 - new_ocr = f.object.class.reflect_on_association(:obtained_requirements).klass.new
               = f.fields_for :obtained_requirements, new_ocr, :child_index => c.name do |ocr|
                 %td

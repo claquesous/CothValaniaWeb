@@ -17,13 +17,10 @@
     = f.text_field :remarks
   .field
     = f.label :events
-    - @events.each_with_index do |e,i|
-      - if new = (new_er = f.object.event_rewards.find{|s| s.event == e}).nil?
-        - new_er = f.object.class.reflect_on_association(:event_rewards).klass.new
-      = f.fields_for :event_rewards, new_er, :child_index => i do |er|
-        = er.check_box :_destroy, {:checked => !new}, 0, 1
-        = er.hidden_field :event_id, :value => e.id
-      = e.name
+    = f.fields_for :event_rewards do |er|
+      = er.check_box :_destroy, {:checked => er.object.persisted?}, 0, 1
+      = er.hidden_field :event_id, :value => er.object.event_id
+      = er.label :_destroy, er.object.event.name
 
   .actions
     = f.submit 'Save'

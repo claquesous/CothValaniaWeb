@@ -27,6 +27,7 @@ class RewardsController < ApplicationController
   def new
     @reward = Reward.new
     @events = Event.all
+    @reward.build_event_rewards(@events)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,6 +39,7 @@ class RewardsController < ApplicationController
   def edit
     @reward = Reward.find(params[:id])
     @events = Event.all
+    @reward.build_all_event_rewards(@events)
   end
 
   # POST /rewards
@@ -51,6 +53,7 @@ class RewardsController < ApplicationController
         format.json { render json: @reward, status: :created, location: @reward }
       else
         @events = Event.all
+        @reward.build_all_event_rewards(@events)
         format.html { render action: "new" }
         format.json { render json: @reward.errors, status: :unprocessable_entity }
       end
@@ -68,6 +71,7 @@ class RewardsController < ApplicationController
         format.json { head :no_content }
       else
         @events = Event.all
+        @reward.build_all_event_rewards(@events)
         format.html { render action: "edit" }
         format.json { render json: @reward.errors, status: :unprocessable_entity }
       end

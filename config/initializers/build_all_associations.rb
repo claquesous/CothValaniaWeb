@@ -2,21 +2,29 @@ class AssociationError < RuntimeError
 end
 
 class ActiveRecord::Base
+  def respond_to?(method, include_private = false)
+    if method =~ /^build_all_.+$/
+      true
+    else
+      super
+    end
+  end
+
   private
     def method_missing(method, *args, &block)
-      if method =~ /build_all_(.*)/
+      if method =~ /^build_all_(.+)$/
         association = $1.to_sym
         # Validate that self indeed contains the implied association
         unless self.class.reflect_on_association(association)
           raise AssociationError, "Association `#{association}' does not exist in class #{self.class}"
         end
-	# Define method for later calls
-	class_eval %Q{
-          def build_all_#{association}(list)
+        # Define method for later calls
+        class_eval %Q{
+          def #{method}(list)
             build_all_association(:#{association}, list)
-	  end
-	}
-        self.send %Q{build_all_#{association}}, *args, &block 
+          end
+        }
+        send method, *args, &block 
       else
         super
       end

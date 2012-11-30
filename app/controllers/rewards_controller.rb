@@ -27,7 +27,7 @@ class RewardsController < ApplicationController
   def new
     @reward = Reward.new
     @events = Event.visible
-    @reward.build_event_rewards(@events)
+    @reward.build_all_event_rewards(@events)
 
     respond_to do |format|
       format.html # new.html.erb

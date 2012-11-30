@@ -26,7 +26,7 @@ class RewardsController < ApplicationController
   # GET /rewards/new.json
   def new
     @reward = Reward.new
-    @events = Event.all
+    @events = Event.visible
     @reward.build_event_rewards(@events)
 
     respond_to do |format|
@@ -38,7 +38,7 @@ class RewardsController < ApplicationController
   # GET /rewards/1/edit
   def edit
     @reward = Reward.find(params[:id])
-    @events = Event.all
+    @events = Event.visible
     @reward.build_all_event_rewards(@events)
   end
 
@@ -52,7 +52,7 @@ class RewardsController < ApplicationController
         format.html { redirect_to @reward, notice: 'Reward was successfully created.' }
         format.json { render json: @reward, status: :created, location: @reward }
       else
-        @events = Event.all
+        @events = Event.visible
         @reward.build_all_event_rewards(@events)
         format.html { render action: "new" }
         format.json { render json: @reward.errors, status: :unprocessable_entity }
@@ -70,7 +70,7 @@ class RewardsController < ApplicationController
         format.html { redirect_to @reward, notice: 'Reward was successfully updated.' }
         format.json { head :no_content }
       else
-        @events = Event.all
+        @events = Event.visible
         @reward.build_all_event_rewards(@events)
         format.html { render action: "edit" }
         format.json { render json: @reward.errors, status: :unprocessable_entity }

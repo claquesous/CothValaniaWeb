@@ -41,6 +41,7 @@ describe MembersController do
     controller.stub!(:require_login).and_return(:true)
     controller.stub!(:leader?).and_return(:true)
     controller.stub!(:admin?).and_return(:true)
+    controller.stub!(:validate_member).and_return(:true)
     Member.any_instance.stub(:set_rewards)
   end
 

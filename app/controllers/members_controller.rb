@@ -1,6 +1,6 @@
 class MembersController < ApplicationController
-  before_filter(:except => [:index, :show, :edit]) { |a| a.send(:authorize,:admin) }
-  before_filter :validate_member, :only => :edit
+  before_filter(:only => [:new, :create, :destroy]) { |a| a.send(:authorize,:admin) }
+  before_filter :validate_member, :only => [:edit, :update]
 
   # GET /members
   # GET /members.json

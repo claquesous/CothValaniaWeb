@@ -21,21 +21,17 @@
       %th Obtained from
       %th Event
       %th Required for
-    - @events.each_with_index do |e,i|
+    - f.object.requirement_obtainments.zip(f.object.event_requirements).each do |(next_ro,next_er)|
       %tr
         %td
-          - if new = (new_ro = f.object.requirement_obtainments.find{|s| s.event == e}).nil?
-            - new_ro = f.object.class.reflect_on_association(:requirement_obtainments).klass.new
-          = f.fields_for :requirement_obtainments, new_ro, :child_index => i do |ro|
-            = ro.check_box :_destroy, {:checked => !new}, 0, 1
-            = ro.hidden_field :event_id, :value => e.id
-        %td= e.name
+          = f.fields_for :requirement_obtainments, next_ro, :child_index => next_ro.event.name do |ro|
+            = ro.check_box :_destroy, {:checked => next_ro.persisted?}, 0, 1
+            = ro.hidden_field :event_id, :value => next_ro.event.id
+        %td= next_ro.event.name
         %td
-          - if new = (new_er = f.object.event_requirements.find{|s| s.event == e}).nil?
-            - new_er = f.object.class.reflect_on_association(:requirement_obtainments).klass.new
-          = f.fields_for :event_requirements, new_er, :child_index => i do |er|
-            = er.check_box :_destroy, {:checked => !new}, 0, 1
-            = er.hidden_field :event_id, :value => e.id
+          = f.fields_for :event_requirements, next_er, :child_index => next_ro.event.name do |er|
+            = er.check_box :_destroy, {:checked => next_er.persisted?}, 0, 1
+            = er.hidden_field :event_id, :value => next_er.event.id
 
   .actions
     = f.submit 'Save'

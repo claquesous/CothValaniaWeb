@@ -27,6 +27,8 @@ class RequirementsController < ApplicationController
   def new
     @requirement = Requirement.new
     @events = Event.all
+    @requirement.build_all_event_requirements(@events)
+    @requirement.build_all_requirement_obtainments(@events)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,6 +40,8 @@ class RequirementsController < ApplicationController
   def edit
     @requirement = Requirement.find(params[:id])
     @events = Event.all
+    @requirement.build_all_event_requirements(@events)
+    @requirement.build_all_requirement_obtainments(@events)
   end
 
   # POST /requirements
@@ -51,6 +55,8 @@ class RequirementsController < ApplicationController
         format.json { render json: @requirement, status: :created, location: @requirement }
       else
         @events = Event.all
+        @requirement.build_all_event_requirements(@events)
+        @requirement.build_all_requirement_obtainments(@events)
         format.html { render action: "new" }
         format.json { render json: @requirement.errors, status: :unprocessable_entity }
       end
@@ -68,6 +74,8 @@ class RequirementsController < ApplicationController
         format.json { head :no_content }
       else
         @events = Event.all
+        @requirement.build_all_event_requirements(@events)
+        @requirement.build_all_requirement_obtainments(@events)
         format.html { render action: "edit" }
         format.json { render json: @requirement.errors, status: :unprocessable_entity }
       end

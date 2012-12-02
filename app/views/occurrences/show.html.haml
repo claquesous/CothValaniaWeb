@@ -26,7 +26,7 @@
 
 %p
   %b Requirements Used:
-  - @occurrence.obtained_requirements.each do |requirement|
+  - @occurrence.used_requirements.each do |requirement|
     = link_to requirement.requirement.name, requirement_path(requirement.requirement)
     \:
     = link_to requirement.character.name, member_path(requirement.character.member)

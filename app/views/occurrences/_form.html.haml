@@ -21,13 +21,13 @@
   %h3 Attendees
   %table
     - @members.each_with_index do |m,i|
-      - if new = (new_ea = f.object.event_attendances.find{|s| !s.character.nil? && s.character.member == m}).nil?
-        - new_ea = f.object.class.reflect_on_association(:event_attendances).klass.new
+      - if (new_ea = f.object.event_attendances.find{|s| !s.character.nil? && s.character.member == m}).nil?
+        - new_ea = EventAttendance.new
       = f.fields_for :event_attendances, new_ea, :child_index => i do |ea|
         %tr
           %td
             .field
-              = ea.check_box :_destroy, {:checked => !new}, 0, 1
+              = ea.check_box :_destroy, {:checked => new_ea.persisted?}, 0, 1
               = ea.label :_destroy, m.name
           %td
             - if m.characters.many?
@@ -68,11 +68,11 @@
                     = cr.check_box new.id, {:checked => new.used_occurrence == @occurrence, :value => @occurrence.id}
             %td= c.name
             - ro.each do |r|
-              - if new = (new_ocr = f.object.obtained_requirements.find{|s| s.character == c}).nil?
-                - new_ocr = f.object.class.reflect_on_association(:obtained_requirements).klass.new
+              - if (new_ocr = f.object.obtained_requirements.find{|s| s.character == c}).nil?
+                - new_ocr = CharacterRequirement.new
               = f.fields_for :obtained_requirements, new_ocr, :child_index => c.name do |ocr|
                 %td
-                  = ocr.check_box :_destroy, {:checked => !new}, 0, 1
+                  = ocr.check_box :_destroy, {:checked => new_ocr.persisted?}, 0, 1
                   = ocr.hidden_field :character_id, :value => c.id
                   = ocr.hidden_field :requirement_id, :value => r.requirement.id
 

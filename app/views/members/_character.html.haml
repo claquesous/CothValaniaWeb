@@ -13,10 +13,10 @@
 .field
   = f.label :jobs
   - @jobs.each_with_index do |j,i|
-    - if new = (new_cj = f.object.character_jobs.find{|s| s.job == j}).nil?
-      - new_cj = f.object.class.reflect_on_association(:character_jobs).klass.new
+    - if (new_cj = f.object.character_jobs.find{|s| s.job == j}).nil?
+      - new_cj = CharacterJob.new
     = f.fields_for :character_jobs, new_cj, :child_index => i do |cj|
-      = render 'character_jobs', :f => cj, :j => j, :existing => !new
+      = render 'character_jobs', :f => cj, :j => j, :existing => new_cj.persisted?
 .field
   = f.label :sex
   = f.hidden_field :sex, :value => "none" 

@@ -32,7 +32,7 @@
           %td
             - if m.characters.many?
               - m.characters.each do |c|
-                = ea.radio_button :character_id, c.id, :checked => (new && c.name==m.name) || ea.object.character_id == c.id
+                = ea.radio_button :character_id, c.id, :checked => (!new_ea.persisted? && c.name==m.name) || ea.object.character_id == c.id
                 = ea.label :character, c.name
             - elsif m.characters.any?
               = ea.hidden_field :character_id, :value => m.characters.first.id

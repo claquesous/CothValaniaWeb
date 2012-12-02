@@ -42,7 +42,7 @@
     %h3 Rewards
     - event_rewards.each do |r|
       %br= r.name
-      - r.character_rewards.where("obtained =? or obtained is null or occurrence_id =?", false, @occurrence.id).each do |cr|
+      - r.character_rewards.active.where("obtained =? or obtained is null or occurrence_id =?", false, @occurrence.id).each do |cr|
         = cr.character.name
         = fields_for :character_rewards, cr, :child_index => cr.id do |crf|
           = crf.check_box cr.id, {:checked => cr.occurrence == @occurrence, :value => @occurrence.id}

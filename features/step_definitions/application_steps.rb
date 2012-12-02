@@ -34,3 +34,6 @@ Then /^I should see "(.*?)" before "(.*?)"$/ do |arg1, arg2|
   page.body.gsub("\n","").should match("#{arg1}.*#{arg2}")
 end
 
+When /^I click "(.*?)"$/ do |arg1|
+  click_button arg1
+end

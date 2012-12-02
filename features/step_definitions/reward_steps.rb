@@ -8,3 +8,16 @@ Given /^I am on the rewards page for "(.*?)"$/ do |reward|
   visit reward_path(Reward.find_by_name(reward))
 end
 
+Given /^"(.*?)" has reward "(.*?)"$/ do |event, reward|
+  visit '/rewards/new'
+  check event
+  fill_in "Name", :with => reward
+  click_on "Save"
+  page.should have_content("Reward was successfully created.")
+end
+
+When /^I check "(.*?)" as obtained by "(.*?)"$/ do |reward, char|
+  cr = CharacterReward.where("reward_id =? and character_id=?", Reward.find_by_name(reward), Character.find_by_name(char)).first
+  check "character_rewards_#{cr.id}"
+end
+

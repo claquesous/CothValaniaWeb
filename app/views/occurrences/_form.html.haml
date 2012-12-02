@@ -34,8 +34,19 @@
               - m.characters.each do |c|
                 = ea.radio_button :character_id, c.id, :checked => (new && c.name==m.name) || ea.object.character_id == c.id
                 = ea.label :character, c.name
-            - else
+            - elsif m.characters.any?
               = ea.hidden_field :character_id, :value => m.characters.first.id
+
+  - event_rewards = @event.rewards
+  - if event_rewards.count>0
+    %h3 Rewards
+    - event_rewards.each do |r|
+      %br= r.name
+      - r.character_rewards.where("obtained =? or obtained is null or occurrence_id =?", false, @occurrence.id).each do |cr|
+        = cr.character.name
+        = fields_for :character_rewards, cr, :child_index => cr.id do |crf|
+          = crf.check_box cr.id, {:checked => cr.occurrence == @occurrence, :value => @occurrence.id}
+
   - er = @event.event_requirements
   - ro = @event.requirement_obtainments
   - if er.count>0 || ro.count>0
@@ -53,7 +64,8 @@
             - er.each do |r|
               %td
                 -unless (new = get_requirements(r.requirement.character_requirements,c)).nil?
-                  = check_box_tag "character_requirement_id[]", new.id, new.used_occurrence == @occurrence
+                  = fields_for :used_requirements, new, :child_index => new.id do |cr|
+                    = cr.check_box new.id, {:checked => new.used_occurrence == @occurrence, :value => @occurrence.id}
             %td= c.name
             - ro.each do |r|
               - if new = (new_ocr = f.object.obtained_requirements.find{|s| s.character == c}).nil?

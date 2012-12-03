@@ -29,9 +29,8 @@ class MembersController < ApplicationController
   # GET /members/new.json
   def new
     @member = Member.new
-    c = @member.characters.build
+    @member.characters.build
     @races = Race.all
-    @jobs = Job.all
     @selected_rewards = []
     @available_rewards = Reward.all
 
@@ -45,7 +44,7 @@ class MembersController < ApplicationController
   def edit
     @member = Member.find(params[:id])
     @races = Race.all
-    @jobs = Job.all
+    @member.build_all_character_jobs
     @selected_rewards = @member.selected_rewards
     @available_rewards = @member.available_rewards
   end
@@ -65,9 +64,13 @@ class MembersController < ApplicationController
         format.json { render json: @member, status: :created, location: @member }
       else
         @races = Race.all
-        @jobs = Job.all
         @selected_rewards = []
         @available_rewards = Reward.all
+	if @member.characters.count == 0
+          @member.characters.build
+	else
+          @member.build_all_character_jobs
+	end
         format.html { render action: "new" }
         format.json { render json: @member.errors, status: :unprocessable_entity }
       end
@@ -86,7 +89,7 @@ class MembersController < ApplicationController
         format.json { head :no_content }
       else
         @races = Race.all
-        @jobs = Job.all
+        @member.build_all_character_jobs
         @selected_rewards = @member.selected_rewards
         @available_rewards = @member.available_rewards
         format.html { render action: "edit" }

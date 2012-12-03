@@ -1,6 +1,6 @@
 .field
-  = f.check_box :_destroy, {:checked => existing}, 0, 1
-  = f.label j.name
-  = f.hidden_field :job_id, :value => j.id
+  = f.check_box :_destroy, {:checked => f.object.persisted?}, 0, 1
+  = f.label :_destroy, f.object.job.name
+  = f.hidden_field :job_id, :value => f.object.job.id
   = f.label :level
   = f.number_field :level

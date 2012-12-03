@@ -47,4 +47,10 @@ class Member < ActiveRecord::Base
       preferences << preference
     end
   end
+
+  def build_all_character_jobs
+    characters.each do |character|
+      character.build_all_character_jobs(Job.all)
+    end
+  end
 end

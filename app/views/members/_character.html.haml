@@ -12,11 +12,8 @@
     = f.label r.name
 .field
   = f.label :jobs
-  - @jobs.each_with_index do |j,i|
-    - if (new_cj = f.object.character_jobs.find{|s| s.job == j}).nil?
-      - new_cj = CharacterJob.new
-    = f.fields_for :character_jobs, new_cj, :child_index => i do |cj|
-      = render 'character_jobs', :f => cj, :j => j, :existing => new_cj.persisted?
+  = f.fields_for :character_jobs do |cj|
+    = render 'character_jobs', :f => cj
 .field
   = f.label :sex
   = f.hidden_field :sex, :value => "none" 

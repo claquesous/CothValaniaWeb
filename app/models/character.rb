@@ -44,4 +44,9 @@ class Character < ActiveRecord::Base
   def current_points
     event_attendances.includes(:occurrence).where("end_time >=?", member.cycle_date).joins(:event).sum("points").to_i
   end
+
+  def initialize(*args)
+    super
+    build_all_character_jobs(Job.all)
+  end
 end

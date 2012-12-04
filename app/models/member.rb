@@ -30,11 +30,7 @@ class Member < ActiveRecord::Base
   end
 
   def available_rewards
-    if character_rewards.empty?
-      Reward.all
-    else
-      Reward.where("id not in (?)", character_rewards.pluck(:reward_id))
-    end
+     Reward.all - character_rewards.collect(&:reward)
   end
 
   def build_rewards(rewards)

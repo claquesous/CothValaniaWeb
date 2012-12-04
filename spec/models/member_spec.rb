@@ -17,18 +17,43 @@ describe Member do
   describe "available_rewards" do
     it "should return all rewards if nothing has been obtained or selected" do
       member = Member.new
-      member.stub(:character_rewards).and_return([])
-      member.should_receive(:available_rewards).and_return(Reward.all)
-      member.available_rewards
+      member.available_rewards.should eq(Reward.all)
     end
 
-    it "should not return awards that have been received" do
+    it "should not include awards that have been received" do
       reward = FactoryGirl.create(:reward)
-      member = FactoryGirl.create(:member)
-      cr = member.character_rewards.build(:reward => reward)
-      cr.occurrence_id = 2
-      cr.save!
-      member.available_rewards.should_not include(cr)
+      member = Member.new
+      member.character_rewards.build(:reward => reward, obtained: true)
+      member.available_rewards.should_not include(reward)
+    end
+
+    it "should not include rewards that have been selected" do
+      reward = FactoryGirl.create(:reward)
+      member = Member.new
+      member.character_rewards.build(reward: reward, obtained: false, preference: 1)
+      member.available_rewards.should_not include(reward)
+    end
+  end
+
+  describe "selected rewards" do
+    it "should include rewards that have been selected" do
+      reward = FactoryGirl.create(:reward)
+      member = Member.new
+      member.character_rewards.build(:reward => reward, obtained: true)
+      member.selected_rewards.should_not include(reward)
+    end
+
+    it "should not include rewards that have been received" do
+      reward = FactoryGirl.create(:reward)
+      member = Member.new
+      member.character_rewards.build(:reward => reward, obtained: true)
+      member.selected_rewards.should_not include(reward)
+    end
+
+    it "should not include rewards that have not been selected" do
+      reward = FactoryGirl.create(:reward)
+      member = Member.new
+      member.selected_rewards.should_not include(reward)
     end
   end
 
@@ -45,19 +70,19 @@ describe Member do
     end
 
     it "should delete any existing unobtained rewards" do
+      reward = FactoryGirl.create(:reward)
       member = FactoryGirl.create(:member)
-      member.character_rewards.create
+      member.character_rewards.create(reward: reward)
+      member.save!
       member.build_rewards([])
-      member.save
       member.reload
       member.character_rewards.should eq([])
     end
 
     it "should not delete any existing obtained rewards" do
       member = FactoryGirl.create(:member)
-      cr = member.character_rewards.build(:preference => 2, :reward => FactoryGirl.create(:reward))
-      cr.occurrence_id = 2
-      cr.save!
+      reward = FactoryGirl.create(:reward)
+      cr = member.character_rewards.create(:preference => 2, reward: reward, obtained: true)
       member.build_rewards([])
       member.character_rewards.should eq([cr])
     end
@@ -68,15 +93,6 @@ describe Member do
       member.build_rewards([2,3])
       member.save!
       member.character_rewards.count.should be(2)
-    end
-
-    it "should not overwrite an obtained reward" do
-      rewards = [mock_model(CharacterReward, :preference => 2)]
-      Reward.stub(:find).and_return(mock_model(Reward))
-      member = FactoryGirl.create(:member)
-#      member.character_rewards.should_receive(:build).twice
-      member.build_rewards([2,3])
-      member.save!
     end
   end
 end

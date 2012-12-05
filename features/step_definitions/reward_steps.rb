@@ -16,8 +16,8 @@ Given /^"(.*?)" has reward "(.*?)"$/ do |event, reward|
   page.should have_content("Reward was successfully created.")
 end
 
-When /^I check "(.*?)" as obtained by "(.*?)"$/ do |reward, char|
+When /^I (un)?check "(.*?)" as obtained by "(.*?)"$/ do |uncheck,reward, char|
   cr = CharacterReward.where("reward_id =? and character_id=?", Reward.find_by_name(reward), Character.find_by_name(char)).first
-  check "character_rewards_#{cr.id}"
+  eval("#{uncheck}check 'character_rewards_#{cr.id}'")
 end
 

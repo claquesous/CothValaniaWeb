@@ -24,7 +24,7 @@ Feature: Manage occurrences
     When I am on the new occurrence page for "Cetus"
     Then I check the "Gorgon's Head" requirement for "Perseus"
 
-  Scenario: Get rewards
+  Scenario: Add and remove rewards
     Given "Medusa" has reward "Chrysaor"
     And "Perseus" listed "Chrysaor" as their #1 preference
     And I am on the new occurrence page for "Medusa"
@@ -32,4 +32,10 @@ Feature: Manage occurrences
     And I click "Save"
     Then I should see "Event occurrence was successfully created"
     And I should see "Drops: Chrysaor : Perseus"
+    When I click "Edit"
+    When I uncheck "Chrysaor" as obtained by "Perseus"
+    And I click "Save"
+    Then I should see "Event occurrence was successfully updated"
+    And I should not see "Drops: Chrysaor : Perseus"
+
 

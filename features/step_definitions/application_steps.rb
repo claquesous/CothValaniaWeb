@@ -1,9 +1,5 @@
-When /^I click the "(.*)" link$/ do |link|
-  begin
-    click_link link 
-  rescue
-    click_link link.downcase
-  end
+When /^I click "(.*)"$/ do |link_or_button|
+    click_on link_or_button
 end
 
 Given /^I am on the "(.*)" page$/ do |page|
@@ -34,6 +30,9 @@ Then /^I should see "(.*?)" before "(.*?)"$/ do |arg1, arg2|
   page.body.gsub("\n","").should match("#{arg1}.*#{arg2}")
 end
 
-When /^I click "(.*?)"$/ do |arg1|
-  click_button arg1
+When /^I (un)?check the box next to "(.*?)"$/ do |uncheck, arg1|
+  all('tr', text: arg1 ).each do |row|
+    row.find("input[type='checkbox']").set(uncheck.nil?)
+  end
 end
+

@@ -23,5 +23,5 @@ Feature: Show latest news
     And I am on the home page
     Then I should see "Newer news"
     And I should not see "Older news"
-    When I click the "Read past news" link
+    When I click "Read past news"
     Then I should see "Older news"

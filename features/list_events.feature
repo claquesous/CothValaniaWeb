@@ -9,7 +9,7 @@ Feature: List the possible events
 
   Scenario: List of events
     Given I am on the home page
-    When I click the "Events" link
+    When I click "Events"
     Then I should see an "Easy Event" link
     And I should see a "Hard Event" link
 

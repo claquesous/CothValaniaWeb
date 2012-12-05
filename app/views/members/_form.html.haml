@@ -29,7 +29,7 @@
       = render 'character', :f => c
     = link_to_add_fields "Add Character", f, :characters
   #reward_prefs.field
-    = hidden_field_tag :reward_preferences, @selected_rewards.collect {|r| r.id}.join(" ")
+    = hidden_field_tag :reward_preferences, @selected_rewards.collect(&:id).join(" ")
     %table
       %tr
         %td= select_tag :preferences, options_from_collection_for_select(@selected_rewards, "id", "name"), :multiple => true, :name => "preferences", :size => 15

@@ -1,7 +1,12 @@
 %h1 Listing members
 
+- if @update_active
+  = form_tag update_active_members_path, method: :put
+
 %table
   %tr
+    - if @update_active
+      %th
     %th Name
     %th Points
     %th Join date
@@ -17,6 +22,8 @@
 
   - @members.each do |member|
     %tr{id: member.name}
+      - if @update_active
+        %td= check_box_tag "member_ids[]", member.id, member.active, id: "member_ids_#{member.id}"
       %td= link_to member.name, member
       %td= member.current_points
       %td= member.join_date
@@ -31,5 +38,10 @@
       %td= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
+
+- if @update_active
+  = submit_tag 'Update Active'
+- else
+  = link_to 'Update Active', members_path(update_active: 1)
 
 = link_to 'New Member', new_member_path

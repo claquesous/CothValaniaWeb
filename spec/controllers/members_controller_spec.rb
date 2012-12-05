@@ -51,6 +51,20 @@ describe MembersController do
       get :index, {}, valid_session
       assigns(:members).should eq([member])
     end
+
+    it "assigns only active members normally" do
+      member = FactoryGirl.create :member
+      inactive = FactoryGirl.create :member, active: false
+      get :index, {}, valid_session
+      assigns(:members).should eq([member])
+    end
+
+    it "assigns all members when passing update_active" do
+      member = FactoryGirl.create :member
+      inactive = FactoryGirl.create :member, active: false
+      get :index, {update_active: true }, valid_session
+      assigns(:members).should eq([member, inactive])
+    end
   end
 
   describe "GET show" do

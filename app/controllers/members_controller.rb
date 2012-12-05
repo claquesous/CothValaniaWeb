@@ -1,11 +1,16 @@
 class MembersController < ApplicationController
-  before_filter(:only => [:new, :create, :destroy]) { |a| a.send(:authorize,:admin) }
+  before_filter(:only => [:new, :create, :destroy, :update_active]) { |a| a.send(:authorize,:admin) }
   before_filter :validate_member, :only => [:edit, :update]
 
   # GET /members
   # GET /members.json
   def index
-    @members = Member.active
+    if params[:update_active]
+      @members = Member.all
+      @update_active = true
+    else
+      @members = Member.active
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -108,6 +113,12 @@ class MembersController < ApplicationController
       format.html { redirect_to members_url }
       format.json { head :no_content }
     end
+  end
+
+  def update_active
+    Member.where("id not in (?)", params[:member_ids]).update_all(active: false)
+    Member.where("id in (?)", params[:member_ids]).update_all(active: true)
+    redirect_to members_path
   end
 
   private

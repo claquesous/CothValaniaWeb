@@ -15,7 +15,9 @@ Cvweb::Application.routes.draw do
     resources :occurrences
   end
 
-  resources :members
+  resources :members do
+    put :update_active, on: :collection
+  end
 
   get "home/index"
 

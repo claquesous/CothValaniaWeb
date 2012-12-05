@@ -77,13 +77,13 @@ describe OccurrencesController do
     describe "with valid params" do
       it "creates a new Occurrence" do
         Occurrence.any_instance.should_receive(:save).and_return(true)
-	Occurrence.any_instance.stub(:id).and_return(1)
+        Occurrence.any_instance.stub(:id).and_return(1)
         post :create, {:event_id => @event.id, :occurrence => valid_attributes}, valid_session
       end
 
       it "assigns a newly created occurrence as @occurrence" do
         Occurrence.any_instance.should_receive(:save).and_return(true)
-	Occurrence.any_instance.stub(:id).and_return(1)
+        Occurrence.any_instance.stub(:id).and_return(1)
         post :create, {:event_id => @event.id, :occurrence => valid_attributes}, valid_session
         assigns(:occurrence).should be_a(Occurrence)
       end
@@ -91,7 +91,7 @@ describe OccurrencesController do
       it "redirects to the created occurrence" do
         occurrence_id = 1
         Occurrence.any_instance.should_receive(:save).and_return(true)
-	Occurrence.any_instance.stub(:id).and_return(occurrence_id)
+        Occurrence.any_instance.stub(:id).and_return(occurrence_id)
         post :create, {:event_id => @event.id, :occurrence => valid_attributes}, valid_session
         response.should redirect_to(event_occurrence_url(@event,occurrence_id))
       end

@@ -25,8 +25,8 @@ describe EventsController do
   # update the return value of this method accordingly.
   def valid_attributes
     {
-    	:name => 'Event',
-	:points => 2
+      :name => 'Event',
+      :points => 2
     }
   end
 

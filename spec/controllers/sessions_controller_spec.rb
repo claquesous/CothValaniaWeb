@@ -46,7 +46,7 @@ describe SessionsController do
   describe "POST create" do
     describe "with valid params" do
       it "creates a new session" do
-	@member = FactoryGirl.build(:member)
+        @member = FactoryGirl.build(:member)
         Member.stub(:find_by_name).and_return(@member)
         @member.stub(:authenticate).and_return(true)
         post :create, {:session => valid_attributes}, valid_session
@@ -54,7 +54,7 @@ describe SessionsController do
       end
 
       it "redirects to the home page" do
-	@member = FactoryGirl.build(:member)
+        @member = FactoryGirl.build(:member)
         Member.stub(:find_by_name).and_return(@member)
         @member.stub(:authenticate).and_return(true)
         post :create, {:params => valid_attributes}, valid_session
@@ -81,7 +81,7 @@ describe SessionsController do
     describe "with invalid password" do
       it "assigns a flash message" do
         # Trigger the behavior that occurs when invalid params are submitted
-	member = mock_model("Member")
+        member = mock_model("Member")
         Member.stub(:find_by_name).and_return(member)
         member.stub(:authenticate).and_return(false)
         post :create, {:session => {}}, valid_session
@@ -90,7 +90,7 @@ describe SessionsController do
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-	member = mock_model("Member")
+        member = mock_model("Member")
         Member.stub(:find_by_name).and_return(member)
         member.stub(:authenticate).and_return(false)
         post :create, {:session => {}}, valid_session

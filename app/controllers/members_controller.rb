@@ -71,11 +71,11 @@ class MembersController < ApplicationController
         @races = Race.all
         @selected_rewards = []
         @available_rewards = Reward.all
-	if @member.characters.count == 0
+        if @member.characters.count == 0
           @member.characters.build
-	else
+        else
           @member.build_all_character_jobs
-	end
+        end
         format.html { render action: "new" }
         format.json { render json: @member.errors, status: :unprocessable_entity }
       end

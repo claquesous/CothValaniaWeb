@@ -19,7 +19,7 @@ end
 
 Then /^I check the "(.*?)" requirement for "(.*?)"$/ do |req, char|
   CharacterRequirement.where(:requirement_id => Requirement.find_by_name(req), :character_id => Character.find_by_name(char), :used_occurrence_id => nil).each do |cr|
-    check "used_requirements_#{cr.id}"
+    check "occurrence_used_requirement_ids_#{cr.id}"
   end
 end
 

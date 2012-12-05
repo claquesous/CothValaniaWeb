@@ -49,12 +49,7 @@ class OccurrencesController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     @occurrence = @event.occurrences.build(params[:occurrence])
-    if params[:used_requirements]
-      params[:used_requirements].each do |used_cr, value|
-        used_requirement = CharacterRequirement.find(used_cr)
-        @occurrence.used_requirements << used_requirement if value=="1"
-      end
-    end
+
     if params[:character_rewards]
       params[:character_rewards].each do |obtained_cr, value|
         obtained_reward = CharacterReward.find(obtained_cr)
@@ -80,17 +75,6 @@ class OccurrencesController < ApplicationController
     @event = Event.find(params[:event_id])
     @occurrence = Occurrence.find(params[:id])
 
-    if params[:used_requirements]
-      params[:used_requirements].each do |used_cr, value|
-        used_requirement = CharacterRequirement.find(used_cr)
-        if value=="1"
-          @occurrence.used_requirements << used_requirement
-        else
-          used_requirement.used_occurrence = nil
-          used_requirement.save!
-        end
-      end
-    end
     if params[:character_rewards]
       params[:character_rewards].each do |obtained_cr, value|
         obtained_reward = CharacterReward.find(obtained_cr)

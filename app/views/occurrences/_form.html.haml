@@ -51,6 +51,7 @@
   - ro = @event.requirement_obtainments
   - if er.count>0 || ro.count>0
     %h3 Requirements
+    = hidden_field_tag "occurrence[used_requirement_ids][]"
     %table
       %tr
         - er.each do |r|
@@ -63,9 +64,8 @@
           %tr
             - er.each do |r|
               %td
-                -unless (new = get_requirements(r.requirement.character_requirements,c)).nil?
-                  = fields_for :used_requirements, new, :child_index => new.id do |cr|
-                    = cr.check_box new.id, {:checked => new.used_occurrence == @occurrence, :value => @occurrence.id}
+                -unless (new_ur = get_requirements(r.requirement.character_requirements,c)).nil?
+                  = check_box_tag "occurrence[used_requirement_ids][]", new_ur.id, new_ur.used_occurrence == @occurrence, id: "occurrence_used_requirement_ids_#{new_ur.id}"
             %td= c.name
             - ro.each do |r|
               - if (new_ocr = f.object.obtained_requirements.find{|s| s.character == c}).nil?

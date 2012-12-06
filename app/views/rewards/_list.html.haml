@@ -1,8 +1,9 @@
 %ol
   - points = {}
   - reward.character_rewards.unobtained.active.each do |cr|
-    - member = cr.member
-    - points[member.name] = member.points.to_f/cr.preference
+    - points[cr] = cr.member.points.to_f/cr.preference
   - points = points.sort_by {|k,v| -v}
   - points.each do |mp|
-    %li= %Q{#{mp[0]} #{mp[1]}}
+    %li
+      = link_to mp[0].member.name, member_path(mp[0].member)
+      = mp[1].round(4)

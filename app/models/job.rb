@@ -3,8 +3,4 @@ class Job < ActiveRecord::Base
   has_many :character_jobs
   validates_uniqueness_of :name
   validates_presence_of :name
-
-  def name=(s)
-    write_attribute(:name, s.to_s.titleize)
-  end
 end

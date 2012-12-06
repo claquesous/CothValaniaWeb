@@ -7,8 +7,4 @@ class Reward < ActiveRecord::Base
   has_many :character_rewards
   validates_uniqueness_of :name
   accepts_nested_attributes_for :event_rewards, :allow_destroy => true
-
-  def name=(s)
-    write_attribute(:name, s.to_s.titleize)
-  end
 end

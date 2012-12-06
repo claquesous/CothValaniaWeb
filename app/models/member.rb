@@ -13,10 +13,6 @@ class Member < ActiveRecord::Base
   validates_uniqueness_of :name
   accepts_nested_attributes_for :characters, :reject_if => lambda { |a| a[:name].blank? }
 
-  def name=(s)
-    write_attribute(:name, s.to_s.titleize) 
-  end
-
   def points
     event_attendances.includes(:occurrence).joins(:event).sum("points").to_i
   end

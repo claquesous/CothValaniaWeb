@@ -11,10 +11,6 @@ class Character < ActiveRecord::Base
   belongs_to :race
   accepts_nested_attributes_for :character_jobs, :reject_if => :all_blank, :allow_destroy => true
 
-  def name=(s)
-    write_attribute(:name, s.to_s.titleize) 
-  end 
-
   def sex
     case read_attribute(:sex)
     when 1

@@ -5,7 +5,7 @@ Given /^"(.*?)" listed "(.*?)" as their #(\d+) preference$/ do |member, reward, 
 end
 
 Then /^I should see a tie between "([^\"]*)" and "([^\"]*)"$/ do |mem1, mem2|
-  body = page.body.gsub("\n","")
+  body = page.text
   if body.match("#{mem1} (\d*).*#{mem2} (\d*)") || body.match("#{mem2} (\d*).*#{mem1} (\d*)")
     $1.should eq($2)
   else

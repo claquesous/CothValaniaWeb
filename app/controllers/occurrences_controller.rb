@@ -1,5 +1,5 @@
 class OccurrencesController < ApplicationController
-  before_filter(:except => :index) { |a| a.send(:authorize,:admin) }
+  before_filter(except: [:index, :show]) { |a| a.send(:authorize,:admin) }
   # GET /occurrences
   # GET /occurrences.json
   def index

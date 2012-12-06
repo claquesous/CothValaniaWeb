@@ -126,7 +126,7 @@ class MembersController < ApplicationController
   def validate_member
     unless current_member.id == params[:id].to_i || admin?
       flash[:warning] = 'You may only edit yourself!'
-      redirect_to :back
+      redirect_to Member.find(params[:id])
     end
   end
 end

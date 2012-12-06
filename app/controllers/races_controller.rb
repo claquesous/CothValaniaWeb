@@ -1,4 +1,5 @@
 class RacesController < ApplicationController
+  before_filter { |a| a.send(:authorize,:leader) }
   # GET /races
   # GET /races.json
   def index

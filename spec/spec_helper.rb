@@ -46,7 +46,14 @@ def build_attributes(*args)
 end
 
 # Create a new member and login with them
-def login
-  member = FactoryGirl.create :member
+def login(role=nil)
+  member = FactoryGirl.build :member
+  case role
+  when :admin
+    member.admin = true
+  when :leader
+    member.leader = true
+  end
+  member.save
   post login_url, :member => member.name, :password => member.password
 end

@@ -1,5 +1,5 @@
 class ShoutsController < ApplicationController
-  before_filter(:only => :destroy) { |a| a.send(:authorize,:admin) }
+  before_filter(only: [:destroy, :edit, :update]) { |a| a.send(:authorize,:admin) }
   # GET /shouts
   # GET /shouts.json
   def index

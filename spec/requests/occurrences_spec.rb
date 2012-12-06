@@ -2,18 +2,82 @@ require 'spec_helper'
 
 describe "Occurrences" do
   before :each do
-    login
-    @event = FactoryGirl.create(:event)
-    mock_model(Event,
-      :id => 1,
-    )
+    @event = FactoryGirl.create :event
   end
 
   describe "GET /occurrences" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get event_occurrences_path(@event)
+    it "does allow a normal user" do
+      login
+      get event_occurrences_path @event
+      response.status.should be(200)
+    end
+    it "does allow an admin" do
+      login :admin
+      get event_occurrences_path @event
+      response.status.should be(200)
+    end
+    it "does allow the leader" do
+      login :leader
+      get event_occurrences_path @event
+      response.status.should be(200)
+    end
+  end
+  describe "GET /occurrences/new" do
+    it "does not allow a normal user" do
+      login
+      get new_event_occurrence_path @event
+      response.status.should be(302)
+    end
+    it "does allow an admin" do
+      login :admin
+      get new_event_occurrence_path @event
+      response.status.should be(200)
+    end
+    it "does allow the leader" do
+      login :leader
+      get new_event_occurrence_path @event
+      response.status.should be(200)
+    end
+  end
+  describe "GET /occurrences/show" do
+    before :each do
+      @occurrence = FactoryGirl.create :occurrence
+    end
+    it "does allow a normal user" do
+      login
+      get event_occurrence_path @event, @occurrence
+      response.status.should be(200)
+    end
+    it "does allow an admin" do
+      login :admin
+      get event_occurrence_path @event, @occurrence
+      response.status.should be(200)
+    end
+    it "does allow the leader" do
+      login :leader
+      get event_occurrence_path @event, @occurrence
+      response.status.should be(200)
+    end
+  end
+  describe "GET /occurrences/edit" do
+    before :each do
+      @occurrence = FactoryGirl.create :occurrence
+    end
+    it "does not allow a normal user" do
+      login
+      get edit_event_occurrence_path @event, @occurrence
+      response.status.should be(302)
+    end
+    it "does allow an admin" do
+      login :admin
+      get edit_event_occurrence_path @event, @occurrence
+      response.status.should be(200)
+    end
+    it "does allow the leader" do
+      login :leader
+      get edit_event_occurrence_path @event, @occurrence
       response.status.should be(200)
     end
   end
 end
+

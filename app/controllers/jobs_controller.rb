@@ -1,4 +1,5 @@
 class JobsController < ApplicationController
+  before_filter { |a| a.send(:authorize,:leader) }
   # GET /jobs
   # GET /jobs.json
   def index

@@ -17,7 +17,7 @@
   = @event.time
 
 -@event.rewards.each do |r|
-  %p= r.name
+  %p= link_to r.name, reward_path(r)
   = render 'rewards/list', :reward => r
 
 = link_to 'Edit', edit_event_path(@event)

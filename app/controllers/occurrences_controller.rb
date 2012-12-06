@@ -3,7 +3,7 @@ class OccurrencesController < ApplicationController
   # GET /occurrences
   # GET /occurrences.json
   def index
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by_name(CGI.unescape params[:event_id])
     @occurrences = @event.occurrences
 
     respond_to do |format|
@@ -15,7 +15,7 @@ class OccurrencesController < ApplicationController
   # GET /occurrences/1
   # GET /occurrences/1.json
   def show
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by_name(CGI.unescape params[:event_id])
     @occurrence = Occurrence.find(params[:id])
 
     respond_to do |format|
@@ -27,7 +27,7 @@ class OccurrencesController < ApplicationController
   # GET /occurrences/new
   # GET /occurrences/new.json
   def new
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by_name(CGI.unescape params[:event_id])
     @occurrence = @event.occurrences.build
     @members = Member.active
 
@@ -39,7 +39,7 @@ class OccurrencesController < ApplicationController
 
   # GET /occurrences/1/edit
   def edit
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by_name(CGI.unescape params[:event_id])
     @occurrence = Occurrence.find(params[:id])
     @members = Member.where("active=? or id in (?)",true,@occurrence.characters.joins(:member).select("members.id"))
   end
@@ -47,7 +47,7 @@ class OccurrencesController < ApplicationController
   # POST /occurrences
   # POST /occurrences.json
   def create
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by_name(CGI.unescape params[:event_id])
     @occurrence = @event.occurrences.build(params[:occurrence])
 
     if params[:character_rewards]
@@ -72,7 +72,7 @@ class OccurrencesController < ApplicationController
   # PUT /occurrences/1
   # PUT /occurrences/1.json
   def update
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by_name(CGI.unescape params[:event_id])
     @occurrence = Occurrence.find(params[:id])
 
     if params[:character_rewards]
@@ -102,7 +102,7 @@ class OccurrencesController < ApplicationController
   # DELETE /occurrences/1
   # DELETE /occurrences/1.json
   def destroy
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by_name(CGI.unescape params[:event_id])
     @occurrence = Occurrence.find(params[:id])
     @occurrence.destroy
 

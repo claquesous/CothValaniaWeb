@@ -14,7 +14,7 @@ class RacesController < ApplicationController
   # GET /races/1
   # GET /races/1.json
   def show
-    @race = Race.find(params[:id])
+    @race = Race.find_by_name(CGI.unescape params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -35,7 +35,7 @@ class RacesController < ApplicationController
 
   # GET /races/1/edit
   def edit
-    @race = Race.find(params[:id])
+    @race = Race.find_by_name(CGI.unescape params[:id])
   end
 
   # POST /races
@@ -57,7 +57,7 @@ class RacesController < ApplicationController
   # PUT /races/1
   # PUT /races/1.json
   def update
-    @race = Race.find(params[:id])
+    @race = Race.find_by_name(CGI.unescape params[:id])
 
     respond_to do |format|
       if @race.update_attributes(params[:race])
@@ -73,7 +73,7 @@ class RacesController < ApplicationController
   # DELETE /races/1
   # DELETE /races/1.json
   def destroy
-    @race = Race.find(params[:id])
+    @race = Race.find_by_name(CGI.unescape params[:id])
     @race.destroy
 
     respond_to do |format|

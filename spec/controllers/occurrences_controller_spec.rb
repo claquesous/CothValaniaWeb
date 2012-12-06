@@ -45,7 +45,7 @@ describe OccurrencesController do
   describe "GET index" do
     it "assigns all occurrences as @occurrences" do
       occurrence = FactoryGirl.create(:occurrence, :event => @event)
-      get :index, {:event_id => @event.id}, valid_session
+      get :index, {:event_id => @event.to_param}, valid_session
       assigns(:occurrences).should eq([occurrence])
     end
   end
@@ -53,14 +53,14 @@ describe OccurrencesController do
   describe "GET show" do
     it "assigns the requested occurrence as @occurrence" do
       occurrence = FactoryGirl.create(:occurrence)
-      get :show, {:event_id => @event.id, :id => occurrence.to_param}, valid_session
+      get :show, {:event_id => @event.to_param, :id => occurrence.to_param}, valid_session
       assigns(:occurrence).should eq(occurrence)
     end
   end
 
   describe "GET new" do
     it "assigns a new occurrence as @occurrence" do
-      get :new, {:event_id => @event.id}, valid_session
+      get :new, {:event_id => @event.to_param}, valid_session
       assigns(:occurrence).should be_a_new(Occurrence)
     end
   end
@@ -68,7 +68,7 @@ describe OccurrencesController do
   describe "GET edit" do
     it "assigns the requested occurrence as @occurrence" do
       occurrence = FactoryGirl.create(:occurrence)
-      get :edit, {:event_id => @event.id, :id => occurrence.to_param}, valid_session
+      get :edit, {:event_id => @event.to_param, :id => occurrence.to_param}, valid_session
       assigns(:occurrence).should eq(occurrence)
     end
   end
@@ -78,13 +78,13 @@ describe OccurrencesController do
       it "creates a new Occurrence" do
         Occurrence.any_instance.should_receive(:save).and_return(true)
         Occurrence.any_instance.stub(:id).and_return(1)
-        post :create, {:event_id => @event.id, :occurrence => valid_attributes}, valid_session
+        post :create, {:event_id => @event.to_param, :occurrence => valid_attributes}, valid_session
       end
 
       it "assigns a newly created occurrence as @occurrence" do
         Occurrence.any_instance.should_receive(:save).and_return(true)
         Occurrence.any_instance.stub(:id).and_return(1)
-        post :create, {:event_id => @event.id, :occurrence => valid_attributes}, valid_session
+        post :create, {:event_id => @event.to_param, :occurrence => valid_attributes}, valid_session
         assigns(:occurrence).should be_a(Occurrence)
       end
 
@@ -92,7 +92,7 @@ describe OccurrencesController do
         occurrence_id = 1
         Occurrence.any_instance.should_receive(:save).and_return(true)
         Occurrence.any_instance.stub(:id).and_return(occurrence_id)
-        post :create, {:event_id => @event.id, :occurrence => valid_attributes}, valid_session
+        post :create, {:event_id => @event.to_param, :occurrence => valid_attributes}, valid_session
         response.should redirect_to(event_occurrence_url(@event,occurrence_id))
       end
     end
@@ -101,14 +101,14 @@ describe OccurrencesController do
       it "assigns a newly created but unsaved occurrence as @occurrence" do
         # Trigger the behavior that occurs when invalid params are submitted
         Occurrence.any_instance.stub(:save).and_return(false)
-        post :create, {:event_id => @event.id, :occurrence => {}}, valid_session
+        post :create, {:event_id => @event.to_param, :occurrence => {}}, valid_session
         assigns(:occurrence).should be_a_new(Occurrence)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Occurrence.any_instance.stub(:save).and_return(false)
-        post :create, {:event_id => @event.id, :occurrence => {}}, valid_session
+        post :create, {:event_id => @event.to_param, :occurrence => {}}, valid_session
         response.should render_template("new")
       end
     end
@@ -123,18 +123,18 @@ describe OccurrencesController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Occurrence.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:event_id => @event.id, :id => occurrence.to_param, :occurrence => {'these' => 'params'}}, valid_session
+        put :update, {:event_id => @event.to_param, :id => occurrence.to_param, :occurrence => {'these' => 'params'}}, valid_session
       end
 
       it "assigns the requested occurrence as @occurrence" do
         occurrence = FactoryGirl.create(:occurrence)
-        put :update, {:event_id => @event.id, :id => occurrence.to_param, :occurrence => valid_attributes}, valid_session
+        put :update, {:event_id => @event.to_param, :id => occurrence.to_param, :occurrence => valid_attributes}, valid_session
         assigns(:occurrence).should eq(occurrence)
       end
 
       it "redirects to the occurrence" do
         occurrence = FactoryGirl.create(:occurrence)
-        put :update, {:event_id => @event.id, :id => occurrence.to_param, :occurrence => valid_attributes}, valid_session
+        put :update, {:event_id => @event.to_param, :id => occurrence.to_param, :occurrence => valid_attributes}, valid_session
         response.should redirect_to(event_occurrence_url(@event))
       end
     end
@@ -144,7 +144,7 @@ describe OccurrencesController do
         occurrence = FactoryGirl.create(:occurrence)
         # Trigger the behavior that occurs when invalid params are submitted
         Occurrence.any_instance.stub(:save).and_return(false)
-        put :update, {:event_id => @event.id, :id => occurrence.to_param, :occurrence => {}}, valid_session
+        put :update, {:event_id => @event.to_param, :id => occurrence.to_param, :occurrence => {}}, valid_session
         assigns(:occurrence).should eq(occurrence)
       end
 
@@ -152,7 +152,7 @@ describe OccurrencesController do
         occurrence = FactoryGirl.create(:occurrence)
         # Trigger the behavior that occurs when invalid params are submitted
         Occurrence.any_instance.stub(:save).and_return(false)
-        put :update, {:event_id => @event.id, :id => occurrence.to_param, :occurrence => {}}, valid_session
+        put :update, {:event_id => @event.to_param, :id => occurrence.to_param, :occurrence => {}}, valid_session
         response.should render_template("edit")
       end
     end
@@ -162,13 +162,13 @@ describe OccurrencesController do
     it "destroys the requested occurrence" do
       occurrence = FactoryGirl.create(:occurrence)
       expect {
-        delete :destroy, {:event_id => @event.id, :id => occurrence.to_param}, valid_session
+        delete :destroy, {:event_id => @event.to_param, :id => occurrence.to_param}, valid_session
       }.to change(Occurrence, :count).by(-1)
     end
 
     it "redirects to the occurrences list" do
       occurrence = FactoryGirl.create(:occurrence)
-      delete :destroy, {:event_id => @event.id, :id => occurrence.to_param}, valid_session
+      delete :destroy, {:event_id => @event.to_param, :id => occurrence.to_param}, valid_session
       response.should redirect_to(event_occurrences_url)
     end
   end

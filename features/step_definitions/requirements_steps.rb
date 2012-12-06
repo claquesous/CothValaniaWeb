@@ -1,6 +1,6 @@
 Given /^Event "(.*?)" (has|satisfies) requirement "(.*?)"$/ do |event_name, relation, requirement|
   req = Requirement.find_by_name(requirement)
-  visit "/requirements/#{req.nil? ? "new" : "#{req.id}/edit"}"
+  visit "/requirements/#{req.nil? ? "new" : "#{req.to_param}/edit"}"
   page.should have_content(event_name)
   case relation
   when "has"

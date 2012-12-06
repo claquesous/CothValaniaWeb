@@ -1,4 +1,4 @@
 Given /^I am on the new occurrence page for "(.*?)"$/ do |event|
-  visit "/events/#{Event.find_by_name(event).id}/occurrences/new"
+  visit new_event_occurrence_path(Event.find_by_name(event))
 end
 

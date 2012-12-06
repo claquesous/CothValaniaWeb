@@ -14,7 +14,7 @@ class RequirementsController < ApplicationController
   # GET /requirements/1
   # GET /requirements/1.json
   def show
-    @requirement = Requirement.find(params[:id])
+    @requirement = Requirement.find_by_name(CGI.unescape params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -38,7 +38,7 @@ class RequirementsController < ApplicationController
 
   # GET /requirements/1/edit
   def edit
-    @requirement = Requirement.find(params[:id])
+    @requirement = Requirement.find_by_name(CGI.unescape params[:id])
     @events = Event.all
     @requirement.build_all_event_requirements(@events)
     @requirement.build_all_requirement_obtainments(@events)
@@ -66,7 +66,7 @@ class RequirementsController < ApplicationController
   # PUT /requirements/1
   # PUT /requirements/1.json
   def update
-    @requirement = Requirement.find(params[:id])
+    @requirement = Requirement.find_by_name(CGI.unescape params[:id])
 
     respond_to do |format|
       if @requirement.update_attributes(params[:requirement])
@@ -85,7 +85,7 @@ class RequirementsController < ApplicationController
   # DELETE /requirements/1
   # DELETE /requirements/1.json
   def destroy
-    @requirement = Requirement.find(params[:id])
+    @requirement = Requirement.find_by_name(CGI.unescape params[:id])
     @requirement.destroy
 
     respond_to do |format|

@@ -14,7 +14,7 @@ class RewardsController < ApplicationController
   # GET /rewards/1
   # GET /rewards/1.json
   def show
-    @reward = Reward.find(params[:id])
+    @reward = Reward.find_by_name(CGI.unescape params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -37,7 +37,7 @@ class RewardsController < ApplicationController
 
   # GET /rewards/1/edit
   def edit
-    @reward = Reward.find(params[:id])
+    @reward = Reward.find_by_name(CGI.unescape params[:id])
     @events = Event.visible
     @reward.build_all_event_rewards(@events)
   end
@@ -63,7 +63,7 @@ class RewardsController < ApplicationController
   # PUT /rewards/1
   # PUT /rewards/1.json
   def update
-    @reward = Reward.find(params[:id])
+    @reward = Reward.find_by_name(CGI.unescape params[:id])
 
     respond_to do |format|
       if @reward.update_attributes(params[:reward])
@@ -81,7 +81,7 @@ class RewardsController < ApplicationController
   # DELETE /rewards/1
   # DELETE /rewards/1.json
   def destroy
-    @reward = Reward.find(params[:id])
+    @reward = Reward.find_by_name(CGI.unescape params[:id])
     @reward.destroy
 
     respond_to do |format|

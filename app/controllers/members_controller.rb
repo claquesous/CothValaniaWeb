@@ -21,7 +21,7 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.json
   def show
-    @member = Member.find(params[:id])
+    @member = Member.find_by_name(CGI.unescape params[:id])
     @jobs = Job.all
 
     respond_to do |format|
@@ -47,7 +47,7 @@ class MembersController < ApplicationController
 
   # GET /members/1/edit
   def edit
-    @member = Member.find(params[:id])
+    @member = Member.find_by_name(CGI.unescape params[:id])
     @races = Race.all
     @member.build_all_character_jobs
     @selected_rewards = @member.selected_rewards
@@ -85,7 +85,7 @@ class MembersController < ApplicationController
   # PUT /members/1
   # PUT /members/1.json
   def update
-    @member = Member.find(params[:id])
+    @member = Member.find_by_name(CGI.unescape params[:id])
     @member.build_rewards(params[:reward_preferences].split(" "))
 
     respond_to do |format|
@@ -106,7 +106,7 @@ class MembersController < ApplicationController
   # DELETE /members/1
   # DELETE /members/1.json
   def destroy
-    @member = Member.find(params[:id])
+    @member = Member.find_by_name(CGI.unescape params[:id])
     @member.destroy
 
     respond_to do |format|
@@ -126,7 +126,7 @@ class MembersController < ApplicationController
   def validate_member
     unless current_member.id == params[:id].to_i || admin?
       flash[:warning] = 'You may only edit yourself!'
-      redirect_to Member.find(params[:id])
+      redirect_to Member.find_by_name(CGI.unescape params[:id])
     end
   end
 end

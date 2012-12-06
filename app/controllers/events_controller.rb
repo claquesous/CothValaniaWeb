@@ -14,7 +14,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    @event = Event.find(params[:id])
+    @event = Event.find_by_name(CGI.unescape params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -35,7 +35,7 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    @event = Event.find(params[:id])
+    @event = Event.find_by_name(CGI.unescape params[:id])
   end
 
   # POST /events
@@ -57,7 +57,7 @@ class EventsController < ApplicationController
   # PUT /events/1
   # PUT /events/1.json
   def update
-    @event = Event.find(params[:id])
+    @event = Event.find_by_name(CGI.unescape params[:id])
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
@@ -73,7 +73,7 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
-    @event = Event.find(params[:id])
+    @event = Event.find_by_name(CGI.unescape params[:id])
     @event.destroy
 
     respond_to do |format|

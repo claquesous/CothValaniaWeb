@@ -24,7 +24,9 @@ describe RequirementsController do
   # Requirement. As you add validations to Requirement, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      name: "Requirement"
+    }
   end
 
   # This should return the minimal set of values that should be in the session

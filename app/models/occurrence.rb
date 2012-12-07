@@ -1,4 +1,5 @@
 class Occurrence < ActiveRecord::Base
+  default_scope order(:end_time).reverse_order
   attr_accessible :end_time, :remarks, :start_time, :success, :event_attendances_attributes, :obtained_requirements_attributes, :used_requirement_ids
   # An event can have many attendees
   has_many :event_attendances, :dependent => :destroy, :inverse_of => :occurrence

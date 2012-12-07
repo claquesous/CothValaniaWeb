@@ -73,7 +73,7 @@
       - if r.obtained
         %tr
           %td= link_to r.reward.name, reward_path(r.reward)
-          %td= link_to r.occurrence.end_time.to_date, event_occurrence_path(r.occurrence.event_id, r.occurrence) unless r.occurrence.nil?
+          %td= link_to r.occurrence.end_time.to_date, event_occurrence_path(r.occurrence.event, r.occurrence) unless r.occurrence.nil?
           %td= r.obtained_points
 
 = link_to 'Edit', edit_member_path(@member)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117235718) do
+ActiveRecord::Schema.define(:version => 20121207043109) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -148,7 +148,10 @@ ActiveRecord::Schema.define(:version => 20121117235718) do
     t.integer  "event_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "member_id"
   end
+
+  add_index "occurrences", ["member_id"], :name => "index_occurrences_on_member_id"
 
   create_table "races", :force => true do |t|
     t.string   "name"

@@ -49,6 +49,7 @@ class OccurrencesController < ApplicationController
   def create
     @event = Event.find_by_name(CGI.unescape params[:event_id])
     @occurrence = @event.occurrences.build(params[:occurrence])
+    @occurrence.member = current_member
 
     if params[:character_rewards]
       params[:character_rewards].each do |obtained_cr, value|

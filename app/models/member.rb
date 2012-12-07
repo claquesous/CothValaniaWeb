@@ -10,6 +10,7 @@ class Member < ActiveRecord::Base
   has_many :shouts
   has_many :event_attendances, :through => :characters
   has_many :character_rewards
+  has_many :occurrences
   validates_uniqueness_of :name
   accepts_nested_attributes_for :characters, :reject_if => lambda { |a| a[:name].blank? }
 

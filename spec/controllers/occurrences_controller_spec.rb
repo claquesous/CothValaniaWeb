@@ -88,6 +88,13 @@ describe OccurrencesController do
         assigns(:occurrence).should be_a(Occurrence)
       end
 
+      it "assigns the logged in user as the input member" do
+        Occurrence.any_instance.should_receive(:save).and_return(true)
+        Occurrence.any_instance.should_receive(:member=).with(@current_member)
+        Occurrence.any_instance.stub(:id).and_return(1)
+        post :create, {:event_id => @event.to_param, :occurrence => valid_attributes}, valid_session
+      end
+
       it "redirects to the created occurrence" do
         occurrence_id = 1
         Occurrence.any_instance.should_receive(:save).and_return(true)

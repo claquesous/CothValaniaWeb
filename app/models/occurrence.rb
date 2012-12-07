@@ -12,6 +12,8 @@ class Occurrence < ActiveRecord::Base
   has_many :used_requirements, :class_name => "CharacterRequirement", :foreign_key => "used_occurrence_id"
   # Most important is that it is an occurrence of Event
   belongs_to :event
+  # It was added by a member
+  belongs_to :member
   validates_presence_of :event
   accepts_nested_attributes_for :event_attendances, :allow_destroy => true
   accepts_nested_attributes_for :obtained_requirements, :allow_destroy => true

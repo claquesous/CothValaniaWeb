@@ -42,6 +42,7 @@ describe "Occurrences" do
   describe "GET /occurrences/show" do
     before :each do
       @occurrence = FactoryGirl.create :occurrence
+      Occurrence.any_instance.stub(:member).and_return(mock_model("Member", name: "Member"))
     end
     it "does allow a normal user" do
       login

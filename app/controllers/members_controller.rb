@@ -121,6 +121,17 @@ class MembersController < ApplicationController
     redirect_to members_path
   end
 
+  # GET /members/1/attendances
+  # GET /members/1/attendances.json
+  def attendances
+    @member = Member.find_by_name(CGI.unescape params[:id])
+
+    respond_to do |format|
+      format.html # attendances.html.erb
+      format.json { render json: @member.event_attendances }
+    end
+  end
+
   private
 
   def validate_member

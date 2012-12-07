@@ -1,0 +1,7 @@
+%b Attendance 
+%table
+  - attendances.each do |a|
+    %tr
+      %td= link_to a.occurrence.end_time.to_date, event_occurrence_path(a.occurrence.event, a.occurrence)
+      %td= link_to a.event.name, event_path(a.event)
+      %td (#{a.character.name} #{a.event.points})

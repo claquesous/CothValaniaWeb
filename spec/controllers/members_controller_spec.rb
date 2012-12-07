@@ -187,4 +187,11 @@ describe MembersController do
     end
   end
 
+  describe "GET attendances" do
+    it "assigns the requested member as @member" do
+      member = Member.create! valid_attributes
+      get :attendances, {:id => member.to_param}, valid_session
+      assigns(:member).should eq(member)
+    end
+  end
 end

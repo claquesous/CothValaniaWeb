@@ -14,11 +14,11 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :characters, :reject_if => lambda { |a| a[:name].blank? }
 
   def points
-    event_attendances.includes(:occurrence).joins(:event).sum("points").to_i
+    event_attendances.includes(:occurrence).joins(:event).sum(:points).to_i
   end
   
   def current_points
-    event_attendances.includes(:occurrence).where("end_time >=?", cycle_date).joins(:event).sum("points").to_i
+    event_attendances.includes(:occurrence).where("end_time >=?", cycle_date).joins(:event).sum(:points).to_i
   end
 
   def selected_rewards

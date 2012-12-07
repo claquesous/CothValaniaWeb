@@ -17,7 +17,7 @@
   = @occurrence.success
 %p
   %b Attendees:
-  - @occurrence.characters.each do |character|
+  - @occurrence.characters.order(:name).each do |character|
     = link_to character.name, member_path(character.member)
 
 %p

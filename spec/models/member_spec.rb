@@ -95,4 +95,28 @@ describe Member do
       member.character_rewards.count.should be(2)
     end
   end
+
+  describe "member roles" do
+    before :each do
+      @member = FactoryGirl.create(:member)
+      @admin = FactoryGirl.create(:member, admin: true)
+      @leader = FactoryGirl.create(:member, leader: true)
+    end
+    describe "Member.leader" do
+      it "should be the leader" do
+        Member.leader.should eq(@leader)
+      end
+    end
+    describe "Member.admins" do
+      it "should include the leader" do
+        Member.admins.should include(@leader)
+      end
+      it "should include any admin" do
+        Member.admins.should include(@admin)
+      end
+      it "should not include a normal member" do
+        Member.admins.should_not include(@member)
+      end
+    end
+  end
 end

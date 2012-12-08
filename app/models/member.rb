@@ -1,6 +1,7 @@
 class Member < ActiveRecord::Base
   scope :active, where("active=? or active is null", true)
   scope :inactive, where("active=?", false)
+  scope :admins, where("admin=? or leader=?", true, true)
   default_scope order(:name)
   attr_accessible :active, :name, :password, :password_confirmation, :remarks, :url, :characters_attributes
   has_secure_password
@@ -12,7 +13,12 @@ class Member < ActiveRecord::Base
   has_many :character_rewards
   has_many :occurrences
   validates_uniqueness_of :name
+  validates_uniqueness_of :leader, allow_nil: true
   accepts_nested_attributes_for :characters, :reject_if => lambda { |a| a[:name].blank? }
+
+  def self.leader
+    where(leader: true).first
+  end
 
   def points
     event_attendances.includes(:occurrence).joins(:event).sum(:points).to_i

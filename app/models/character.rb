@@ -34,11 +34,11 @@ class Character < ActiveRecord::Base
   end
 
   def points
-    event_attendances.includes(:occurrence).joins(:event).sum("points").to_i
+    event_attendances.points
   end
 
   def current_points
-    event_attendances.includes(:occurrence).where("end_time >=?", member.cycle_date).joins(:event).sum("points").to_i
+    event_attendances.since(member.cycle_date).points
   end
 
   def initialize(*args)

@@ -6,4 +6,12 @@ class EventAttendance < ActiveRecord::Base
   has_one :event, :through => :occurrence
   validates_presence_of :character, :occurrence
   validates_uniqueness_of :character_id, :scope => :occurrence_id
+
+  def self.points
+    includes(:occurrence).joins(:event).sum(:points).to_i
+  end
+
+  def self.since(date)
+    includes(:occurrence).where('end_time >=?', date)
+  end
 end

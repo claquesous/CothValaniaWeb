@@ -16,8 +16,8 @@
     = f.label :end_time
     = f.datetime_select :end_time
   .field
-    = f.label :success
-    = f.check_box :success
+    = f.label :success, :Failed
+    = f.check_box :success, {checked: !@occurrence.success}, 0, 1
   %h3 Attendees
   %table
     - @members.each_with_index do |m,i|

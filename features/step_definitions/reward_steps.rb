@@ -18,6 +18,6 @@ end
 
 When /^I (un)?check "(.*?)" as obtained by "(.*?)"$/ do |uncheck,reward, char|
   cr = CharacterReward.where("reward_id =? and character_id=?", Reward.find_by_name(reward), Character.find_by_name(char)).first
-  eval("#{uncheck}check 'character_rewards_#{cr.id}'")
+  eval("#{uncheck}check 'occurrence_character_reward_ids_#{cr.id}'")
 end
 

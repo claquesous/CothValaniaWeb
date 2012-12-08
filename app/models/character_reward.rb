@@ -1,4 +1,5 @@
 class CharacterReward < ActiveRecord::Base
+  before_save :correct_obtained
   scope :unobtained, where("obtained=? or obtained is null", false)
   scope :obtained, where(obtained: true)
   scope :active, joins(:member).where("members.active")
@@ -12,5 +13,11 @@ class CharacterReward < ActiveRecord::Base
 
   def self.unobtained_or_occurrence(occurrence)
     active.unobtained || obtained.where(occurrence_id: occurrence.id)
+  end
+
+  private
+  def correct_obtained
+    obtained = !occurrence_id.nil?
+    true
   end
 end

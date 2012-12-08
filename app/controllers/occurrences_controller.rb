@@ -51,13 +51,6 @@ class OccurrencesController < ApplicationController
     @occurrence = @event.occurrences.build(params[:occurrence])
     @occurrence.member = current_member
 
-    if params[:character_rewards]
-      params[:character_rewards].each do |obtained_cr, value|
-        obtained_reward = CharacterReward.find(obtained_cr)
-        @occurrence.character_rewards << obtained_reward if value=="1"
-      end
-    end
-
     respond_to do |format|
       if @occurrence.save
         format.html { redirect_to event_occurrence_url(@event,@occurrence), notice: 'Event occurrence was successfully created.' }
@@ -75,18 +68,6 @@ class OccurrencesController < ApplicationController
   def update
     @event = Event.find_by_name(CGI.unescape params[:event_id])
     @occurrence = Occurrence.find(params[:id])
-
-    if params[:character_rewards]
-      params[:character_rewards].each do |obtained_cr, value|
-        obtained_reward = CharacterReward.find(obtained_cr)
-        if value=="1"
-          @occurrence.character_rewards << obtained_reward
-        else
-          obtained_reward.occurrence = nil
-          obtained_reward.save!
-        end
-      end
-    end
 
     respond_to do |format|
       if @occurrence.update_attributes(params[:occurrence])

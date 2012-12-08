@@ -5,6 +5,7 @@ class Character < ActiveRecord::Base
   has_many :character_requirements
   has_many :character_rewards
   has_many :event_attendances
+  has_many :attendances, source: :occurrence, through: :event_attendances
   has_many :character_jobs, :inverse_of => :character
   has_many :jobs, :through => :character_jobs
   validates_uniqueness_of :name
@@ -34,11 +35,11 @@ class Character < ActiveRecord::Base
   end
 
   def points
-    event_attendances.points
+    attendances.points
   end
 
   def current_points
-    event_attendances.since(member.cycle_date).points
+    attendances.since(member.cycle_date).points
   end
 
   def initialize(*args)

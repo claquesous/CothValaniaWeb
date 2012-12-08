@@ -17,4 +17,12 @@ class Occurrence < ActiveRecord::Base
   validates_presence_of :event
   accepts_nested_attributes_for :event_attendances, :allow_destroy => true
   accepts_nested_attributes_for :obtained_requirements, :allow_destroy => true
+
+  def self.points
+    joins(:event).sum(:points).to_i
+  end
+  
+  def self.since(date)
+    where("end_time >=?", date)
+  end
 end

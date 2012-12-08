@@ -10,6 +10,7 @@ class Member < ActiveRecord::Base
   has_many :news
   has_many :shouts
   has_many :event_attendances, :through => :characters
+  has_many :attendances, source: :occurrence, through: :event_attendances
   has_many :character_rewards
   has_many :occurrences
   validates_uniqueness_of :name
@@ -21,11 +22,11 @@ class Member < ActiveRecord::Base
   end
 
   def points
-    event_attendances.points
+    attendances.points
   end
   
   def current_points
-    event_attendances.since(cycle_date).points
+    attendances.since(cycle_date).points
   end
 
   def selected_rewards

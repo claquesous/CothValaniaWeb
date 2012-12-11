@@ -21,7 +21,7 @@
   %h3 Attendees
   %table
     - @members.each_with_index do |m,i|
-      - if (new_ea = f.object.event_attendances.find{|s| !s.character.nil? && s.character.member == m}).nil?
+      - if (new_ea = f.object.event_attendances.find{|s| s.member == m}).nil?
         - new_ea = EventAttendance.new
       = f.fields_for :event_attendances, new_ea, :child_index => i do |ea|
         %tr

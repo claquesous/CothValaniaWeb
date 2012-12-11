@@ -23,7 +23,7 @@
     = f.text_field :remarks
   .field
     = f.label :active, :Inactive
-    = f.check_box :active, {checked: !@member.active}, 0, 1
+    = f.check_box :active, {checked: @member.active==false}, 0, 1
   .field
     = f.fields_for :characters do |c|
       = render 'character', :f => c

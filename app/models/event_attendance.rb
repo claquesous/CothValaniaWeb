@@ -8,10 +8,11 @@ class EventAttendance < ActiveRecord::Base
   validates_uniqueness_of :character_id, :scope => :occurrence_id
 
   def self.points
-    includes(:occurrence).joins(:event).sum(:points).to_i
+    includes(:occurrence).merge(Occurrence.success).joins(:event).sum(:points).to_i + 
+      includes(:occurrence).merge(Occurrence.failure).joins(:event).sum(:points).to_i
   end
 
   def self.since(date)
-    includes(:occurrence).where('end_time >=?', date)
+    includes(:occurrence).merge(Occurrence.since(date))
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121207043109) do
+ActiveRecord::Schema.define(:version => 20121208220608) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20121207043109) do
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
     t.boolean  "requirements_mixable"
+    t.integer  "failure_points"
   end
 
   create_table "jobs", :force => true do |t|

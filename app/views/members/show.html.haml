@@ -46,7 +46,7 @@
       %td= c.current_points
       %td= c.remarks
       %td= c.sex
-      %td= c.race.name unless c.race.nil?
+      %td= c.race.try :name
       - @jobs.each do |j|
         %td= c.jobs.include?(j)
 

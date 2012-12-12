@@ -194,4 +194,23 @@ describe MembersController do
       assigns(:member).should eq(member)
     end
   end
+
+  describe "PUT update_active" do
+    it "hides members that weren't selected" do
+      member = FactoryGirl.create :member, active: true
+      put :update_active, {member_ids: []}, valid_session
+      member.reload.active.should be false
+    end
+
+    it "unhides members that were selected" do
+      member = FactoryGirl.create :member, active: false
+      put :update_active, {member_ids: [member.id]}, valid_session
+      member.reload.active.should be true
+    end
+
+    it "redirects to the members list" do
+      put :update_active, {member_ids: []}, valid_session
+      response.should redirect_to(members_url)
+    end
+  end
 end

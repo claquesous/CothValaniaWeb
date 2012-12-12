@@ -15,6 +15,10 @@ class CharacterReward < ActiveRecord::Base
     active.unobtained || obtained.where(occurrence_id: occurrence.id)
   end
 
+  def current_points
+    member.points.to_f/preference
+  end
+
   private
   def correct_obtained
     obtained = !occurrence_id.nil?

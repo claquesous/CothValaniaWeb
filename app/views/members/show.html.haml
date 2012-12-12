@@ -64,7 +64,7 @@
         - if r.obtained
           %td Obtained (#{r.obtained_points})
         - else
-          %td Points: #{@member.points.to_f/r.preference}
+          %td Points: #{r.current_points}
 
 %p
   %b Drops Obtained

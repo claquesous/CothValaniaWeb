@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :character do
-    sequence(:name) { |n| "Character#{n}" }
+    sequence(:name) { |n| "Character%03d" % n }
     member
   end
 end

@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :news do
     date {Time.now}
-    sequence(:text) { |n| "News text #{n}" }
+    sequence(:text) { |n| "News text %03d" % n }
     member
   end
 end

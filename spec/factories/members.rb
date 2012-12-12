@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :member do
-    sequence(:name) { |n| "Member#{n}" }
+    sequence(:name) { |n| "Member%03d" % n }
     password "Password"
     cycle_date {1.year.ago}
     active true

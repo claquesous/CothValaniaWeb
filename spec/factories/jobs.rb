@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :job do
-    sequence(:name) { |n| "Job#{n}" }
+    sequence(:name) { |n| "Job%03d" % n }
   end
 end

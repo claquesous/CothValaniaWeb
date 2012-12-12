@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :requirement do
-    sequence(:name) { |n| "Requirement#{n}" }
+    sequence(:name) { |n| "Requirement%03d" % n }
   end
 end

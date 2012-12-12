@@ -36,3 +36,7 @@ When /^I (un)?check the box next to "(.*?)"$/ do |uncheck, arg1|
   end
 end
 
+When /^I fill in "(.*?)" with "(.*?)"$/ do |field, value|
+  fill_in field, with: value
+end
+

@@ -18,6 +18,9 @@
   .field
     = f.label :success, :Failed
     = f.check_box :success, {checked: @occurrence.success==false}, 0, 1
+  .field
+    = f.label :optional
+    = f.check_box :optional
   %h3 Attendees
   %table
     - @members.each_with_index do |m,i|

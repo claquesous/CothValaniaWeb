@@ -7,6 +7,7 @@
     %th Start time
     %th End time
     %th Success
+    %th Optional
     %th
     %th
     %th
@@ -18,6 +19,7 @@
       %td= occurrence.start_time
       %td= occurrence.end_time
       %td= occurrence.success
+      %td= occurrence.optional
       %td= link_to 'Show', event_occurrence_path(@event,occurrence)
       %td= link_to 'Edit', edit_event_occurrence_path(@event,occurrence)
       %td= link_to 'Destroy', event_occurrence_path(@event,occurrence), method: :delete, data: { confirm: 'Are you sure?' }

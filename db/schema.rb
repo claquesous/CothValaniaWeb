@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121208220608) do
+ActiveRecord::Schema.define(:version => 20121211181658) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(:version => 20121208220608) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "member_id"
+    t.boolean  "optional"
   end
 
   add_index "occurrences", ["member_id"], :name => "index_occurrences_on_member_id"

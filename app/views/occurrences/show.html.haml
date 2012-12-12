@@ -16,6 +16,9 @@
   %b Success:
   = @occurrence.success
 %p
+  %b Optional:
+  = @occurrence.optional
+%p
   %b Attendees:
   - @occurrence.characters.order(:name).each do |character|
     = link_to character.name, member_path(character.member)

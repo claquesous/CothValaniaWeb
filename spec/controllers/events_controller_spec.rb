@@ -49,6 +49,20 @@ describe EventsController do
       get :index, {}, valid_session
       assigns(:events).should eq([event])
     end
+
+    it "assigns only unhidden events normally" do
+      event = FactoryGirl.create :event
+      hidden = FactoryGirl.create :event, hidden: true
+      get :index, {}, valid_session
+      assigns(:events).should eq([event])
+    end
+
+    it "assigns all events when passing update_visible" do
+      event = FactoryGirl.create :event
+      hidden = FactoryGirl.create :event, hidden: true
+      get :index, {update_visible: true }, valid_session
+      assigns(:events).should eq([event, hidden])
+    end
   end
 
   describe "GET show" do
@@ -170,4 +184,22 @@ describe EventsController do
     end
   end
 
+  describe "PUT update_visible" do
+    it "hides events that weren't selected" do
+      event = FactoryGirl.create :event, hidden: false
+      put :update_visible, {event_ids: []}, valid_session
+      event.reload.hidden.should be true
+    end
+
+    it "unhides events that were selected" do
+      event = FactoryGirl.create :event, hidden: true
+      put :update_visible, {event_ids: [event.id]}, valid_session
+      event.reload.hidden.should be false
+    end
+
+    it "redirects to the events list" do
+      put :update_visible, {event_ids: []}, valid_session
+      response.should redirect_to(events_url)
+    end
+  end
 end

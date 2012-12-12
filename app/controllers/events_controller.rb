@@ -3,7 +3,12 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.visible
+    if params[:update_visible]
+      @events = Event.all
+      @update_visible = true
+    else
+      @events = Event.visible
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -80,5 +85,15 @@ class EventsController < ApplicationController
       format.html { redirect_to events_url }
       format.json { head :no_content }
     end
+  end
+
+  def update_visible
+    if params[:event_ids].empty?
+      Event.update_all(hidden: true)
+    else
+      Event.where(id: params[:event_ids]).update_all(hidden: false)
+      Event.where("id not in (?)", params[:event_ids]).update_all(hidden: true)
+    end
+    redirect_to events_path
   end
 end

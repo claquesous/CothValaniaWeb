@@ -13,6 +13,7 @@ Cvweb::Application.routes.draw do
 
   resources :events do
     resources :occurrences
+    put :update_visible, on: :collection
   end
 
   resources :members do

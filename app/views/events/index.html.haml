@@ -1,7 +1,12 @@
 %h1 Listing events
 
+- if @update_visible
+  = form_tag update_visible_events_path, method: :put
+
 %table
   %tr
+    - if @update_visible
+      %th
     %th Name
     %th Points
     %th Failure Points
@@ -13,6 +18,8 @@
 
   - @events.each do |event|
     %tr
+      - if @update_visible
+        %td= check_box_tag "event_ids[]", event.id, !event.hidden, id: "visible_ids_#{event.id}"
       %td= link_to event.name, event
       %td= event.points
       %td= event.failure_points
@@ -23,5 +30,10 @@
       %td= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
+
+- if @update_visible
+  = submit_tag 'Update Visible'
+- else
+  = link_to 'Update Visible', events_path(update_visible: 1)
 
 = link_to 'New Event', new_event_path

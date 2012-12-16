@@ -22,6 +22,7 @@ class CharacterReward < ActiveRecord::Base
   private
   def correct_obtained
     obtained = !occurrence_id.nil?
+    obtained_points = current_points if preference
     true
   end
 end

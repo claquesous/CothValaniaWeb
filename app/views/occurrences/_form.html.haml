@@ -24,7 +24,7 @@
   %h3 Attendees
   %table
     - @members.each_with_index do |m,i|
-      - if (new_ea = f.object.event_attendances.find{|s| s.member == m}).nil?
+      - if (new_ea = f.object.event_attendances.includes(:member).find{|s| s.member == m}).nil?
         - new_ea = EventAttendance.new
       = f.fields_for :event_attendances, new_ea, :child_index => i do |ea|
         %tr
@@ -46,12 +46,12 @@
     = hidden_field_tag "occurrence[character_reward_ids][]"
     - event_rewards.each do |r|
       %br= r.name
-      - r.character_rewards.unobtained_or_occurrence(@occurrence).each do |cr|
+      - r.character_rewards.includes(:character).includes(:occurrence).unobtained_or_occurrence(@occurrence).each do |cr|
         = cr.character.nil? ? cr.member.name : cr.character.name
         = check_box_tag "occurrence[character_reward_ids][]", cr.id, cr.occurrence == @occurrence, id: "occurrence_character_reward_ids_#{cr.id}"
 
-  - er = @event.event_requirements
-  - ro = @event.requirement_obtainments
+  - er = @event.event_requirements.includes(:requirement)
+  - ro = @event.requirement_obtainments.includes(:requirement)
   - if er.count>0 || ro.count>0
     %h3 Requirements
     = hidden_field_tag "occurrence[used_requirement_ids][]"
@@ -67,7 +67,7 @@
           %tr
             - er.each do |r|
               %td
-                -unless (new_ur = get_requirements(r.requirement.character_requirements,c)).nil?
+                -unless (new_ur = get_requirements(r.requirement.character_requirements.includes(:character).includes(:used_occurrence),c)).nil?
                   = check_box_tag "occurrence[used_requirement_ids][]", new_ur.id, new_ur.used_occurrence == @occurrence, id: "occurrence_used_requirement_ids_#{new_ur.id}"
             %td= c.name
             - ro.each do |r|

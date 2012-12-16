@@ -1,6 +1,6 @@
 %ol
   - points = {}
-  - reward.character_rewards.unobtained.active.each do |cr|
+  - reward.character_rewards.includes(:member).unobtained.active.each do |cr|
     - points[cr] = cr.current_points
   - points = points.sort_by {|k,v| -v}
   - points.each do |member, points|

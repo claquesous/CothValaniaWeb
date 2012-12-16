@@ -40,7 +40,7 @@
     %th Race
     - @jobs.each do |j|
       %th= j.name
-  - @member.characters.each do |c|
+  - @member.characters.includes(:race).includes(:member).each do |c|
     %tr
       %td= c.name
       %td= c.current_points
@@ -57,7 +57,7 @@
 %p
   %b Drops List
   %table
-    - @member.character_rewards.order(:preference).each do |r|
+    - @member.character_rewards.includes(:reward).order(:preference).each do |r|
       %tr
         %td #{r.preference}.
         %td= link_to r.reward.name, reward_path(r.reward)
@@ -69,7 +69,7 @@
 %p
   %b Drops Obtained
   %table
-    - @member.character_rewards.order(:preference).each do |r|
+    - @member.character_rewards.includes(:occurrence => :event).order(:preference).each do |r|
       - if r.obtained
         %tr
           %td= link_to r.reward.name, reward_path(r.reward)

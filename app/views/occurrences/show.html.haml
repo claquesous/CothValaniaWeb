@@ -20,12 +20,12 @@
   = @occurrence.optional
 %p
   %b Attendees:
-  - @occurrence.characters.order(:name).each do |character|
+  - @occurrence.characters.includes(:member).order(:name).each do |character|
     = link_to character.name, member_path(character.member)
 
 %p
   %b Drops:
-  - @occurrence.character_rewards.each do |reward|
+  - @occurrence.character_rewards.includes(:reward).includes(:character).includes(:member).each do |reward|
     = link_to reward.reward.name, reward_path(reward.reward)
     \:
     = link_to reward.character.name, member_path(reward.member)

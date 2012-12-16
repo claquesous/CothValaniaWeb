@@ -6,5 +6,6 @@ FactoryGirl.define do
     password "Password"
     cycle_date {1.year.ago}
     active true
+    characters {[FactoryGirl.build(:character, name: name)]} 
   end
 end

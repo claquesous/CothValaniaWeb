@@ -16,6 +16,7 @@ class Member < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_uniqueness_of :leader, allow_nil: true
   accepts_nested_attributes_for :characters, :reject_if => lambda { |a| a[:name].blank? }
+  validate :has_character?
 
   def self.leader
     where(leader: true).first
@@ -52,5 +53,10 @@ class Member < ActiveRecord::Base
     characters.each do |character|
       character.build_all_character_jobs(Job.all)
     end
+  end
+
+  private
+  def has_character?
+    errors.add :base, "Member must have at least one character" if characters.blank?
   end
 end

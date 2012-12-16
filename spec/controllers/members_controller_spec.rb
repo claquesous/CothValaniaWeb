@@ -26,7 +26,8 @@ describe MembersController do
   def valid_attributes
     {
       :name => "Cvweb",
-      :password => "pass"
+      :password => "pass",
+      :characters_attributes => {"0" => {:name => "Cvweb"}},
     }
   end
 
@@ -142,13 +143,17 @@ describe MembersController do
 
       it "assigns the requested member as @member" do
         member = Member.create! valid_attributes
-        put :update, {:id => member.to_param, :member => valid_attributes, :reward_preferences => "" }, valid_session
+        attributes = valid_attributes
+        attributes[:characters_attributes]["0"][:id] = member.characters.first.id
+        put :update, {:id => member.to_param, :member => attributes, :reward_preferences => "" }, valid_session
         assigns(:member).should eq(member)
       end
 
       it "redirects to the member" do
         member = Member.create! valid_attributes
-        put :update, {:id => member.to_param, :member => valid_attributes, :reward_preferences => "" }, valid_session
+        attributes = valid_attributes
+        attributes[:characters_attributes]["0"][:id] = member.characters.first.id
+        put :update, {:id => member.to_param, :member => attributes, :reward_preferences => "" }, valid_session
         response.should redirect_to(member)
       end
     end

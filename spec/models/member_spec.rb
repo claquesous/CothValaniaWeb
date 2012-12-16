@@ -6,7 +6,7 @@ describe Member do
   end
 
   it "can be saved successfully" do
-    Member.create(name: :Cvweb, password: :cvwebpass).should be_persisted
+    Member.create(name: :Cvweb, password: :cvwebpass, characters_attributes: [name: :Cvweb]).should be_persisted
   end
 
   it { should have_many(:characters) }

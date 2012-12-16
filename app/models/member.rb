@@ -30,6 +30,14 @@ class Member < ActiveRecord::Base
     attendances.since(cycle_date).points
   end
 
+  def attendance_rate(since_date = join_date)
+    100 * (attendances.since(since_date).mandatory.points.to_f / Occurrence.since(since_date).mandatory.points)
+  end
+
+  def attendance_percentage
+     100 * (points.to_f / EventAttendance.points)
+  end
+  
   def selected_rewards
     character_rewards.unobtained.collect(&:reward)
   end

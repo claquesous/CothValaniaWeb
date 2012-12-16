@@ -55,6 +55,14 @@
   = link_to 'See all attendance', attendances_member_path(@member)
 
 %p
+  %b Attendance rate:
+  = @member.attendance_rate.round(2)
+
+%p
+  %b Attendance percentage:
+  = @member.attendance_percentage.round(2)
+
+%p
   %b Drops List
   %table
     - @member.character_rewards.includes(:reward).order(:preference).each do |r|

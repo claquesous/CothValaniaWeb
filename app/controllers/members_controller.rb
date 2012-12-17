@@ -139,7 +139,7 @@ class MembersController < ApplicationController
   private
 
   def validate_member
-    unless current_member.id == params[:id].to_i || admin?
+    unless current_member.to_param == params[:id] || admin?
       flash[:warning] = 'You may only edit yourself!'
       redirect_to Member.find_by_name(CGI.unescape params[:id])
     end

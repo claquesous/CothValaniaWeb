@@ -47,7 +47,7 @@
     - event_rewards.each do |r|
       %br= r.name
       - r.character_rewards.includes(:character).includes(:occurrence).unobtained_or_occurrence(@occurrence).each do |cr|
-        = cr.character.nil? ? cr.member.name : cr.character.name
+        = cr.character.name
         = check_box_tag "occurrence[character_reward_ids][]", cr.id, cr.occurrence == @occurrence, id: "occurrence_character_reward_ids_#{cr.id}"
 
   - er = @event.event_requirements.includes(:requirement)

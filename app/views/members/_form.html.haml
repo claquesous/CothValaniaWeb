@@ -28,25 +28,30 @@
     = f.fields_for :characters do |c|
       = render 'character', :f => c
     = link_to_add_fields "Add Character", f, :characters
-  #reward_prefs.field
-    = hidden_field_tag :reward_preferences, @selected_rewards.collect(&:id).join(" ")
+  .field
     %table
       %tr
-        %td= select_tag :preferences, options_from_collection_for_select(@selected_rewards, "id", "name"), :multiple => true, :name => "preferences", :size => 15
-        -# @rewards.each do |r|
-          %option= r.name
-        %td
-          %table
-            %tr
-              %td= button_to_function "Up", "upSelected()", :style => "width:150"
-            %tr
-              %td= button_to_function "Down", "downSelected()", :style => "width:150"
-            %tr
-              %td= button_to_function "<-Add", "addSelected()", :style => "width:150"
-            %tr
-              %td= button_to_function "Remove->", "removeSelected()", :style => "width:150"
-        %td= select_tag :reward_list, options_from_collection_for_select(@available_rewards, "id", "name"), :multiple => true, :name => "option", :size => 15
-     
+        %th
+        %th Reward
+        - if @member.characters.many?
+          %th Character
+      - @rewards.each_with_index do |r, i|
+        %tr
+          - next_cr = @member.character_rewards.find{ |cr| cr.preference == i+1}
+          - next_cr ||= @member.character_rewards.build(preference: i+1)
+          %td #{i+1}
+          - if next_cr.obtained
+            %td= next_cr.reward.name
+            - if @member.characters.many?
+              %td= next_cr.character.name
+          - else
+            = f.fields_for :character_rewards, next_cr, :child_index => i do |cr|
+              %td= cr.collection_select :reward_id, @available_rewards, :id, :name, include_blank: ''
+              - if @member.characters.many?
+                %td= cr.collection_select :character_id, @member.characters, :id, :name
+              - else
+                = cr.hidden_field :character_id, value: @member.characters.first.id
+              = cr.hidden_field :preference, value: i+1
 
   .actions
     = f.submit 'Save'

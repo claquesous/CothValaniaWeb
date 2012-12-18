@@ -3,7 +3,7 @@ class Member < ActiveRecord::Base
   scope :inactive, where("active=?", false)
   scope :admins, where("admin=? or leader=?", true, true)
   default_scope order(:name)
-  attr_accessible :active, :name, :password, :password_confirmation, :remarks, :url, :characters_attributes
+  attr_accessible :active, :name, :password, :password_confirmation, :remarks, :url, :characters_attributes, :character_rewards_attributes
   has_secure_password
   validates_presence_of :name, :password, :on => :create
   has_many :characters, :inverse_of => :member
@@ -17,6 +17,8 @@ class Member < ActiveRecord::Base
   validates_uniqueness_of :leader, allow_nil: true
   accepts_nested_attributes_for :characters, :reject_if => lambda { |a| a[:name].blank? }
   validate :has_character?
+  accepts_nested_attributes_for :character_rewards
+  before_validation :destroy_unset_character_rewards
 
   def self.leader
     where(leader: true).first
@@ -38,23 +40,8 @@ class Member < ActiveRecord::Base
      100 * (points.to_f / EventAttendance.points)
   end
   
-  def selected_rewards
-    character_rewards.unobtained.collect(&:reward)
-  end
-
   def available_rewards
-     Reward.all - character_rewards.collect(&:reward)
-  end
-
-  def build_rewards(rewards)
-    character_rewards.unobtained.destroy_all
-    preferences = character_rewards.obtained.pluck(:preference)
-    preference = 1
-    rewards.each do |rid|
-      preference +=1 while preferences.include?(preference)
-      character_rewards.build(:preference => preference, :reward => Reward.find(rid))
-      preferences << preference
-    end
+     Reward.all - character_rewards.obtained.collect(&:reward)
   end
 
   def build_all_character_jobs
@@ -66,5 +53,11 @@ class Member < ActiveRecord::Base
   private
   def has_character?
     errors.add :base, "Member must have at least one character" if characters.blank?
+  end
+
+  def destroy_unset_character_rewards
+    character_rewards.each do |cr|
+      cr.mark_for_destruction if cr.reward_id.blank?
+    end
   end
 end

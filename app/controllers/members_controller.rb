@@ -36,7 +36,7 @@ class MembersController < ApplicationController
     @member = Member.new
     @member.characters.build
     @races = Race.all
-    @selected_rewards = []
+    @rewards = Reward.all
     @available_rewards = Reward.all
 
     respond_to do |format|
@@ -50,7 +50,7 @@ class MembersController < ApplicationController
     @member = Member.find_by_name(CGI.unescape params[:id])
     @races = Race.all
     @member.build_all_character_jobs
-    @selected_rewards = @member.selected_rewards
+    @rewards = Reward.all
     @available_rewards = @member.available_rewards
   end
 
@@ -61,7 +61,6 @@ class MembersController < ApplicationController
     @member.join_date = Time.now
     @member.reward_cycle = 1
     @member.cycle_date = Time.now
-    @member.build_rewards(params[:reward_preferences].split(" "))
 
     respond_to do |format|
       if @member.save
@@ -69,7 +68,7 @@ class MembersController < ApplicationController
         format.json { render json: @member, status: :created, location: @member }
       else
         @races = Race.all
-        @selected_rewards = []
+        @rewards = Reward.all
         @available_rewards = Reward.all
         if @member.characters.count == 0
           @member.characters.build
@@ -86,7 +85,6 @@ class MembersController < ApplicationController
   # PUT /members/1.json
   def update
     @member = Member.find_by_name(CGI.unescape params[:id])
-    @member.build_rewards(params[:reward_preferences].split(" "))
 
     respond_to do |format|
       if @member.update_attributes(params[:member])
@@ -95,7 +93,7 @@ class MembersController < ApplicationController
       else
         @races = Race.all
         @member.build_all_character_jobs
-        @selected_rewards = @member.selected_rewards
+        @rewards = Reward.all
         @available_rewards = @member.available_rewards
         format.html { render action: "edit" }
         format.json { render json: @member.errors, status: :unprocessable_entity }

@@ -8,7 +8,7 @@ Given /^I am logged in( as .*)?$/ do |role|
     conditions = {:admin => true}
   when " as the leader"
     conditions = {:leader => true}
-  when " as (.*)"
+  when / as "(.*)"/
     conditions = {:name => $1}
   else
     conditions = {}
@@ -18,6 +18,7 @@ Given /^I am logged in( as .*)?$/ do |role|
   fill_in 'Member', :with => member.name
   fill_in 'Password', :with => member.password
   click_button 'Log In'
+  page.should have_content "Logged in"
 end
 
 When /^I login with invalid credentials$/ do

@@ -22,77 +22,9 @@ describe Member do
 
     it "should not include awards that have been received" do
       reward = FactoryGirl.create(:reward)
-      member = Member.new
-      member.character_rewards.build(:reward => reward, obtained: true)
+      member = FactoryGirl.create(:member)
+      member.character_rewards.create(reward_id: reward.id, character_id: member.characters.first.id, obtained: true)
       member.available_rewards.should_not include(reward)
-    end
-
-    it "should not include rewards that have been selected" do
-      reward = FactoryGirl.create(:reward)
-      member = Member.new
-      member.character_rewards.build(reward: reward, obtained: false, preference: 1)
-      member.available_rewards.should_not include(reward)
-    end
-  end
-
-  describe "selected rewards" do
-    it "should include rewards that have been selected" do
-      reward = FactoryGirl.create(:reward)
-      member = Member.new
-      member.character_rewards.build(:reward => reward, obtained: true)
-      member.selected_rewards.should_not include(reward)
-    end
-
-    it "should not include rewards that have been received" do
-      reward = FactoryGirl.create(:reward)
-      member = Member.new
-      member.character_rewards.build(:reward => reward, obtained: true)
-      member.selected_rewards.should_not include(reward)
-    end
-
-    it "should not include rewards that have not been selected" do
-      reward = FactoryGirl.create(:reward)
-      member = Member.new
-      member.selected_rewards.should_not include(reward)
-    end
-  end
-
-  describe "build_rewards" do
-    it "should require an argument" do
-      member = Member.new
-      lambda { member.build_rewards }.should raise_error(ArgumentError)
-    end
-
-    it "should accept an array of reward_ids" do
-      member = Member.new
-      member.should_receive(:build_rewards)
-      member.build_rewards([])
-    end
-
-    it "should delete any existing unobtained rewards" do
-      reward = FactoryGirl.create(:reward)
-      member = FactoryGirl.create(:member)
-      member.character_rewards.create(reward: reward)
-      member.save!
-      member.build_rewards([])
-      member.reload
-      member.character_rewards.should eq([])
-    end
-
-    it "should not delete any existing obtained rewards" do
-      member = FactoryGirl.create(:member)
-      reward = FactoryGirl.create(:reward)
-      cr = member.character_rewards.create(:preference => 2, reward: reward, obtained: true)
-      member.build_rewards([])
-      member.character_rewards.should eq([cr])
-    end
-
-    it "should create a new association for each item in the array" do
-      member = FactoryGirl.create(:member)
-      Reward.stub(:find).and_return(mock_model(Reward))
-      member.build_rewards([2,3])
-      member.save!
-      member.character_rewards.count.should be(2)
     end
   end
 

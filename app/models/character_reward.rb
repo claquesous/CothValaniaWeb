@@ -7,9 +7,9 @@ class CharacterReward < ActiveRecord::Base
   belongs_to :character
   belongs_to :reward
   belongs_to :occurrence
-  attr_accessible :obtained, :obtained_points, :preference, :remarks, :reward_cycle, :reward, :character
+  attr_accessible :obtained, :obtained_points, :preference, :remarks, :reward_cycle, :reward_id, :character_id
   validates_uniqueness_of :preference, :scope => [:member_id, :reward_cycle], :allow_nil => true
-  validates_presence_of :member, :reward
+  validates_presence_of :member, :character, :reward
 
   def self.unobtained_or_occurrence(occurrence)
     active.unobtained || obtained.where(occurrence_id: occurrence.id)

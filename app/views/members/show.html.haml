@@ -73,6 +73,8 @@
           %td Obtained (#{r.obtained_points})
         - else
           %td Points: #{r.current_points}
+        - if @member.characters.many?
+          %td (#{r.character.name})
 
 %p
   %b Drops Obtained

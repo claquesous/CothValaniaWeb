@@ -1,9 +1,9 @@
 %ol
   - points = {}
-  - reward.character_rewards.includes(:member).unobtained.active.each do |cr|
+  - reward.character_rewards.includes(:character).includes(:member).unobtained.active.each do |cr|
     - points[cr] = cr.current_points
   - points = points.sort_by {|k,v| -v}
-  - points.each do |member, points|
+  - points.each do |cr, points|
     %li
-      = link_to member.member.name, member_path(member.member)
+      = link_to cr.character.name, member_path(cr.member)
       = points.round(4)

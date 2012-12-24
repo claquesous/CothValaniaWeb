@@ -17,8 +17,10 @@
     %th Leader
     %th Reward cycle
     %th Cycle date
-    %th
-    %th
+    - if admin?
+      %th
+    - if leader?
+      %th
 
   - @members.each do |member|
     %tr{id: member.name}
@@ -34,14 +36,17 @@
       %td= member.leader
       %td= member.reward_cycle
       %td= member.cycle_date
-      %td= link_to 'Edit', edit_member_path(member)
-      %td= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' }
+      - if admin?
+        %td= link_to 'Edit', edit_member_path(member)
+      - if leader?
+        %td= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-- if @update_active
-  = submit_tag 'Update Active'
-- else
-  = link_to 'Update Active', members_path(update_active: 1)
+- if admin?
+  - if @update_active
+    = submit_tag 'Update Active'
+  - else
+    = link_to 'Update Active', members_path(update_active: 1)
 
-= link_to 'New Member', new_member_path
+  = link_to 'New Member', new_member_path

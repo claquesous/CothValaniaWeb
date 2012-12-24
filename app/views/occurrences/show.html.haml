@@ -43,6 +43,7 @@
     \:
     = link_to requirement.character.name, member_path(requirement.character.member)
 
-= link_to 'Edit', edit_event_occurrence_path(@event,@occurrence)
-\|
+- if admin?
+  = link_to 'Edit', edit_event_occurrence_path(@event,@occurrence)
+  \|
 = link_to 'Back', event_occurrences_path(@event)

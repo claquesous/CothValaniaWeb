@@ -23,8 +23,9 @@
   %p= link_to r.name, reward_path(r)
   = render 'rewards/list', :reward => r
 
-= link_to 'Edit', edit_event_path(@event)
-\|
+- if leader?
+  = link_to 'Edit', edit_event_path(@event)
+  \|
 = link_to 'Back', events_path
 \|
 = link_to 'Occurrences', event_occurrences_path(@event)

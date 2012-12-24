@@ -9,8 +9,9 @@
     %th Success
     %th Optional
     %th
-    %th
-    %th
+    - if admin?
+      %th
+      %th
 
   - @occurrences.each do |occurrence|
     %tr
@@ -21,9 +22,11 @@
       %td= occurrence.success
       %td= occurrence.optional
       %td= link_to 'Show', event_occurrence_path(@event,occurrence)
-      %td= link_to 'Edit', edit_event_occurrence_path(@event,occurrence)
-      %td= link_to 'Destroy', event_occurrence_path(@event,occurrence), method: :delete, data: { confirm: 'Are you sure?' }
+      - if admin?
+        %td= link_to 'Edit', edit_event_occurrence_path(@event,occurrence)
+        %td= link_to 'Destroy', event_occurrence_path(@event,occurrence), method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Event occurrence', new_event_occurrence_path(@event)
+- if admin?
+  = link_to 'New Event occurrence', new_event_occurrence_path(@event)

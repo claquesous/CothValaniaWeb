@@ -86,6 +86,7 @@
           %td= link_to r.occurrence.end_time.to_date, event_occurrence_path(r.occurrence.event, r.occurrence) unless r.occurrence.nil?
           %td= r.obtained_points
 
-= link_to 'Edit', edit_member_path(@member)
-\|
+- if admin? || @member == current_member
+  = link_to 'Edit', edit_member_path(@member)
+  \|
 = link_to 'Back', members_path

@@ -13,8 +13,9 @@
     %th Remarks
     %th Hidden
     %th Time
-    %th
-    %th
+    - if leader?
+      %th
+      %th
 
   - @events.each do |event|
     %tr
@@ -26,14 +27,16 @@
       %td= event.remarks
       %td= event.hidden
       %td= event.time
-      %td= link_to 'Edit', edit_event_path(event)
-      %td= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }
+      - if leader?
+        %td= link_to 'Edit', edit_event_path(event)
+        %td= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-- if @update_visible
-  = submit_tag 'Update Visible'
-- else
-  = link_to 'Update Visible', events_path(update_visible: 1)
+- if leader?
+  - if @update_visible
+    = submit_tag 'Update Visible'
+  - else
+    = link_to 'Update Visible', events_path(update_visible: 1)
 
-= link_to 'New Event', new_event_path
+  = link_to 'New Event', new_event_path

@@ -1,5 +1,5 @@
 class CharacterReward < ActiveRecord::Base
-  before_save :correct_obtained
+  before_save :set_obtained, :set_obtained_points
   scope :unobtained, where("obtained=? or obtained is null", false)
   scope :obtained, where(obtained: true)
   scope :active, joins(:member).where("members.active")
@@ -20,9 +20,13 @@ class CharacterReward < ActiveRecord::Base
   end
 
   private
-  def correct_obtained
+  def set_obtained
     obtained = !occurrence_id.nil?
-    obtained_points = current_points if preference
+    true
+  end
+
+  def set_obtained_points
+    self.obtained_points = current_points if preference
     true
   end
 end

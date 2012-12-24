@@ -30,4 +30,41 @@ describe CharacterReward do
       CharacterReward.unobtained_or_occurrence(@occurrence).should eq([])
     end
   end
+
+  describe "before_save" do
+    before :each do
+      @cr = CharacterReward.new
+      @cr.stub(:valid?).and_return(true)
+    end
+
+    it "should receive set_obtained" do
+      @cr.should_receive(:set_obtained)
+      @cr.save!
+    end
+
+    it "should receive set_obtained_points" do
+      @cr.should_receive(:set_obtained_points)
+      @cr.save!
+    end
+
+    describe "set_obtained_points" do
+      it "should receive preference" do
+        @cr.should_receive(:preference)
+        @cr.save!
+      end
+
+      it "should receive current_points" do
+        @cr.stub(:preference).and_return(1)
+        @cr.should_receive(:current_points)
+        @cr.save!
+      end
+
+      it "should save the obtained points" do
+        @cr.stub(:preference).and_return(1)
+        @cr.stub(:current_points).and_return(30)
+        @cr.save!
+        @cr.obtained_points.should eq(30)
+      end
+    end
+  end
 end

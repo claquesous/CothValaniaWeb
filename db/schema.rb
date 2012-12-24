@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121211181658) do
+ActiveRecord::Schema.define(:version => 20121224040226) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -124,10 +124,10 @@ ActiveRecord::Schema.define(:version => 20121211181658) do
     t.string   "remarks"
     t.boolean  "active"
     t.boolean  "admin"
-    t.integer  "reward_cycle"
+    t.integer  "reward_cycle",    :default => 1
     t.date     "cycle_date"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.boolean  "leader"
   end
 

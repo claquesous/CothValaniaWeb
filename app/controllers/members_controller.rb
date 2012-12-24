@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
-  before_filter(:only => [:new, :create, :destroy, :update_active]) { |a| a.send(:authorize,:admin) }
+  before_filter(:only => :destroy) { |a| a.send(:authorize,:leader) }
+  before_filter(:only => [:new, :create, :update_active]) { |a| a.send(:authorize,:admin) }
   before_filter :validate_member, :only => [:edit, :update]
 
   # GET /members

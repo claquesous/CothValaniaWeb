@@ -19,6 +19,7 @@ class Member < ActiveRecord::Base
   validate :has_character?
   accepts_nested_attributes_for :character_rewards
   before_validation :destroy_unset_character_rewards
+  before_create :set_dates
 
   def self.leader
     where(leader: true).first
@@ -59,5 +60,10 @@ class Member < ActiveRecord::Base
     character_rewards.each do |cr|
       cr.mark_for_destruction if cr.reward_id.blank?
     end
+  end
+
+  def set_dates
+    self.join_date = Time.now
+    self.cycle_date = Time.now
   end
 end

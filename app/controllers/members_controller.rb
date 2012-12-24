@@ -59,8 +59,6 @@ class MembersController < ApplicationController
   # POST /members.json
   def create
     @member = Member.new(params[:member])
-    @member.join_date = Time.now
-    @member.cycle_date = Time.now
 
     respond_to do |format|
       if @member.save

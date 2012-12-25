@@ -10,4 +10,15 @@ describe News do
   end
 
   it { should belong_to(:member) }
+
+  describe "save" do
+    it "should save the date" do
+      news = News.new
+      news.stub(:valid?).and_return(true)
+      time = Time.now
+      Time.stub(:now).and_return(time)
+      news.save!
+      news.date.should eq(time)
+    end
+  end
 end

@@ -6,6 +6,7 @@ describe News do
   end
 
   it "can be saved successfully" do
+    News.any_instance.stub(:valid?).and_return(true)
     News.create.should be_persisted
   end
 

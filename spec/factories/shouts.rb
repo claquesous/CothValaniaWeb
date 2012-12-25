@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :shout do
-    date {Time.now}
     sequence(:text) { |n| "Shout text %03d" % n }
     member 
   end

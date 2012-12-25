@@ -26,7 +26,6 @@ describe ShoutsController do
   def valid_attributes
     {
       text: "Shout!",
-      date: Time.now
     }
   end
 

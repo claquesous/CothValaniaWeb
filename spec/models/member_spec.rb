@@ -23,6 +23,7 @@ describe Member do
     it "should not include awards that have been received" do
       reward = FactoryGirl.create(:reward)
       member = FactoryGirl.create(:member)
+      ActiveModel::MassAssignmentSecurity::WhiteList.any_instance.stub(:deny?).and_return(false)
       member.character_rewards.create(reward_id: reward.id, character_id: member.characters.first.id, obtained: true)
       member.available_rewards.should_not include(reward)
     end

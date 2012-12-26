@@ -23,6 +23,10 @@
       =link_to_unless_current 'Shout!', shouts_path, id: :shouts
       =#link_to_unless_current 'Admin', admin_path
       =link_to 'Logout', logout_url, id: :logout
+    #leader_menu
+      =link_to_unless_current 'Jobs', jobs_path, id: :jobs
+      =link_to_unless_current 'Races', races_path, id: :races
+      =link_to_unless_current 'Requirements', requirements_path, id: :requirements
 
     = yield
 

@@ -13,7 +13,7 @@ class CharacterReward < ActiveRecord::Base
   validates_presence_of :member, :character, :reward
 
   def self.unobtained_or_occurrence(occurrence)
-    active.unobtained || obtained.where(occurrence_id: occurrence.id)
+    active.unobtained | obtained.where(occurrence_id: occurrence.id)
   end
 
   def current_points

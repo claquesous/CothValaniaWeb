@@ -1,8 +1,9 @@
 class EventAttendance < ActiveRecord::Base
   scope :order_by_date, joins(:occurrence).order("occurrences.end_time desc")
-  attr_accessible :character_id
+  attr_accessible :character_id, :character_job_id
   belongs_to :occurrence
   belongs_to :character
+  belongs_to :character_job
   has_one :event, :through => :occurrence
   has_one :member, through: :character
   validates_presence_of :character, :occurrence

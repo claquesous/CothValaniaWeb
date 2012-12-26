@@ -15,3 +15,11 @@ Then /^"(.*?)" has the job "(.*?)"$/ do |character, job|
   page.body.should have_content "Member was successfully updated"
 end
 
+Given /^"(.*?)" has job "(.*?)"$/ do |character, job|
+  visit '/members'
+  click_on character
+  click_on 'Edit'
+  check job
+  click_on 'Save'
+  page.body.should have_content "Member was successfully updated"
+end

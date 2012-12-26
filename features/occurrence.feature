@@ -38,4 +38,11 @@ Feature: Manage occurrences
     Then I should see "Event occurrence was successfully updated"
     And I should not see "Drops: Chrysaor : Perseus"
 
+  Scenario: Job attendance
+    Given There are jobs named "Hero"
+    And "Perseus" has job "Hero"
+    And I am on the new occurrence page for "Medusa"
+    When I choose "Hero"
+    And I click "Save"
+    Then I should see "Event occurrence was successfully created"
 

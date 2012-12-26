@@ -34,11 +34,27 @@
               = ea.label :_destroy, m.name
           %td
             - if m.characters.many?
-              - m.characters.each do |c|
-                = ea.radio_button :character_id, c.id, :checked => (!new_ea.persisted? && c.name==m.name) || ea.object.character_id == c.id
-                = ea.label :character, c.name
+              %table
+                %tr
+                - m.characters.each do |c|
+                  %td
+                    = ea.radio_button :character_id, c.id, :checked => (!new_ea.persisted? && c.name==m.name) || ea.object.character_id == c.id
+                    = ea.label :character, c.name
+                    %table
+                      - c.character_jobs.includes(:job).each do |cj|
+                        %tr
+                          %td
+                            = ea.radio_button :character_job_id, cj.id, checked: ea.object.character_job_id == cj.id
+                            = ea.label "character_job_id_#{cj.id}", cj.job.name
+                  
             - else
               = ea.hidden_field :character_id, :value => m.characters.first.id
+              %table
+                - m.characters.first.character_jobs.includes(:job).each do |cj|
+                  %tr
+                    %td
+                      = ea.radio_button :character_job_id, cj.id, checked: ea.object.character_job_id == cj.id
+                      = ea.label "character_job_id_#{cj.id}", cj.job.name
 
   - event_rewards = @event.rewards
   - if event_rewards.count>0

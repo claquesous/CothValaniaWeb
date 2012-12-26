@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121224040226) do
+ActiveRecord::Schema.define(:version => 20121226063652) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -72,11 +72,13 @@ ActiveRecord::Schema.define(:version => 20121224040226) do
   create_table "event_attendances", :force => true do |t|
     t.integer  "occurrence_id"
     t.integer  "character_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "character_job_id"
   end
 
   add_index "event_attendances", ["character_id"], :name => "index_event_attendances_on_character_id"
+  add_index "event_attendances", ["character_job_id"], :name => "index_event_attendances_on_character_job_id"
   add_index "event_attendances", ["occurrence_id"], :name => "index_event_attendances_on_occurrence_id"
 
   create_table "event_requirements", :force => true do |t|

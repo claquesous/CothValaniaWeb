@@ -7,4 +7,5 @@ describe CharacterJob do
   
   it { should belong_to(:character) }
   it { should belong_to(:job) }
+  it { should have_many(:event_attendances) }
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121226063652) do
+ActiveRecord::Schema.define(:version => 20121226210047) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20121226063652) do
 
   add_index "character_rewards", ["character_id"], :name => "index_character_rewards_on_character_id"
   add_index "character_rewards", ["member_id"], :name => "index_character_rewards_on_member_id"
+  add_index "character_rewards", ["obtained"], :name => "index_character_rewards_on_obtained"
   add_index "character_rewards", ["occurrence_id"], :name => "index_character_rewards_on_occurrence_id"
   add_index "character_rewards", ["reward_id"], :name => "index_character_rewards_on_reward_id"
 
@@ -67,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20121226063652) do
     t.integer  "sex"
   end
 
+  add_index "characters", ["member_id"], :name => "index_characters_on_member_id"
   add_index "characters", ["race_id"], :name => "index_characters_on_race_id"
 
   create_table "event_attendances", :force => true do |t|
@@ -98,6 +100,9 @@ ActiveRecord::Schema.define(:version => 20121226063652) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "event_rewards", ["event_id"], :name => "index_event_rewards_on_event_id"
+  add_index "event_rewards", ["reward_id"], :name => "index_event_rewards_on_reward_id"
+
   create_table "events", :force => true do |t|
     t.string   "name"
     t.integer  "points"
@@ -110,6 +115,9 @@ ActiveRecord::Schema.define(:version => 20121226063652) do
     t.integer  "failure_points"
   end
 
+  add_index "events", ["hidden"], :name => "index_events_on_hidden"
+  add_index "events", ["name"], :name => "index_events_on_name"
+
   create_table "jobs", :force => true do |t|
     t.string   "name"
     t.string   "short_name"
@@ -117,6 +125,8 @@ ActiveRecord::Schema.define(:version => 20121226063652) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "jobs", ["name"], :name => "index_jobs_on_name"
 
   create_table "members", :force => true do |t|
     t.string   "name"
@@ -133,6 +143,11 @@ ActiveRecord::Schema.define(:version => 20121226063652) do
     t.boolean  "leader"
   end
 
+  add_index "members", ["active"], :name => "index_members_on_active"
+  add_index "members", ["admin"], :name => "index_members_on_admin"
+  add_index "members", ["leader"], :name => "index_members_on_leader"
+  add_index "members", ["name"], :name => "index_members_on_name"
+
   create_table "news", :force => true do |t|
     t.text     "text"
     t.datetime "date"
@@ -141,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20121226063652) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "news", ["date"], :name => "index_news_on_date"
   add_index "news", ["member_id"], :name => "index_news_on_member_id"
 
   create_table "occurrences", :force => true do |t|
@@ -155,7 +171,11 @@ ActiveRecord::Schema.define(:version => 20121226063652) do
     t.boolean  "optional"
   end
 
+  add_index "occurrences", ["end_time"], :name => "index_occurrences_on_end_time"
+  add_index "occurrences", ["event_id"], :name => "index_occurrences_on_event_id"
   add_index "occurrences", ["member_id"], :name => "index_occurrences_on_member_id"
+  add_index "occurrences", ["optional"], :name => "index_occurrences_on_optional"
+  add_index "occurrences", ["success"], :name => "index_occurrences_on_success"
 
   create_table "races", :force => true do |t|
     t.string   "name"
@@ -163,6 +183,8 @@ ActiveRecord::Schema.define(:version => 20121226063652) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "races", ["name"], :name => "index_races_on_name"
 
   create_table "requirement_obtainments", :force => true do |t|
     t.integer  "event_id"
@@ -182,6 +204,8 @@ ActiveRecord::Schema.define(:version => 20121226063652) do
     t.boolean  "multiple"
   end
 
+  add_index "requirements", ["name"], :name => "index_requirements_on_name"
+
   create_table "rewards", :force => true do |t|
     t.string   "name"
     t.integer  "external_value"
@@ -189,6 +213,8 @@ ActiveRecord::Schema.define(:version => 20121226063652) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
+
+  add_index "rewards", ["name"], :name => "index_rewards_on_name"
 
   create_table "shouts", :force => true do |t|
     t.text     "text"
@@ -198,6 +224,7 @@ ActiveRecord::Schema.define(:version => 20121226063652) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "shouts", ["date"], :name => "index_shouts_on_date"
   add_index "shouts", ["member_id"], :name => "index_shouts_on_member_id"
 
 end

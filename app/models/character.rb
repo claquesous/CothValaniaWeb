@@ -2,8 +2,8 @@ class Character < ActiveRecord::Base
   attr_accessible :name, :remarks, :sex, :race_id, :character_jobs_attributes
   belongs_to :member
   validates_presence_of :name, :member
-  has_many :character_requirements
-  has_many :character_rewards
+  has_many :character_requirements, dependent: :destroy
+  has_many :character_rewards, dependent: :destroy
   has_many :event_attendances
   has_many :attendances, source: :occurrence, through: :event_attendances
   has_many :character_jobs, :inverse_of => :character

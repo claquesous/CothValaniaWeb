@@ -11,7 +11,7 @@ class Occurrence < ActiveRecord::Base
   # It can provide many rewards to characters
   has_many :character_rewards
   # It can provide requirements
-  has_many :obtained_requirements, :class_name => "CharacterRequirement", :foreign_key => "obtained_occurrence_id"
+  has_many :obtained_requirements, :class_name => "CharacterRequirement", :foreign_key => "obtained_occurrence_id", dependent: :destroy
   # It may have requirements
   has_many :used_requirements, :class_name => "CharacterRequirement", :foreign_key => "used_occurrence_id"
   # Most important is that it is an occurrence of Event

@@ -6,12 +6,12 @@ class Member < ActiveRecord::Base
   attr_accessible :active, :name, :password, :password_confirmation, :remarks, :url, :characters_attributes, :character_rewards_attributes
   has_secure_password
   validates_presence_of :name, :password, :on => :create
-  has_many :characters, :inverse_of => :member
+  has_many :characters, :inverse_of => :member, dependent: :destroy
   has_many :news
   has_many :shouts
   has_many :event_attendances, :through => :characters
   has_many :attendances, source: :occurrence, through: :event_attendances
-  has_many :character_rewards
+  has_many :character_rewards, dependent: :destroy
   has_many :occurrences
   validates_uniqueness_of :name
   validates_uniqueness_of :leader, allow_nil: true

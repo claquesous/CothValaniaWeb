@@ -7,8 +7,8 @@ class Member < ActiveRecord::Base
   has_secure_password
   validates_presence_of :name, :password, :on => :create
   has_many :characters, :inverse_of => :member, dependent: :destroy
-  has_many :news
-  has_many :shouts
+  has_many :news, dependent: :destroy
+  has_many :shouts, dependent: :destroy
   has_many :event_attendances, :through => :characters
   has_many :attendances, source: :occurrence, through: :event_attendances
   has_many :character_rewards, dependent: :destroy

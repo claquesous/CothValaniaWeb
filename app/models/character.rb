@@ -4,7 +4,7 @@ class Character < ActiveRecord::Base
   validates_presence_of :name, :member
   has_many :character_requirements, dependent: :destroy
   has_many :character_rewards, dependent: :destroy
-  has_many :event_attendances
+  has_many :event_attendances, dependent: :destroy
   has_many :attendances, source: :occurrence, through: :event_attendances
   has_many :character_jobs, :inverse_of => :character
   has_many :jobs, :through => :character_jobs

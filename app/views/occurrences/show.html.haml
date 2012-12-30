@@ -2,7 +2,7 @@
 
 %p
   %b Entered by:
-  = link_to @occurrence.member.name, member_path(@occurrence.member)
+  = link_to @occurrence.member.name, member_path(@occurrence.member) if @occurrence.member
 %p
   %b Remarks:
   = @occurrence.remarks

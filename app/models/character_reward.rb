@@ -17,7 +17,7 @@ class CharacterReward < ActiveRecord::Base
   end
 
   def current_points
-    member.points.to_f/preference
+    member.current_points.to_f/preference
   end
 
   private

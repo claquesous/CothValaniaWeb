@@ -1,4 +1,5 @@
 class Occurrence < ActiveRecord::Base
+  before_destroy :unlink_rewards, :unlink_requirements
   default_scope order(:end_time).reverse_order
   scope :success, where(success: true)
   scope :failure, where(success: false)
@@ -28,5 +29,21 @@ class Occurrence < ActiveRecord::Base
   
   def self.since(date)
     where("end_time >=?", date)
+  end
+
+  private
+
+  def unlink_requirements
+    self.used_requirements.each do |ur|
+      ur.used_occurrence_id = nil
+      ur.save!
+    end
+  end
+
+  def unlink_rewards
+    self.character_rewards.each do |cr|
+      cr.occurrence_id = nil
+      cr.save!
+    end
   end
 end

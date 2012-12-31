@@ -18,7 +18,7 @@ group :development, :test do
   gem 'railroady'
 end
 group :test do
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'factory_girl'
   gem 'factory_girl_rails'
   gem 'simplecov', :require => false

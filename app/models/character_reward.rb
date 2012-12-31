@@ -22,7 +22,7 @@ class CharacterReward < ActiveRecord::Base
 
   private
   def set_obtained
-    obtained = !occurrence_id.nil?
+    self.obtained = !self.occurrence_id.nil?
     true
   end
 

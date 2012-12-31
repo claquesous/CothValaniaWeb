@@ -24,7 +24,7 @@ describe Member do
       reward = FactoryGirl.create(:reward)
       member = FactoryGirl.create(:member)
       ActiveModel::MassAssignmentSecurity::WhiteList.any_instance.stub(:deny?).and_return(false)
-      member.character_rewards.create(reward_id: reward.id, character_id: member.characters.first.id, obtained: true)
+      member.character_rewards.create(reward_id: reward.id, character_id: member.characters.first.id, occurrence: mock_model(Occurrence))
       member.available_rewards.should_not include(reward)
     end
   end

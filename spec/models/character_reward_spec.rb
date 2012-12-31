@@ -55,6 +55,25 @@ describe CharacterReward do
       @cr.save!
     end
 
+    describe "set_obtained" do
+      it "should set obtained to true if occurrence id is set" do
+        @cr.save!
+        @cr.occurrence = mock_model(Occurrence)
+	expect {
+	  @cr.save!
+	}.to change(@cr, :obtained).from(false).to(true)
+      end
+
+      it "should set obtained to false if occurrence id not set" do
+        @cr.occurrence = mock_model(Occurrence)
+	@cr.save!
+	@cr.occurrence = nil
+	expect {
+	  @cr.save!
+	}.to change(@cr, :obtained).from(true).to(false)
+      end
+    end
+
     describe "set_obtained_points" do
       it "should receive preference" do
         @cr.should_receive(:preference)

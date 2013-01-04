@@ -43,6 +43,9 @@ describe CharacterReward do
     before :each do
       @cr = CharacterReward.new
       @cr.stub(:valid?).and_return(true)
+      member = mock_model(Member)
+      member.stub(:reward_cycle).and_return(7)
+      @cr.stub(:member).and_return(member)
     end
 
     it "should receive set_obtained" do
@@ -52,6 +55,11 @@ describe CharacterReward do
 
     it "should receive set_obtained_points" do
       @cr.should_receive(:set_obtained_points)
+      @cr.save!
+    end
+
+    it "should receive set_reward_cycle" do
+      @cr.should_receive(:set_reward_cycle)
       @cr.save!
     end
 
@@ -76,6 +84,7 @@ describe CharacterReward do
 
     describe "set_obtained_points" do
       it "should receive preference" do
+        @cr.stub :set_reward_cycle
         @cr.should_receive(:preference)
         @cr.save!
       end
@@ -93,5 +102,22 @@ describe CharacterReward do
         @cr.obtained_points.should eq(30)
       end
     end
+
+    describe "set_reward_cycle" do
+      it "should receive preference" do
+        @cr.stub :set_obtained_points
+        @cr.should_receive(:preference)
+        @cr.save!
+      end
+     
+      it "should save the reward_cycle" do
+        @cr.stub :set_obtained_points
+        @cr.stub(:preference).and_return(1)
+        @cr.occurrence = mock_model(Occurrence)
+        expect {
+          @cr.save!
+        }.to change(@cr, :reward_cycle).from(nil).to(7)
+      end
+    end 
   end
 end

@@ -65,7 +65,11 @@
 %p
   %b Drops List
   %table
-    - @member.character_rewards.includes(:reward).order(:preference).each do |r|
+    - (1...@member.reward_cycle).each do |i|
+      %tr
+        %td= i
+        %td Unavailable (Reward cycle #{@member.reward_cycle})
+    - @member.character_rewards.where(reward_cycle: @member.reward_cycle).includes(:reward).order(:preference).each do |r|
       %tr
         %td #{r.preference}.
         %td= link_to r.reward.name, reward_path(r.reward)
@@ -79,12 +83,20 @@
 %p
   %b Drops Obtained
   %table
+    %tr
+      %th Reward
+      %th Occurrence Date
+      %th Obtained Points
+      %th Reward Cycle
+      %th Preference
     - @member.character_rewards.includes(:occurrence => :event).order(:preference).each do |r|
       - if r.obtained
         %tr
           %td= link_to r.reward.name, reward_path(r.reward)
           %td= link_to r.occurrence.end_time.to_date, event_occurrence_path(r.occurrence.event, r.occurrence) unless r.occurrence.nil?
           %td= r.obtained_points
+          %td= r.reward_cycle
+          %td= r.preference
 
 - if admin? || @member == current_member
   = link_to 'Edit', edit_member_path(@member)

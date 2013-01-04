@@ -5,5 +5,5 @@
     =@news.text
     =@news.date
     =@news.member.name
-  -unless @newscount==1
+  -unless @newscount<=1
     =link_to 'Read past news', news_index_path

@@ -4,7 +4,8 @@ Given /^There are events named: "(.*)"$/ do |events|
   end
 end
 
-Given /^There is an event named "(.*?)" which is worth (\d+) points$/ do |event, points|
-  Event.create(name: event, points: points)
+Given /^There is an event named "(.*?)"( which is worth (\d+) points)?$/ do |event, has_points, points|
+  points = 0 unless has_points
+  Event.create!(name: event, points: points)
 end
 

@@ -11,8 +11,14 @@
   = @reward.remarks
 %p
   %b Obtained From:
-  - @reward.events.visible.each do |e|
-    = link_to e.name, event_path(e)
+  %table
+    %tr
+      %th Event
+      %th Drop Rate
+    - @reward.event_rewards.includes(:event).visible.each do |e|
+      %tr
+        %td= link_to e.event.name, event_path(e.event)
+        %td #{(e.drop_rate*100).round(2)}%
 
 
 =render 'list', :reward => @reward

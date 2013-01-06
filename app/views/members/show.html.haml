@@ -67,7 +67,7 @@
   %table
     - (1...@member.reward_cycle).each do |i|
       %tr
-        %td= i
+        %td #{i}.
         %td Unavailable (Reward cycle #{@member.reward_cycle})
     - @member.character_rewards.where(reward_cycle: @member.reward_cycle).includes(:reward).order(:preference).each do |r|
       %tr

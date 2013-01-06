@@ -1,5 +1,3 @@
-%p#notice= notice
-
 %p
   %b Name:
   = @race.name
@@ -7,6 +5,5 @@
   %b Remarks:
   = @race.remarks
 
-= link_to 'Edit', edit_race_path(@race)
-\|
-= link_to 'Back', races_path
+= link_to 'Edit', edit_race_path(@race), class: "btn btn-info"
+= link_to 'Back', races_path, class: "btn btn-primary"

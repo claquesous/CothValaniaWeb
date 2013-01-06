@@ -1,5 +1,3 @@
-%p#notice= notice
-
 %p
   %b Name:
   = @requirement.name
@@ -7,6 +5,5 @@
   %b Reusable:
   = @requirement.reusable
 
-= link_to 'Edit', edit_requirement_path(@requirement)
-\|
-= link_to 'Back', requirements_path
+= link_to 'Edit', edit_requirement_path(@requirement), class: "btn btn-info"
+= link_to 'Back', requirements_path, class: "btn btn-primary"

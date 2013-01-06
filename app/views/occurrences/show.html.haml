@@ -1,5 +1,3 @@
-%p#notice= notice
-
 %p
   %b Entered by:
   = link_to @occurrence.member.name, member_path(@occurrence.member) if @occurrence.member
@@ -44,6 +42,5 @@
     = link_to requirement.character.name, member_path(requirement.character.member)
 
 - if admin?
-  = link_to 'Edit', edit_event_occurrence_path(@event,@occurrence)
-  \|
-= link_to 'Back', event_occurrences_path(@event)
+  = link_to 'Edit', edit_event_occurrence_path(@event,@occurrence), class: "btn btn-info"
+= link_to 'Back', event_occurrences_path(@event), class: "btn btn-primary"

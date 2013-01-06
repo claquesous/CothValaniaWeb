@@ -1,11 +1,10 @@
 %h1 Listing shouts
 
-%table
+%table.table.table-condensed
   %tr
     %th Text
     %th Date
-    %th Character
-    %th
+    %th Member
     - if admin?
       %th
       %th
@@ -14,12 +13,11 @@
     %tr
       %td= shout.text
       %td= shout.date
-      %td= shout.member.name
-      %td= link_to 'Show', shout
+      %td= link_to shout.member.name, shout.member
       - if admin?
-        %td= link_to 'Edit', edit_shout_path(shout)
-        %td= link_to 'Destroy', shout, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Edit', edit_shout_path(shout), class: "btn btn-info"
+        %td= link_to 'Destroy', shout, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 
 %br
 
-= link_to 'New Shout', new_shout_path
+= link_to 'New Shout', new_shout_path, class: "btn btn-success"

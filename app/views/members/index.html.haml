@@ -3,7 +3,7 @@
 - if @update_active
   = form_tag update_active_members_path, method: :put
 
-%table
+%table.table.table-condensed
   %tr
     - if @update_active
       %th
@@ -37,16 +37,16 @@
       %td= member.reward_cycle
       %td= member.cycle_date
       - if admin?
-        %td= link_to 'Edit', edit_member_path(member)
+        %td= link_to 'Edit', edit_member_path(member), class: "btn btn-info"
       - if leader?
-        %td= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger"
 
 %br
 
 - if admin?
   - if @update_active
-    = submit_tag 'Update Active'
+    = submit_tag 'Update Active', class: "btn btn-primary"
+    = link_to 'Cancel', members_path, class: "btn btn-danger"
   - else
-    = link_to 'Update Active', members_path(update_active: 1)
-
-  = link_to 'New Member', new_member_path
+    = link_to 'Update Active', members_path(update_active: 1), class: "btn btn-info"
+    = link_to 'New Member', new_member_path, class: "btn btn-success"

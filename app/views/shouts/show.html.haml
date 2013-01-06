@@ -1,5 +1,3 @@
-%p#notice= notice
-
 %p
   %b Text:
   = @shout.text
@@ -11,6 +9,5 @@
   = @shout.member.name
 
 - if @shout.member == current_member
-  = link_to 'Edit', edit_shout_path(@shout)
-  \|
-= link_to 'Back', shouts_path
+  = link_to 'Edit', edit_shout_path(@shout), class: "btn btn-info"
+= link_to 'Back', shouts_path, class: "btn btn-primary"

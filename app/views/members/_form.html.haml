@@ -5,58 +5,62 @@
       %ul
         - @member.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :password
-    = f.password_field :password
-  .field
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation
-  .field
-    = f.label :url
-    = f.text_field :url
-  .field
-    = f.label :remarks
-    = f.text_field :remarks
-  .field
-    = f.label :active, :Inactive
-    = f.check_box :active, {checked: @member.active==false}, 0, 1
-  .field
-    = f.fields_for :characters do |c|
-      = render 'character', :f => c
-    = link_to_add_fields "Add Character", f, :characters
-  .field
-    %table
-      %tr
-        %th
-        %th Reward
-        - if @member.characters.many?
-          %th Character
-      - (1...@member.reward_cycle).each do |i|
+  .form-horizontal
+    .control-group.field
+      .control-label= f.label :name
+      .controls= f.text_field :name
+    .control-group.field
+      .control-label= f.label :password
+      .controls= f.password_field :password
+    .control-group.field
+      .control-label= f.label :password_confirmation
+      .controls= f.password_field :password_confirmation
+    .control-group.field
+      .control-label= f.label :url
+      .controls= f.text_field :url
+    .control-group.field
+      .control-label= f.label :remarks
+      .controls= f.text_field :remarks
+    .control-group.field
+      .control-label= f.label :active, :Inactive
+      .controls= f.check_box :active, {checked: @member.active==false}, 0, 1
+    .control-group.field
+      = f.fields_for :characters do |c|
+        = render 'character', :f => c
+      = link_to_add_fields "Add Character", f, :characters
+    .control-group.field
+      %table.table.table-condensed
         %tr
-          %td #{i}.
-          %td Unavailable (Reward cycle #{@member.reward_cycle})
-      - @rewards.each_with_index do |r, i|
-        %tr
-          - idx = i+@member.reward_cycle
-          - next_cr = @member.character_rewards.where(reward_cycle: @member.reward_cycle).find{ |cr| cr.preference == idx}
-          - next_cr ||= @member.character_rewards.build(preference: idx)
-          %td #{idx}.
-          - if next_cr.obtained
-            %td= next_cr.reward.name
-            - if @member.characters.many?
-              %td= next_cr.character.name
-          - else
-            = f.fields_for :character_rewards, next_cr, :child_index => idx do |cr|
-              %td= cr.collection_select :reward_id, @available_rewards, :id, :name, include_blank: ''
+          %th
+          %th Reward
+          - if @member.characters.many?
+            %th Character
+        - (1...@member.reward_cycle).each do |i|
+          %tr
+            %td #{i}.
+            %td Unavailable (Reward cycle #{@member.reward_cycle})
+        - @rewards.each_with_index do |r, i|
+          %tr
+            - idx = i+@member.reward_cycle
+            - next_cr = @member.character_rewards.where(reward_cycle: @member.reward_cycle).find{ |cr| cr.preference == idx}
+            - next_cr ||= @member.character_rewards.build(preference: idx)
+            %td #{idx}.
+            - if next_cr.obtained
+              %td= next_cr.reward.name
               - if @member.characters.many?
-                %td= cr.collection_select :character_id, @member.characters, :id, :name
-              - else
-                = cr.hidden_field :character_id, value: @member.characters.first.id
-              = cr.hidden_field :preference, value: i+1
+                %td= next_cr.character.name
+            - else
+              = f.fields_for :character_rewards, next_cr, :child_index => idx do |cr|
+                %td= cr.collection_select :reward_id, @available_rewards, :id, :name, include_blank: ''
+                - if @member.characters.many?
+                  %td= cr.collection_select :character_id, @member.characters, :id, :name
+                - else
+                  = cr.hidden_field :character_id, value: @member.characters.first.id
+                = cr.hidden_field :preference, value: i+1
 
-  .actions
-    = f.submit 'Save'
+    .form-actions
+      = f.submit 'Save', class: "btn btn-primary"
+      - if @member.persisted?
+        = link_to 'Cancel', @member, class: "btn btn-danger"
+      - else
+        = link_to 'Cancel', members_path, class: "btn btn-danger"

@@ -1,5 +1,3 @@
-%p#notice= notice
-
 %p
   %b Name:
   = @job.name
@@ -10,6 +8,5 @@
   %b Remarks:
   = @job.remarks
 
-= link_to 'Edit', edit_job_path(@job)
-\|
-= link_to 'Back', jobs_path
+= link_to 'Edit', edit_job_path(@job), class: "btn btn-info"
+= link_to 'Back', jobs_path, class: "btn btn-primary"

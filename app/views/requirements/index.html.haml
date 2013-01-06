@@ -1,21 +1,19 @@
 %h1 Listing requirements
 
-%table
+%table.table.table-condensed
   %tr
     %th Name
     %th Reusable
     %th
     %th
-    %th
 
   - @requirements.each do |requirement|
     %tr
-      %td= requirement.name
+      %td= link_to requirement.name, requirement
       %td= requirement.reusable
-      %td= link_to 'Show', requirement
-      %td= link_to 'Edit', edit_requirement_path(requirement)
-      %td= link_to 'Destroy', requirement, method: :delete, data: { confirm: 'Are you sure?' }
+      %td= link_to 'Edit', edit_requirement_path(requirement), class: "btn btn-info"
+      %td= link_to 'Destroy', requirement, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 
 %br
 
-= link_to 'New Requirement', new_requirement_path
+= link_to 'New Requirement', new_requirement_path, class: "btn btn-success"

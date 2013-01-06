@@ -1,5 +1,5 @@
 %b Attendance 
-%table
+%table.table.table-condensed
   - attendances.includes(:occurrence).includes(:event).includes(:character).each do |a|
     %tr
       %td= link_to a.occurrence.end_time.to_date, event_occurrence_path(a.event, a.occurrence)

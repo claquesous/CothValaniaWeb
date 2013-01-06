@@ -1,6 +1,6 @@
 %h1 Listing occurrences
 
-%table
+%table.table.table-condensed
   %tr
     %th Event
     %th Remarks
@@ -8,25 +8,23 @@
     %th End time
     %th Success
     %th Optional
-    %th
     - if admin?
       %th
       %th
 
   - @occurrences.each do |occurrence|
     %tr
-      %td= @event.name
+      %td= link_to @event.name, event_occurrence_path(@event,occurrence)
       %td= occurrence.remarks
       %td= occurrence.start_time
       %td= occurrence.end_time
       %td= occurrence.success
       %td= occurrence.optional
-      %td= link_to 'Show', event_occurrence_path(@event,occurrence)
       - if admin?
-        %td= link_to 'Edit', edit_event_occurrence_path(@event,occurrence)
-        %td= link_to 'Destroy', event_occurrence_path(@event,occurrence), method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Edit', edit_event_occurrence_path(@event,occurrence), class: "btn btn-info"
+        %td= link_to 'Destroy', event_occurrence_path(@event,occurrence), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 
 %br
 
 - if admin?
-  = link_to 'New Event occurrence', new_event_occurrence_path(@event)
+  = link_to 'New Event occurrence', new_event_occurrence_path(@event), class: "btn btn-success"

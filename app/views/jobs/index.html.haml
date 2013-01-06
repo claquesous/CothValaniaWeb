@@ -1,23 +1,21 @@
 %h1 Listing jobs
 
-%table
+%table.table.table-condensed
   %tr
     %th Name
     %th Short name
     %th Remarks
     %th
     %th
-    %th
 
   - @jobs.each do |job|
     %tr
-      %td= job.name
+      %td= link_to job.name, job
       %td= job.short_name
       %td= job.remarks
-      %td= link_to 'Show', job
-      %td= link_to 'Edit', edit_job_path(job)
-      %td= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }
+      %td= link_to 'Edit', edit_job_path(job), class: "btn btn-info"
+      %td= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 
 %br
 
-= link_to 'New Job', new_job_path
+= link_to 'New Job', new_job_path, class: "btn btn-success"

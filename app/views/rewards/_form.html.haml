@@ -6,21 +6,27 @@
         - @reward.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :external_value
-    = f.number_field :external_value
-  .field
-    = f.label :remarks
-    = f.text_field :remarks
-  .field
-    = f.label :events
-    = f.fields_for :event_rewards do |er|
-      = er.check_box :_destroy, {:checked => er.object.persisted?}, 0, 1
-      = er.hidden_field :event_id, :value => er.object.event_id
-      = er.label :_destroy, er.object.event.name
+  .form-horizontal
+    .control-group.field
+      .control-label= f.label :name
+      .controls= f.text_field :name
+    .control-group.field
+      .control-label= f.label :external_value
+      .controls= f.number_field :external_value
+    .control-group.field
+      .control-label= f.label :remarks
+      .controls= f.text_field :remarks
+    .control-group.field
+      = f.label :events
+      = f.fields_for :event_rewards do |er|
+        .control-group
+          = er.hidden_field :event_id, :value => er.object.event_id
+          .control-label= er.label :_destroy, er.object.event.name
+          .controls= er.check_box :_destroy, {:checked => er.object.persisted?}, 0, 1
 
-  .actions
-    = f.submit 'Save'
+    .form-actions
+      = f.submit 'Save', class: "btn btn-primary"
+      - if @reward.persisted?
+        = link_to 'Cancel', @reward, class: "btn btn-danger"
+      - else
+        = link_to 'Cancel', rewards_path, class: "btn btn-danger"

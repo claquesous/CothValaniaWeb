@@ -5,15 +5,19 @@
       %ul
         - @job.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :short_name
-    = f.text_field :short_name
-  .field
-    = f.label :remarks
-    = f.text_field :remarks
-  .actions
-    = f.submit 'Save'
+  .form-horizontal
+    .control-group.field
+      .control-label= f.label :name
+      .controls= f.text_field :name
+    .control-group.field
+      .control-label= f.label :short_name
+      .controls= f.text_field :short_name
+    .control-group.field
+      .control-label= f.label :remarks
+      .controls= f.text_field :remarks
+    .form-actions.actions
+      = f.submit 'Save', class: "btn btn-primary"
+      - if @job.persisted?
+        = link_to 'Cancel', @job, class: "btn btn-danger"
+      - else
+        = link_to 'Cancel', jobs_path, class: "btn btn-danger"

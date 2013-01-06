@@ -6,23 +6,28 @@
         - @event.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :points
-    = f.number_field :points
-  .field
-    = f.label :failure_points
-    = f.number_field :failure_points
-  .field
-    = f.label :remarks
-    = f.text_field :remarks
-  .field
-    = f.label :hidden
-    = f.check_box :hidden
-  .field
-    = f.label :time
-    = f.time_select :time
-  .actions
-    = f.submit 'Save'
+  .form-horizontal
+    .control-group.field
+      .control-label= f.label :name
+      .controls= f.text_field :name
+    .control-group.field
+      .control-label= f.label :points
+      .controls= f.number_field :points
+    .control-group.field
+      .control-label= f.label :failure_points
+      .controls= f.number_field :failure_points
+    .control-group.field
+      .control-label= f.label :remarks
+      .controls= f.text_field :remarks
+    .control-group.field
+      .control-label= f.label :hidden
+      .controls= f.check_box :hidden
+    .control-group.field
+      .control-label= f.label :time
+      .controls= f.time_select :time
+    .form-actions
+      = f.submit 'Save', class: "btn btn-primary"
+      - if @event.persisted?
+        = link_to 'Cancel', @event, class: "btn btn-danger"
+      - else
+        = link_to 'Cancel', events_path, class: "btn btn-danger"

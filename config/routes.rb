@@ -19,6 +19,7 @@ Cvweb::Application.routes.draw do
   resources :members do
     put :update_active, on: :collection
     get :attendances, on: :member
+    put :begin_new_cycle, on: :member
   end
 
   get "home/index"

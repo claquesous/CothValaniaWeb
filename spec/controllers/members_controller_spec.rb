@@ -218,4 +218,21 @@ describe MembersController do
       response.should redirect_to(members_url)
     end
   end
+
+  describe "PUT begin_new_cycle" do
+    it "redirects to the member" do
+      member = mock_model(Member)
+      Member.stub(:find_by_name).and_return(member)
+      member.stub :begin_new_cycle
+      put :begin_new_cycle, {id: 1}, valid_session
+      response.should redirect_to(member)
+    end
+
+    it "should receive begin_new_cycle" do
+      member = mock_model(Member)
+      Member.stub(:find_by_name).and_return(member)
+      member.should_receive(:begin_new_cycle)
+      put :begin_new_cycle, {id: 1}, valid_session
+    end
+  end
 end

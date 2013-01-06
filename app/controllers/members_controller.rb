@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
   before_filter(:only => :destroy) { |a| a.send(:authorize,:leader) }
   before_filter(:only => [:new, :create, :update_active]) { |a| a.send(:authorize,:admin) }
-  before_filter :validate_member, :only => [:edit, :update]
+  before_filter :validate_member, :only => [:edit, :update, :begin_new_cycle]
 
   # GET /members
   # GET /members.json
@@ -119,6 +119,14 @@ class MembersController < ApplicationController
       Member.where("id not in (?)", params[:member_ids]).update_all(active: false)
     end
     redirect_to members_path
+  end
+
+  # PUT /members/Name/begin_new_cycle
+  def begin_new_cycle
+    @member = Member.find_by_name(CGI.unescape params[:id])
+    @member.begin_new_cycle
+    flash[:notice] = 'New Reward Cycle started.'
+    redirect_to @member
   end
 
   # GET /members/1/attendances

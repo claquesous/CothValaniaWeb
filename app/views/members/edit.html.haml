@@ -2,6 +2,8 @@
 
 = render 'form'
 
+= link_to 'Begin New Reward Cycle', {action: :begin_new_cycle, id: @member}, {data: { confirm: 'This action can not be undone. Are you sure you want to start a new reward cycle?' }, method: :put}
+\|
 = link_to 'Show', @member
 \|
 = link_to 'Back', members_path

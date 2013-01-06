@@ -35,17 +35,22 @@
         %th Reward
         - if @member.characters.many?
           %th Character
+      - (1...@member.reward_cycle).each do |i|
+        %tr
+          %td #{i}.
+          %td Unavailable (Reward cycle #{@member.reward_cycle})
       - @rewards.each_with_index do |r, i|
         %tr
-          - next_cr = @member.character_rewards.find{ |cr| cr.preference == i+1}
-          - next_cr ||= @member.character_rewards.build(preference: i+1)
-          %td #{i+1}
+          - idx = i+@member.reward_cycle
+          - next_cr = @member.character_rewards.where(reward_cycle: @member.reward_cycle).find{ |cr| cr.preference == idx}
+          - next_cr ||= @member.character_rewards.build(preference: idx)
+          %td #{idx}.
           - if next_cr.obtained
             %td= next_cr.reward.name
             - if @member.characters.many?
               %td= next_cr.character.name
           - else
-            = f.fields_for :character_rewards, next_cr, :child_index => i do |cr|
+            = f.fields_for :character_rewards, next_cr, :child_index => idx do |cr|
               %td= cr.collection_select :reward_id, @available_rewards, :id, :name, include_blank: ''
               - if @member.characters.many?
                 %td= cr.collection_select :character_id, @member.characters, :id, :name

@@ -51,7 +51,17 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def begin_new_cycle
+    self.reward_cycle += 1
+    self.cycle_date = get_last_reward_date
+    save!
+  end
+
   private
+  def get_last_reward_date
+    character_rewards.obtained.where("preference is not null").joins(:occurrence).maximum("occurrences.end_time")
+  end
+
   def has_character?
     errors.add :base, "Member must have at least one character" if characters.blank?
   end

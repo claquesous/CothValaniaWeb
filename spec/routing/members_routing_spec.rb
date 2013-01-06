@@ -31,5 +31,9 @@ describe MembersController do
       delete("/members/1").should route_to("members#destroy", :id => "1")
     end
 
+    it "routes to #begin_new_cycle" do
+      put("/members/1/begin_new_cycle").should route_to("members#begin_new_cycle", id: "1")
+    end
+
   end
 end

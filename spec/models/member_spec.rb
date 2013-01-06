@@ -52,4 +52,29 @@ describe Member do
       end
     end
   end
+
+  describe "begin_new_cycle" do
+    before :each do
+      @time = Time.now
+      Member.any_instance.stub(:get_last_reward_date).and_return(@time)
+      @member = FactoryGirl.create :member
+    end
+
+    it "should increment reward_cycle" do
+      expect {
+        @member.begin_new_cycle
+      }.to change(@member, :reward_cycle).by(1)
+    end
+
+    it "should set cycle_date" do
+      expect {
+        @member.begin_new_cycle
+      }.to change(@member, :cycle_date).to @time
+    end
+
+    it "should save" do
+      @member.should_receive :save!
+      @member.begin_new_cycle
+    end
+  end
 end

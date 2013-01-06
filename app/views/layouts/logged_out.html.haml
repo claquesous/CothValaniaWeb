@@ -6,12 +6,13 @@
     = csrf_meta_tags 
 
   %body
-    %h1.title Cvweb
-
-    #main
-      - if flash[:notice]
-        #notice.message= flash[:notice]
-      - elsif flash[:warning]
-        #warning.message= flash[:warning]
-
-    = yield
+    .container
+      %h1.title Cvweb
+  
+      #main
+        - if flash[:notice]
+          #notice.message.alert.alert-success= flash[:notice]
+        - elsif flash[:warning]
+          #warning.message.alert.alert-danger= flash[:warning]
+  
+      = yield

@@ -10,7 +10,9 @@
   - @requirements.each do |requirement|
     %tr
       %td= link_to requirement.name, requirement
-      %td= requirement.reusable
+      %td
+        -if requirement.reusable
+          %i.icon-ok
       %td= link_to 'Edit', edit_requirement_path(requirement), class: "btn btn-info"
       %td= link_to 'Destroy', requirement, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 

@@ -11,7 +11,6 @@
     %th Points
     %th Failure Points
     %th Remarks
-    %th Hidden
     %th Time
     - if leader?
       %th
@@ -25,7 +24,6 @@
       %td= event.points
       %td= event.failure_points
       %td= event.remarks
-      %td= event.hidden
       %td= event.time
       - if leader?
         %td= link_to 'Edit', edit_event_path(event), class: "btn btn-info"

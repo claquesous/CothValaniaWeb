@@ -12,7 +12,6 @@
     %th Join date
     %th Url
     %th Remarks
-    %th Active
     %th Admin
     %th Leader
     %th Reward cycle
@@ -31,9 +30,12 @@
       %td= member.join_date
       %td= member.url
       %td= member.remarks
-      %td= member.active
-      %td= member.admin
-      %td= member.leader
+      %td
+        -if member.admin
+          %i.icon-ok
+      %td
+        -if member.leader
+          %i.icon-ok
       %td= member.reward_cycle
       %td= member.cycle_date
       - if admin?

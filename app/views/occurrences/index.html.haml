@@ -18,8 +18,12 @@
       %td= occurrence.remarks
       %td= occurrence.start_time
       %td= occurrence.end_time
-      %td= occurrence.success
-      %td= occurrence.optional
+      %td
+        -if occurrence.success
+          %i.icon-ok
+      %td
+        -if occurrence.optional
+          %i.icon-ok
       - if admin?
         %td= link_to 'Edit', edit_event_occurrence_path(@event,occurrence), class: "btn btn-info"
         %td= link_to 'Destroy', event_occurrence_path(@event,occurrence), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"

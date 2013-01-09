@@ -46,7 +46,9 @@
       %td= c.sex
       %td= c.race.try :name
       - @jobs.each do |j|
-        %td= c.jobs.include?(j)
+        %td
+          -if c.jobs.include?(j)
+            %i.icon-ok
 
 %p
   = render 'attendance_list', attendances: @member.event_attendances.order_by_date.limit(10)

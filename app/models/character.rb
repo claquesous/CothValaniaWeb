@@ -6,7 +6,7 @@ class Character < ActiveRecord::Base
   has_many :character_rewards, dependent: :destroy
   has_many :event_attendances, dependent: :destroy
   has_many :attendances, source: :occurrence, through: :event_attendances
-  has_many :character_jobs, :inverse_of => :character
+  has_many :character_jobs, :inverse_of => :character, dependent: :destroy
   has_many :jobs, :through => :character_jobs
   validates_uniqueness_of :name
   belongs_to :race

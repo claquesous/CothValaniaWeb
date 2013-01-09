@@ -26,8 +26,8 @@ Feature: Setting rewards wish lists
     Then I select "Bottle of Flintstones Vitamines" for "Claquesous" as my #1 preference
     And I select "Single Soggy Sneaker" for "Montparnasse" as my #2 preference
     And I click "Save"
-    Then I should see "1. Bottle of Flintstones Vitamines Points: 0.0 (Claquesous)"
-    And I should see "2. Single Soggy Sneaker Points: 0.0 (Montparnasse)"
+    Then I should see "1. Bottle of Flintstones Vitamines Points: 0.0 Claquesous"
+    And I should see "2. Single Soggy Sneaker Points: 0.0 Montparnasse"
 
   Scenario: Remove rewards
     Given "Claquesous" listed "Single Soggy Sneaker" as their #2 preference

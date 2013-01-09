@@ -10,4 +10,8 @@ module ApplicationHelper
     end
     link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(field)}\")", class: "btn btn-success")
   end
+
+  def active_page_controller(controller)
+    params[:controller] == controller ? "active" : ""
+  end
 end

@@ -13,17 +13,21 @@
         = link_to " Cvweb", home_index_path, class: :brand
         .container
           %ul.nav.nav-pills
-            %li=link_to 'Roster', members_path, id: :members
-            %li=link_to 'Events', events_path, id: :events
-            %li=link_to 'Loot', rewards_path, id: :rewards
-            %li.dropdown
+            %li{class: active_page_controller('members')}
+              =link_to 'Roster', members_path, id: :members
+            %li{class: active_page_controller('events')}
+              =link_to 'Events', events_path, id: :events
+            %li{class: active_page_controller('rewards')}
+              =link_to 'Loot', rewards_path, id: :rewards
+            %li.dropdown{class: active_page_controller('occurrences')}
               %a.dropdown-toggle{ data: {toggle: :dropdown}, href: "#"}
                 Raids
                 %b.caret
               %ul.dropdown-menu
                 - event_list.each do |event|
                   %li= link_to event.name, event_occurrences_path(event)
-            %li=link_to 'Shout!', shouts_path, id: :shouts
+            %li{class: active_page_controller('shouts')}
+              =link_to 'Shout!', shouts_path, id: :shouts
 
             - if leader?
               %li.dropdown#leader_menu

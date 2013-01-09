@@ -1,27 +1,28 @@
-%h3 Character
-.form-horizontal
-  .control-group.field
-    .control-label.control-label= f.label :name
-    .controls= f.text_field :name
-  .control-group.field
-    .control-label= f.label :remarks
-    .controls= f.text_field :remarks
-  .inline.field
-    .control-label= label_tag :race, "Race", :class => "checkbox inline"
-    .controls
-      - @races.each do |r|
-        = f.label :race_id, r.name, :class => "checkbox inline"
-        = f.radio_button :race_id, r.id, :class => "checkbox inline"
-  .control-group.field
-    .control-label= f.label :jobs
-    .controls
-      = f.fields_for :character_jobs do |cj|
-        = render 'character_jobs', :f => cj
-  .inline.field
-    .control-label= f.label :sex, :class => "checkbox inline"
-    .controls
-      = f.hidden_field :sex, :value => "none"
-      = f.label :sex, :Male, :value => "Male", :class => "checkbox inline"
-      = f.radio_button :sex, "Male", :class => "checkbox inline"
-      = f.label :sex, :Female, :value => "Female", :class => "checkbox inline"
-      = f.radio_button :sex, "Female", :class => "checkbox inline"
+.well
+  %h3 Character
+  .form-horizontal
+    .control-group.field
+      .control-label.control-label= f.label :name
+      .controls= f.text_field :name
+    .control-group.field
+      .control-label= f.label :remarks
+      .controls= f.text_field :remarks
+    .inline.field
+      .control-label= label_tag :race, "Race", :class => "checkbox inline"
+      .controls
+        - @races.each do |r|
+          = f.label :race_id, r.name, :class => "checkbox inline"
+          = f.radio_button :race_id, r.id, :class => "checkbox inline"
+    .control-group.field
+      .control-label= f.label :jobs
+      .controls
+        = f.fields_for :character_jobs do |cj|
+          = render 'character_jobs', :f => cj
+    .inline.field
+      .control-label= f.label :sex, :class => "checkbox inline"
+      .controls
+        = f.hidden_field :sex, :value => "none"
+        = f.label :sex, :Male, :value => "Male", :class => "checkbox inline"
+        = f.radio_button :sex, "Male", :class => "checkbox inline"
+        = f.label :sex, :Female, :value => "Female", :class => "checkbox inline"
+        = f.radio_button :sex, "Female", :class => "checkbox inline"

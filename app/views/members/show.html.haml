@@ -29,84 +29,89 @@
   %b Cycle date:
   = @member.cycle_date
 
-%table.table.table-condensed
-  %tr
-    %th Name
-    %th Points
-    %th Remarks
-    %th Sex
-    %th Race
-    - @jobs.each do |j|
-      %th= j.name
-  - @member.characters.includes(:race).includes(:member).each do |c|
-    %tr
-      %td= c.name
-      %td= c.current_points
-      %td= c.remarks
-      %td= c.sex
-      %td= c.race.try :name
-      - @jobs.each do |j|
-        %td
-          -if c.jobs.include?(j)
-            %i.icon-ok
-
-%p
-  = render 'attendance_list', attendances: @member.event_attendances.order_by_date.limit(10)
-  = link_to 'See all attendance', attendances_member_path(@member)
-
-%p
-  %b Attendance rate:
-  = @member.attendance_rate.round(2)
-
-%p
-  %b Attendance percentage:
-  = @member.attendance_percentage.round(2)
-
-%p
-  %b Wishlist
+%p#character_list
+  %b Characters
   %table.table.table-condensed
     %tr
-      %th #
-      %th Reward
+      %th Name
       %th Points
-      - if @member.characters.many?
-        %th Character
-    - (1...@member.reward_cycle).each do |i|
+      %th Remarks
+      %th Sex
+      %th Race
+      - @jobs.each do |j|
+        %th= j.name
+    - @member.characters.includes(:race).includes(:member).each do |c|
       %tr
-        %td #{i}.
-        %td Unavailable (Reward cycle #{@member.reward_cycle})
-    - @member.character_rewards.where(reward_cycle: @member.reward_cycle).where("preference is not null").includes(:reward).order(:preference).each do |r|
-      %tr
-        %td #{r.preference}.
-        %td= link_to r.reward.name, reward_path(r.reward)
-        - if r.obtained
-          %td Obtained (#{r.obtained_points.round(2)})
-        - else
-          %td Points: #{r.current_points.round(2)}
-        - if @member.characters.many?
-          %td= r.character.name
-
-%p
-  %b Drops Obtained
-  %table.table.table-condensed
-    %tr
-      %th Reward
-      %th Occurrence Date
-      %th Obtained Points
-      %th Reward Cycle
-      %th Preference
-    - @member.character_rewards.includes(:occurrence => :event).order(:preference).each do |r|
-      - if r.obtained
-        %tr
-          %td= link_to r.reward.name, reward_path(r.reward)
-          %td= link_to r.occurrence.end_time.to_date, event_occurrence_path(r.occurrence.event, r.occurrence) unless r.occurrence.nil?
+        %td= c.name
+        %td= c.current_points
+        %td= c.remarks
+        %td= c.sex
+        %td= c.race.try :name
+        - @jobs.each do |j|
           %td
-            - if r.preference
-              = r.obtained_points.round(2)
-            - else
-              Free
-          %td= r.reward_cycle if r.preference
-          %td= r.preference
+            -if c.jobs.include?(j)
+              %i.icon-ok
+
+.row
+  .span6 
+    %p#attendance_list
+      = render 'attendance_list', attendances: @member.event_attendances.order_by_date.limit(10)
+      = link_to 'See all attendance', attendances_member_path(@member)
+
+    %p
+      %b Attendance rate:
+      = @member.attendance_rate.round(2)
+
+    %p
+      %b Attendance percentage:
+      = @member.attendance_percentage.round(2)
+
+  .span6
+    %b Wishlist
+    %table.table.table-condensed
+      %tr
+        %th #
+        %th Reward
+        %th Points
+        - if @member.characters.many?
+          %th Character
+      - (1...@member.reward_cycle).each do |i|
+        %tr
+          %td #{i}.
+          %td Unavailable (Reward cycle #{@member.reward_cycle})
+      - @member.character_rewards.where(reward_cycle: @member.reward_cycle).where("preference is not null").includes(:reward).order(:preference).each do |r|
+        %tr
+          %td #{r.preference}.
+          %td= link_to r.reward.name, reward_path(r.reward)
+          - if r.obtained
+            %td Obtained (#{r.obtained_points.round(2)})
+          - else
+            %td Points: #{r.current_points.round(2)}
+          - if @member.characters.many?
+            %td= r.character.name
+
+#obtained_list.row
+  .span8
+    %b Drops Obtained
+    %table.table.table-condensed
+      %tr
+        %th Reward
+        %th Occurrence Date
+        %th Obtained Points
+        %th Reward Cycle
+        %th Preference
+      - @member.character_rewards.includes(:occurrence => :event).order(:preference).each do |r|
+        - if r.obtained
+          %tr
+            %td= link_to r.reward.name, reward_path(r.reward)
+            %td= link_to r.occurrence.end_time.to_date, event_occurrence_path(r.occurrence.event, r.occurrence) unless r.occurrence.nil?
+            %td
+              - if r.preference
+                = r.obtained_points.round(2)
+              - else
+                Free
+            %td= r.reward_cycle if r.preference
+            %td= r.preference
 
 - if admin? || @member == current_member
   = link_to 'Edit', edit_member_path(@member), class: "btn btn-info"

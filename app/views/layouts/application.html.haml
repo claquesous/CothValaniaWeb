@@ -8,29 +8,50 @@
     = csrf_meta_tags 
 
   %body
-    .container
-      %h1.title Cvweb
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        = link_to " Cvweb", home_index_path, class: :brand
+        .container
+          %ul.nav.nav-pills
+            %li=link_to 'Roster', members_path, id: :members
+            %li=link_to 'Events', events_path, id: :events
+            %li=link_to 'Loot', rewards_path, id: :rewards
+            %li.dropdown
+              %a.dropdown-toggle{ data: {toggle: :dropdown}, href: "#"}
+                Raids
+                %b.caret
+              %ul.dropdown-menu
+                - event_list.each do |event|
+                  %li= link_to event.name, event_occurrences_path(event)
+            %li=link_to 'Shout!', shouts_path, id: :shouts
+
+            - if leader?
+              %li.dropdown#leader_menu
+                %a.dropdown-toggle{ :data => {toggle: "dropdown"}, href: "#"}
+                  Configuration
+                  %b.caret
+                %ul.dropdown-menu
+                  %li=link_to 'Jobs', jobs_path, id: :jobs
+                  %li=link_to 'Races', races_path, id: :races
+                  %li=link_to 'Requirements', requirements_path, id: :requirements
+                      
+          .pull-right
+            %ul.nav
+              %li.dropdown
+                %a.dropdown-toggle{ :data => {toggle: "dropdown"}, href: "#"}
+                  = current_member.name
+                  %b.caret
+                %ul.dropdown-menu
+                  %li=link_to 'My Page', @current_member
+                  %li=link_to 'Logout', logout_url, id: :logout
+
+    .container 
       #main
         - if flash[:notice]
           #notice.message.alert.alert-success= flash[:notice]
         - elsif flash[:warning]
           #warning.message.alert= flash[:warning]
-
-      %ul.nav.nav-pills#menu
-        %li=link_to 'Home', home_index_path
-        %li=link_to 'My Page', @current_member
-        %li=link_to 'Roster', members_path, id: :members
-        %li=link_to 'Events', events_path, id: :events
-        %li=link_to 'Drops', rewards_path, id: :rewards
-        %li=#link_to_unless_current 'Statistics', statistics_path
-        %li=link_to 'Shout!', shouts_path, id: :shouts
-        =#link_to_unless_current 'Admin', admin_path
-        %li=link_to 'Logout', logout_url, id: :logout
-      %ul.nav.nav-pills#leader_menu
-        %li=link_to 'Jobs', jobs_path, id: :jobs
-        %li=link_to 'Races', races_path, id: :races
-        %li=link_to 'Requirements', requirements_path, id: :requirements
-
-      = yield
-
-    %p
+ 
+        = yield
+  
+      %p

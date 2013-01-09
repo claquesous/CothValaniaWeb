@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     @current_member.admin || @current_member.leader
   end
 
+  def event_list
+    Event.visible.all
+  end
+
   private
 
   def require_login
@@ -29,5 +33,5 @@ class ApplicationController < ActionController::Base
   def current_member
     @current_member ||= Member.find(session[:member_id]) if session[:member_id]
   end
-  helper_method :current_member, :admin?, :leader?, :authorize
+  helper_method :current_member, :admin?, :leader?, :authorize, :event_list
 end

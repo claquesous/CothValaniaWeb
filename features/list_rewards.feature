@@ -9,7 +9,7 @@ Feature: List the possible rewards
 
   Scenario: List of rewards
     Given I am on the home page
-    When I click "Drops"
+    When I click "Loot"
     Then I should see an "Big Reward" link
     And I should see a "Small Reward" link
 

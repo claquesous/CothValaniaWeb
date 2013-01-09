@@ -22,16 +22,17 @@
         %th Event
         %th Required for
       - f.object.requirement_obtainments.zip(f.object.event_requirements).each do |(next_ro,next_er)|
-        %tr
-          %td
-            = f.fields_for :requirement_obtainments, next_ro, :child_index => next_ro.event.name do |ro|
-              = ro.check_box :_destroy, {:checked => next_ro.persisted?}, 0, 1
-              = ro.hidden_field :event_id, :value => next_ro.event.id
-          %td= next_ro.event.name
-          %td
-            = f.fields_for :event_requirements, next_er, :child_index => next_ro.event.name do |er|
-              = er.check_box :_destroy, {:checked => next_er.persisted?}, 0, 1
-              = er.hidden_field :event_id, :value => next_er.event.id
+        - if !next_ro.event.hidden 
+          %tr
+            %td
+              = f.fields_for :requirement_obtainments, next_ro, :child_index => next_ro.event.name do |ro|
+                = ro.check_box :_destroy, {:checked => next_ro.persisted?}, 0, 1
+                = ro.hidden_field :event_id, :value => next_ro.event.id
+            %td= next_ro.event.name
+            %td
+              = f.fields_for :event_requirements, next_er, :child_index => next_ro.event.name do |er|
+                = er.check_box :_destroy, {:checked => next_er.persisted?}, 0, 1
+                = er.hidden_field :event_id, :value => next_er.event.id
 
     .form-actions
       = f.submit 'Save', class: "btn btn-primary"

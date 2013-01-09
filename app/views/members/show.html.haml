@@ -63,23 +63,24 @@
   = @member.attendance_percentage.round(2)
 
 %p
-  %b Drops List
+  %b Wishlist
   %table.table.table-condensed
+    %tr
+      %th #
+      %th Reward
+      %th Points
+      - if @member.characters.many?
+        %th Character
     - (1...@member.reward_cycle).each do |i|
       %tr
         %td #{i}.
         %td Unavailable (Reward cycle #{@member.reward_cycle})
-    - @member.character_rewards.where(reward_cycle: @member.reward_cycle).includes(:reward).order(:preference).each do |r|
+    - @member.character_rewards.where(reward_cycle: @member.reward_cycle).where("preference is not null").includes(:reward).order(:preference).each do |r|
       %tr
-        %td 
-          - if r.preference
-            #{r.preference}.
+        %td #{r.preference}.
         %td= link_to r.reward.name, reward_path(r.reward)
         - if r.obtained
-          - if r.preference
-            %td Obtained (#{r.obtained_points.round(2)})
-          - else
-            %td Obtained (Free)
+          %td Obtained (#{r.obtained_points.round(2)})
         - else
           %td Points: #{r.current_points.round(2)}
         - if @member.characters.many?

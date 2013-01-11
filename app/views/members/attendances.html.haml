@@ -2,5 +2,5 @@
 
 = render 'attendance_list', attendances: @member.event_attendances.order_by_date
 
-= link_to 'Back', member_path(@member)
+= link_to 'Back', member_path(@member), class: "btn btn-primary"
 

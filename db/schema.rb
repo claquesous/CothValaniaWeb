@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121226210047) do
+ActiveRecord::Schema.define(:version => 20130109011928) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -226,5 +226,22 @@ ActiveRecord::Schema.define(:version => 20121226210047) do
 
   add_index "shouts", ["date"], :name => "index_shouts_on_date"
   add_index "shouts", ["member_id"], :name => "index_shouts_on_member_id"
+
+  create_table "site_configs", :force => true do |t|
+    t.string   "site_name"
+    t.string   "password_digest"
+    t.text     "description"
+    t.string   "config_comment"
+    t.string   "members",         :default => "Members"
+    t.string   "events",          :default => "Events"
+    t.string   "rewards",         :default => "Rewards"
+    t.string   "occurrences",     :default => "Occurrences"
+    t.string   "jobs",            :default => "Jobs"
+    t.string   "races",           :default => "Races"
+    t.string   "requirements",    :default => "Requirements"
+    t.integer  "dkp_system",      :default => 0
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+  end
 
 end

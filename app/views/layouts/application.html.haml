@@ -2,7 +2,7 @@
 
 %html
   %head
-    %title Cvweb
+    %title= @config.site_name
     = stylesheet_link_tag    "application", :media => "all" 
     = javascript_include_tag "application" 
     = csrf_meta_tags 
@@ -10,18 +10,18 @@
   %body
     .navbar.navbar-fixed-top
       .navbar-inner
-        = link_to " Cvweb", home_index_path, class: :brand
+        = link_to @config.site_name, home_index_path, class: :brand
         .container
           %ul.nav.nav-pills
             %li{class: active_page_controller('members')}
-              =link_to 'Roster', members_path, id: :members
+              =link_to @config.members, members_path, id: :members
             %li{class: active_page_controller('events')}
-              =link_to 'Events', events_path, id: :events
+              =link_to @config.events, events_path, id: :events
             %li{class: active_page_controller('rewards')}
-              =link_to 'Loot', rewards_path, id: :rewards
+              =link_to @config.rewards, rewards_path, id: :rewards
             %li.dropdown{class: active_page_controller('occurrences')}
               %a.dropdown-toggle{ data: {toggle: :dropdown}, href: "#"}
-                Raids
+                = @config.occurrences
                 %b.caret
               %ul.dropdown-menu
                 - event_list.each do |event|
@@ -35,9 +35,10 @@
                   Configuration
                   %b.caret
                 %ul.dropdown-menu
-                  %li=link_to 'Jobs', jobs_path, id: :jobs
-                  %li=link_to 'Races', races_path, id: :races
-                  %li=link_to 'Requirements', requirements_path, id: :requirements
+                  %li=link_to 'Site Config', site_configs_path, id: :site_configs
+                  %li=link_to @config.jobs, jobs_path, id: :jobs
+                  %li=link_to @config.races, races_path, id: :races
+                  %li=link_to @config.requirements, requirements_path, id: :requirements
                       
           .pull-right
             %ul.nav

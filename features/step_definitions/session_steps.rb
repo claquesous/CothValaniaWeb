@@ -3,6 +3,7 @@ Given /^I have an account named "([^\"]+)" with password "([^\"]+)"$/ do |member
 end
 
 Given /^I am logged in( as .*)?$/ do |role|
+  FactoryGirl.create :site_config if SiteConfig.count == 0
   case role
   when " as an admin"
     conditions = {:admin => true}

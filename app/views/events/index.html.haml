@@ -1,4 +1,4 @@
-%h1 Listing events
+%h1= @config.events
 
 - if @update_visible
   = form_tag update_visible_events_path, method: :put

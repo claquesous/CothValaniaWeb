@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe "Sessions" do
+  before :each do
+    config_site
+  end
+
   describe "GET /login" do
     it "allows anyone" do
       get login_path

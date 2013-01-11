@@ -7,3 +7,8 @@
     =@news.member.name
   -unless @newscount<=1
     =link_to 'Read past news', news_index_path
+
+%p
+#description
+  - tags = %w(a b strong i em li ul ol h1 h2 h3 h4 h5 h6 br p)
+  = sanitize(@config.description, tags: tags, attributes: %w(href))

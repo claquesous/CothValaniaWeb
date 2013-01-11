@@ -45,8 +45,14 @@ def build_attributes(*args)
   end
 end
 
+def config_site
+  FactoryGirl.create :site_config
+end
+
 # Create a new member and login with them
 def login(role=nil)
+  config_site
+
   member = FactoryGirl.build :member
   case role
   when :admin

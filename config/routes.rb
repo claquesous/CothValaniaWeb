@@ -1,4 +1,6 @@
 Cvweb::Application.routes.draw do
+  resources :site_configs
+
   resources :jobs
 
   resources :races

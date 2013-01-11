@@ -36,6 +36,10 @@ describe SessionsController do
     {}
   end
 
+  before :each do
+    config_site
+  end
+
   describe "GET new" do
     it "renders the new template" do
       get :new, {}, valid_session

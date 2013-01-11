@@ -1,0 +1,76 @@
+= form_for @site_config do |f|
+  - if @site_config.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@site_config.errors.count, "error")} prohibited this site_config from being saved:"
+      %ul
+        - @site_config.errors.full_messages.each do |msg|
+          %li= msg
+
+  - unless @initial
+    .field
+      = label :site, :password
+      = password_field :site, :password
+
+  .field
+    = f.label :site_name
+    = f.text_field :site_name
+  - if @initial
+    .field
+      = f.label :password
+      = f.password_field :password
+    .field
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+  - else
+    .field
+      = f.label :password, "New password"
+      = f.password_field :password
+    .field
+      = f.label :password_confirmation, "Confirm new password"
+      = f.password_field :password_confirmation
+
+  .field
+    = f.label :members
+    = f.text_field :members
+  .field
+    = f.label :events
+    = f.text_field :events
+  .field
+    = f.label :rewards
+    = f.text_field :rewards
+  .field
+    = f.label :occurrences
+    = f.text_field :occurrences
+  .field
+    = f.label :jobs
+    = f.text_field :jobs
+  .field
+    = f.label :races
+    = f.text_field :races
+  .field
+    = f.label :requirements
+    = f.text_field :requirements
+
+  .field
+    = f.label :description
+    = f.text_area :description
+
+  - if @initial
+    .field
+      = label :member, :name
+      = text_field :member, :name
+    .field
+      = label :member, :password
+      = text_field :member, :password
+    .field
+      = label :member, :password_confirmation
+      = text_field :member, :password_confirmation
+  - else
+    .field
+      = f.label :config_comment, "Comment"
+      = f.text_field :config_comment, value: ""
+
+  .form-actions.actions
+    = f.submit 'Save', class: "btn btn-primary"
+    - unless @initial
+      = link_to 'Cancel', site_configs_path, class: "btn btn-danger"

@@ -1,0 +1,35 @@
+%p#notice= notice
+
+%p
+  %b Site name:
+  = @site_config.site_name
+%p
+  %b Members:
+  = @site_config.members
+%p
+  %b Events:
+  = @site_config.events
+%p
+  %b Rewards:
+  = @site_config.rewards
+%p
+  %b Occurrences:
+  = @site_config.occurrences
+%p
+  %b Jobs:
+  = @site_config.jobs
+%p
+  %b Races:
+  = @site_config.races
+%p
+  %b Requirements:
+  = @site_config.requirements
+%p
+  %b Comment:
+  = @site_config.config_comment
+%p
+  %b Description:
+  = @site_config.description
+
+= link_to 'Edit', edit_site_config_path(@site_config), class: "btn btn-info"
+= link_to 'Back', site_configs_path, class: "btn btn-primary"

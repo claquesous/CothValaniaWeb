@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   layout 'logged_out'
-  skip_before_filter :require_login
+  skip_before_filter :check_config_and_login
+  before_filter :check_config
 
   def new
   end

@@ -1,4 +1,4 @@
-%h1 Listing members
+%h1= @config.members
 
 - if @update_active
   = form_tag update_active_members_path, method: :put

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   #force_ssl :except => "login"
-  before_filter :require_login
+  before_filter :check_config_and_login
   protected
 
   def authorize(role)
@@ -25,6 +25,15 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def check_config_and_login
+    require_login if check_config
+  end
+
+  def check_config
+    @config = SiteConfig.last
+    redirect_to new_site_config_path unless @config
+    @config
+  end
 
   def require_login
     redirect_to login_url unless current_member

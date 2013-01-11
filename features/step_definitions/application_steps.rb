@@ -10,6 +10,10 @@ Given /^I am on the home page$/ do
   visit '/'
 end
 
+Given /^I am on the login page$/ do
+  visit '/login'
+end
+
 Then /^I should (not )?see "([^\"]+)"$/ do |n,message|
   eval %Q{page.should#{"_not" unless n.nil?} have_content(message)}
 end
@@ -37,7 +41,9 @@ When /^I (un)?check the box next to "(.*?)"$/ do |uncheck, arg1|
 end
 
 When /^I fill in "(.*?)" with "(.*?)"$/ do |field, value|
-  fill_in field, with: value
+  page.all(:field, field).each do |form_field|
+    form_field.set value
+  end
 end
 
 When /^I choose "(.*)"$/ do |radio|

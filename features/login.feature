@@ -3,6 +3,9 @@ Feature: Allow members to login
   As a member of the group
   I want to authenticate
 
+  Background:
+    Given I have configured the site
+
   Scenario: User does not exist
     Given I am on the "Login" page
     When I login with invalid credentials

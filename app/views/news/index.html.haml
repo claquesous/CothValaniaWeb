@@ -7,10 +7,8 @@
   %tr
     %th Text
     %th Date
-    %th Character
-    %th
+    %th #{@config.members.singularize}
     - if admin?
-      %th
       %th
 
   - @news.each do |news|
@@ -18,9 +16,7 @@
       %td= news.text
       %td= news.date
       %td= link_to news.member.name, member_path(news.member)
-      %td= link_to 'Show', news
       - if admin?
-        %td= link_to 'Edit', edit_news_path(news), class: "btn btn-info"
         %td= link_to 'Destroy', news, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 
 %br

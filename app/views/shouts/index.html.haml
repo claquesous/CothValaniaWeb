@@ -9,7 +9,6 @@
     %th #{@config.members.singularize}
     - if admin?
       %th
-      %th
 
   - @shouts.each do |shout|
     %tr
@@ -17,5 +16,4 @@
       %td= shout.date
       %td= link_to shout.member.name, shout.member
       - if admin?
-        %td= link_to 'Edit', edit_shout_path(shout), class: "btn btn-info"
         %td= link_to 'Destroy', shout, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"

@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @news = News.last
+    @news = News.first
     @newscount = News.count
   end
 end

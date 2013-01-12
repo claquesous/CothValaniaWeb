@@ -31,12 +31,12 @@ Feature: Manage occurrences
     When I check "Chrysaor" as obtained by "Perseus"
     And I click "Save"
     Then I should see "Event occurrence was successfully created"
-    And I should see "Drops: Chrysaor : Perseus"
+    And I should see "Rewards: Chrysaor : Perseus"
     When I click "Edit"
     When I uncheck "Chrysaor" as obtained by "Perseus"
     And I click "Save"
     Then I should see "Event occurrence was successfully updated"
-    And I should not see "Drops: Chrysaor : Perseus"
+    And I should not see "Rewards: Chrysaor : Perseus"
 
   Scenario: Job attendance
     Given There are jobs named "Hero"

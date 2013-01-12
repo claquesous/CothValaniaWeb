@@ -1,4 +1,6 @@
 %h1.valigned= @config.events.pluralize
+- if @update_visible
+  = form_tag update_visible_events_path, method: :put
 .pull-right
   - if leader?
     - if @update_visible
@@ -7,9 +9,6 @@
     - else
       = link_to 'Update Visible', events_path(update_visible: 1), class: "btn btn-info"
       = link_to "New #{@config.events.singularize}", new_event_path, class: "btn btn-success"
-
-- if @update_visible
-  = form_tag update_visible_events_path, method: :put
 
 %table.table.table-condensed
   %tr

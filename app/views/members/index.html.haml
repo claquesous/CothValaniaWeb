@@ -1,4 +1,6 @@
 %h1.valigned= @config.members.pluralize
+- if @update_active
+  = form_tag update_active_members_path, method: :put
 .pull-right
   - if admin?
     - if @update_active
@@ -7,9 +9,6 @@
     - else
       = link_to 'Update Active', members_path(update_active: 1), class: "btn btn-info"
       = link_to "New #{@config.members.singularize}", new_member_path, class: "btn btn-success"
-
-- if @update_active
-  = form_tag update_active_members_path, method: :put
 
 %table.table.table-condensed
   %tr

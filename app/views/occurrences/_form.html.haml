@@ -9,19 +9,19 @@
   .form-horizontal 
     .control-group.field
       .control-label= f.label :remarks
-      .contols= f.text_field :remarks
+      .controls= f.text_field :remarks
     .control-group.field
       .control-label= f.label :start_time
-      .contols= f.datetime_select :start_time
+      .controls= f.datetime_select :start_time
     .control-group.field
       .control-label= f.label :end_time
-      .contols= f.datetime_select :end_time
+      .controls= f.datetime_select :end_time
     .control-group.field
       .control-label= f.label :success, :Failed
-      .contols= f.check_box :success, {checked: @occurrence.success==false}, 0, 1
+      .controls= f.check_box :success, {checked: @occurrence.success==false}, 0, 1
     .control-group.field
       .control-label= f.label :optional
-      .contols= f.check_box :optional
+      .controls= f.check_box :optional
     %h3 Attendees
     %table.table.table-condensed
       - @members.each_with_index do |m,i|
@@ -30,23 +30,21 @@
         = f.fields_for :event_attendances, new_ea, :child_index => i do |ea|
           %tr
             %td
-              .control-group.field
+              .form-inline
                 = ea.check_box :_destroy, {:checked => new_ea.persisted?}, 0, 1
                 = ea.label :_destroy, m.name
             %td
               - if m.characters.many?
                 %table.table.table-condensed
-                  %tr
                   - m.characters.each do |c|
-                    %td
-                      = ea.radio_button :character_id, c.id, :checked => (!new_ea.persisted? && c.name==m.name) || ea.object.character_id == c.id
-                      = ea.label :character, c.name
-                      %table.table.table-condensed
+                    %tr
+                      %td.form-inline
+                        = ea.radio_button :character_id, c.id, :checked => (!new_ea.persisted? && c.name==m.name) || ea.object.character_id == c.id
+                        = ea.label "character_id_#{c.id}", c.name
                         - c.character_jobs.includes(:job).each do |cj|
-                          %tr
-                            %td
-                              = ea.radio_button :character_job_id, cj.id, checked: ea.object.character_job_id == cj.id
-                              = ea.label "character_job_id_#{cj.id}", cj.job.name
+                          %td.form-inline
+                            = ea.radio_button :character_job_id, cj.id, checked: ea.object.character_job_id == cj.id
+                            = ea.label "character_job_id_#{cj.id}", cj.job.name
                     
               - else
                 = ea.hidden_field :character_id, :value => m.characters.first.id
@@ -61,11 +59,15 @@
     - if event_rewards.count>0
       %h3 #{@config.rewards.pluralize}
       = hidden_field_tag "occurrence[character_reward_ids][]"
-      - event_rewards.each do |r|
-        %br= r.name
-        - r.character_rewards.includes(:character).includes(:occurrence).unobtained_or_occurrence(@occurrence).each do |cr|
-          = cr.character.name
-          = check_box_tag "occurrence[character_reward_ids][]", cr.id, cr.occurrence == @occurrence, id: "occurrence_character_reward_ids_#{cr.id}"
+      .row
+        - event_rewards.each do |r|
+          .span3.well
+            %b= r.name
+            - r.character_rewards.includes(:character).includes(:occurrence).unobtained_or_occurrence(@occurrence).each do |cr|
+              .form-inline
+                = check_box_tag "occurrence[character_reward_ids][]", cr.id, cr.occurrence == @occurrence, id: "occurrence_character_reward_ids_#{cr.id}"
+                = label_tag "occurrence_character_reward_ids_#{cr.id}", cr.character.name
+                = cr.current_points.round(2)
   
     - er = @event.event_requirements.includes(:requirement)
     - ro = @event.requirement_obtainments.includes(:requirement)

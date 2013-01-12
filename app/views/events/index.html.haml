@@ -1,4 +1,12 @@
-%h1= @config.events
+%h1.valigned= @config.events.pluralize
+.pull-right
+  - if leader?
+    - if @update_visible
+      = submit_tag 'Update Visible', class: "btn btn-primary"
+      = link_to 'Cancel', events_path, class: "btn btn-danger"
+    - else
+      = link_to 'Update Visible', events_path(update_visible: 1), class: "btn btn-info"
+      = link_to "New #{@config.events.singularize}", new_event_path, class: "btn btn-success"
 
 - if @update_visible
   = form_tag update_visible_events_path, method: :put
@@ -31,10 +39,3 @@
 
 %br
 
-- if leader?
-  - if @update_visible
-    = submit_tag 'Update Visible', class: "btn btn-primary"
-    = link_to 'Cancel', events_path, class: "btn btn-danger"
-  - else
-    = link_to 'Update Visible', events_path(update_visible: 1), class: "btn btn-info"
-    = link_to 'New Event', new_event_path, class: "btn btn-success"

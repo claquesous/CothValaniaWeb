@@ -1,4 +1,6 @@
-%h1= @config.races
+%h1.valigned= @config.races.pluralize
+.pull-right
+  = link_to "New #{@config.races.singularize}", new_race_path, class: "btn btn-success"
 
 %table.table.table-condensed
   %tr
@@ -16,4 +18,3 @@
 
 %br
 
-= link_to 'New Race', new_race_path, class: "btn btn-success"

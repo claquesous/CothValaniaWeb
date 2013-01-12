@@ -1,4 +1,6 @@
-%h1= @config.requirements
+%h1.valigned= @config.requirements.pluralize
+.pull-right
+  = link_to "New #{@config.requirements.singularize}", new_requirement_path, class: "btn btn-success"
 
 %table.table.table-condensed
   %tr
@@ -18,4 +20,3 @@
 
 %br
 
-= link_to 'New Requirement', new_requirement_path, class: "btn btn-success"

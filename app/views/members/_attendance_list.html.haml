@@ -2,7 +2,7 @@
 %table.table.table-condensed
   %tr
     %th Date
-    %th Event
+    %th #{@config.events.singularize}
     - if @member.characters.many?
       %th Character
     %th Points

@@ -32,7 +32,7 @@
       %table.table.table-condensed
         %tr
           %th
-          %th Reward
+          %th #{@config.rewards.singularize}
           - if @member.characters.many?
             %th Character
         - (1...@member.reward_cycle).each do |i|

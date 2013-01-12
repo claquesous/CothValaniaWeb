@@ -1,9 +1,9 @@
-%p
-  %b Name:
-  = @requirement.name
+%h1.valigned= @requirement.name
+.pull-right
+  = link_to 'Edit', edit_requirement_path(@requirement), class: "btn btn-info"
+  = link_to 'Back', requirements_path, class: "btn btn-primary"
+
 %p
   %b Reusable:
   = @requirement.reusable
 
-= link_to 'Edit', edit_requirement_path(@requirement), class: "btn btn-info"
-= link_to 'Back', requirements_path, class: "btn btn-primary"

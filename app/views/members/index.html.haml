@@ -1,4 +1,12 @@
-%h1= @config.members
+%h1.valigned= @config.members.pluralize
+.pull-right
+  - if admin?
+    - if @update_active
+      = submit_tag 'Update Active', class: "btn btn-primary"
+      = link_to 'Cancel', members_path, class: "btn btn-danger"
+    - else
+      = link_to 'Update Active', members_path(update_active: 1), class: "btn btn-info"
+      = link_to "New #{@config.members.singularize}", new_member_path, class: "btn btn-success"
 
 - if @update_active
   = form_tag update_active_members_path, method: :put
@@ -45,10 +53,3 @@
 
 %br
 
-- if admin?
-  - if @update_active
-    = submit_tag 'Update Active', class: "btn btn-primary"
-    = link_to 'Cancel', members_path, class: "btn btn-danger"
-  - else
-    = link_to 'Update Active', members_path(update_active: 1), class: "btn btn-info"
-    = link_to 'New Member', new_member_path, class: "btn btn-success"

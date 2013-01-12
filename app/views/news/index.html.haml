@@ -1,4 +1,7 @@
-%h1 Listing news
+%h1.valigned News
+.pull-right
+  - if admin?
+    = link_to 'New News', new_news_path, class: "btn btn-success"
 
 %table.table.table-condensed
   %tr
@@ -22,5 +25,3 @@
 
 %br
 
-- if admin?
-  = link_to 'New News', new_news_path, class: "btn btn-success"

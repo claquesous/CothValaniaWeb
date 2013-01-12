@@ -4,7 +4,7 @@
   .well
     .form-horizontal
       .control-group.field
-        .control-label= label_tag :member
+        .control-label= label_tag :member, @config.members.singularize
         .controls= text_field_tag :member, params[:member]
       .control-group.field
         .control-label= label_tag :password

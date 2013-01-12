@@ -5,7 +5,7 @@
   %b Date:
   = @shout.date
 %p
-  %b Member:
+  %b #{@config.members.singularize}:
   = @shout.member.name
 
 - if @shout.member == current_member

@@ -8,13 +8,13 @@
       .control-label= f.label :remarks
       .controls= f.text_field :remarks
     .inline.field
-      .control-label= label_tag :race, "Race", :class => "checkbox inline"
+      .control-label= label_tag :race, @config.races.singularize, :class => "checkbox inline"
       .controls
         - @races.each do |r|
           = f.label :race_id, r.name, :class => "checkbox inline"
           = f.radio_button :race_id, r.id, :class => "checkbox inline"
     .control-group.field
-      .control-label= f.label :jobs
+      .control-label= f.label :jobs, @config.jobs.pluralize
       .controls
         = f.fields_for :character_jobs do |cj|
           = render 'character_jobs', :f => cj

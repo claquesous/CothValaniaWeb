@@ -1,4 +1,7 @@
-%h1= @config.rewards
+%h1.valigned= @config.rewards.pluralize
+.pull-right
+  - if leader?
+    = link_to "New #{@config.rewards.singularize}", new_reward_path, class: "btn btn-success"
 
 %table.table.table-condensed
   %tr
@@ -20,5 +23,3 @@
 
 %br
 
-- if leader?
-  = link_to 'New Reward', new_reward_path, class: "btn btn-success"

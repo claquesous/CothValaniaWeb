@@ -8,47 +8,57 @@
     = csrf_meta_tags 
 
   %body
-    .navbar.navbar-fixed-top
-      .navbar-inner
+    .navbar.navbar-static-top
+      #menu.navbar-inner
         = link_to @config.site_name, home_index_path, class: :brand
-        .container
-          %ul.nav.nav-pills
-            %li{class: active_page_controller('members')}
-              =link_to @config.members, members_path, id: :members
-            %li{class: active_page_controller('events')}
-              =link_to @config.events, events_path, id: :events
-            %li{class: active_page_controller('rewards')}
-              =link_to @config.rewards, rewards_path, id: :rewards
-            %li.dropdown{class: active_page_controller('occurrences')}
-              %a.dropdown-toggle{ data: {toggle: :dropdown}, href: "#"}
-                = @config.occurrences
+        %ul.nav.nav-pills
+          %li{class: active_page_controller('members')}
+            %a{href: members_path, id: :members}
+              %i.icon-user
+              = @config.members
+          %li{class: active_page_controller('events')}
+            %a{href: events_path, id: :events}
+              %i.icon-flag
+              = @config.events
+          %li{class: active_page_controller('rewards')}
+            %a{href: rewards_path, id: :rewards}
+              %i.icon-gift
+              = @config.rewards
+          %li.dropdown{class: active_page_controller('occurrences')}
+            %a.dropdown-toggle{ data: {toggle: :dropdown}, href: "#"}
+              %i.icon-calendar
+              = @config.occurrences
+              %b.caret
+            %ul.dropdown-menu
+              - event_list.each do |event|
+                %li= link_to event.name, event_occurrences_path(event)
+          %li{class: active_page_controller('shouts')}
+            %a{href:shouts_path, id: :shouts}
+              %i.icon-bullhorn
+              = 'Shout!'
+
+          - if leader? || admin?
+            %li.dropdown
+              %a.dropdown-toggle{ :data => {toggle: "dropdown"}, href: "#"}
+                %i.icon-pencil
+                Configuration
                 %b.caret
               %ul.dropdown-menu
-                - event_list.each do |event|
-                  %li= link_to event.name, event_occurrences_path(event)
-            %li{class: active_page_controller('shouts')}
-              =link_to 'Shout!', shouts_path, id: :shouts
-
-            - if leader?
-              %li.dropdown#leader_menu
-                %a.dropdown-toggle{ :data => {toggle: "dropdown"}, href: "#"}
-                  Configuration
-                  %b.caret
-                %ul.dropdown-menu
+                - if leader?
                   %li=link_to 'Site Config', site_configs_path, id: :site_configs
                   %li=link_to @config.jobs, jobs_path, id: :jobs
                   %li=link_to @config.races, races_path, id: :races
                   %li=link_to @config.requirements, requirements_path, id: :requirements
-                      
-          .pull-right
-            %ul.nav
-              %li.dropdown
-                %a.dropdown-toggle{ :data => {toggle: "dropdown"}, href: "#"}
-                  = current_member.name
-                  %b.caret
-                %ul.dropdown-menu
-                  %li=link_to 'My Page', @current_member
-                  %li=link_to 'Logout', logout_url, id: :logout
+                %li=link_to "News", news_index_path, id: :news
+
+        %ul.nav.pull-right
+          %li.dropdown
+            %a.dropdown-toggle{ :data => {toggle: "dropdown"}, href: "#"}
+              = current_member.name
+              %b.caret
+            %ul.dropdown-menu
+              %li=link_to 'My Page', @current_member
+              %li=link_to 'Logout', logout_url, id: :logout
 
     .container 
       #main

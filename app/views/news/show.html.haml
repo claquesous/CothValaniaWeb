@@ -5,7 +5,7 @@
   %b Date:
   = @news.date
 %p
-  %b Member:
+  %b #{@config.members.singularize}:
   = @news.member
 
 - if admin?

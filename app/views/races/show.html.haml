@@ -1,9 +1,9 @@
-%p
-  %b Name:
-  = @race.name
+%h1.valigned= @race.name
+.pull-right
+  = link_to 'Edit', edit_race_path(@race), class: "btn btn-info"
+  = link_to 'Back', races_path, class: "btn btn-primary"
+
 %p
   %b Remarks:
   = @race.remarks
 
-= link_to 'Edit', edit_race_path(@race), class: "btn btn-info"
-= link_to 'Back', races_path, class: "btn btn-primary"

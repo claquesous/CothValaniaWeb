@@ -1,8 +1,10 @@
+@import "bootstrap";
+
 body {
   background-color: #fff;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
-  padding: 50px;
+  padding: 10px;
 }
 
 p, ol, ul, td {
@@ -21,6 +23,11 @@ div {
   }
 }
 
+h1.valigned {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 #notice {
   color: green;
 }
@@ -29,6 +36,10 @@ div {
   padding: 2px;
   background-color: red;
   display: table;
+}
+
+#menu {
+  @include border_radius(12px);
 }
 
 #error_explanation {
@@ -52,4 +63,12 @@ div {
     font-size: 12px;
     list-style: square;
   }
+}
+
+#main {
+  padding: 18px;
+}
+
+.container {
+  max-width: 100%;
 }

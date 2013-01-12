@@ -19,7 +19,7 @@
     %table.table.table-condensed.table-hover
       %tr
         %th Obtained from
-        %th Event
+        %th #{@config.events.singularize}
         %th Required for
       - f.object.requirement_obtainments.zip(f.object.event_requirements).each do |(next_ro,next_er)|
         - if !next_ro.event.hidden 

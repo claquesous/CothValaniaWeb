@@ -17,7 +17,7 @@
       .control-label= f.label :remarks
       .controls= f.text_field :remarks
     .control-group.field
-      = f.label :events
+      = f.label :events, @config.events.pluralize
       = f.fields_for :event_rewards do |er|
         .control-group
           = er.hidden_field :event_id, :value => er.object.event_id

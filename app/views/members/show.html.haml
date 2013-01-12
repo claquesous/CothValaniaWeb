@@ -1,6 +1,9 @@
-%p
-  %b Name:
-  = @member.name
+%h1.valigned= @member.name
+.pull-right
+  - if admin? || @member == current_member
+    = link_to 'Edit', edit_member_path(@member), class: "btn btn-info"
+  = link_to 'Back', members_path, class: "btn btn-primary"
+
 %p
   %b Join date:
   = @member.join_date
@@ -37,7 +40,7 @@
       %th Points
       %th Remarks
       %th Sex
-      %th Race
+      %th #{@config.races.singularize}
       - @jobs.each do |j|
         %th= j.name
     - @member.characters.includes(:race).includes(:member).each do |c|
@@ -71,7 +74,7 @@
     %table.table.table-condensed
       %tr
         %th #
-        %th Reward
+        %th #{@config.rewards.singularize}
         %th Points
         - if @member.characters.many?
           %th Character
@@ -92,10 +95,10 @@
 
 #obtained_list.row
   .span8
-    %b Drops Obtained
+    %b #{@config.rewards.pluralize} Obtained
     %table.table.table-condensed
       %tr
-        %th Reward
+        %th #{@config.rewards.singularize}
         %th Occurrence Date
         %th Obtained Points
         %th Reward Cycle
@@ -113,6 +116,3 @@
             %td= r.reward_cycle if r.preference
             %td= r.preference
 
-- if admin? || @member == current_member
-  = link_to 'Edit', edit_member_path(@member), class: "btn btn-info"
-= link_to 'Back', members_path, class: "btn btn-primary"

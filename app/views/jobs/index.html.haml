@@ -1,4 +1,6 @@
-%h1= @config.jobs
+%h1.valigned= @config.jobs.pluralize
+.pull-right
+  = link_to "New #{@config.jobs.singularize}", new_job_path, class: "btn btn-success"
 
 %table.table.table-condensed
   %tr
@@ -18,4 +20,3 @@
 
 %br
 
-= link_to 'New Job', new_job_path, class: "btn btn-success"

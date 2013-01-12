@@ -1,6 +1,8 @@
-%p
-  %b Name:
-  = @job.name
+%h1.valigned= @job.name
+.pull-right
+  = link_to 'Edit', edit_job_path(@job), class: "btn btn-info"
+  = link_to 'Back', jobs_path, class: "btn btn-primary"
+
 %p
   %b Short name:
   = @job.short_name
@@ -8,5 +10,3 @@
   %b Remarks:
   = @job.remarks
 
-= link_to 'Edit', edit_job_path(@job), class: "btn btn-info"
-= link_to 'Back', jobs_path, class: "btn btn-primary"

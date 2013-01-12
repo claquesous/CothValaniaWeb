@@ -59,7 +59,7 @@
   
     - event_rewards = @event.rewards
     - if event_rewards.count>0
-      %h3 Rewards
+      %h3 #{@config.rewards.pluralize}
       = hidden_field_tag "occurrence[character_reward_ids][]"
       - event_rewards.each do |r|
         %br= r.name
@@ -70,7 +70,7 @@
     - er = @event.event_requirements.includes(:requirement)
     - ro = @event.requirement_obtainments.includes(:requirement)
     - if er.count>0 || ro.count>0
-      %h3 Requirements
+      %h3 #{@config.requirements.pluralize}
       = hidden_field_tag "occurrence[used_requirement_ids][]"
       %table.table.table-hover
         %tr

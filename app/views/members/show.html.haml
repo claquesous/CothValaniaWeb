@@ -82,6 +82,9 @@
         %tr
           %td #{i}.
           %td Unavailable (Reward cycle #{@member.reward_cycle})
+          %td
+          - if @member.characters.many?
+            %td
       - @member.character_rewards.where(reward_cycle: @member.reward_cycle).where("preference is not null").includes(:reward).order(:preference).each do |r|
         %tr
           %td #{r.preference}.

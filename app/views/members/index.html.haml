@@ -1,6 +1,6 @@
-%h1.valigned= @config.members.pluralize
 - if @update_active
   = form_tag update_active_members_path, method: :put
+%h1.valigned= @config.members.pluralize
 .pull-right
   - if admin?
     - if @update_active

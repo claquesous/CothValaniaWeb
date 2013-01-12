@@ -12,6 +12,6 @@ module ApplicationHelper
   end
 
   def active_page_controller(controller)
-    params[:controller] == controller ? "active" : ""
+    params[:controller] == controller ? "active" : nil
   end
 end

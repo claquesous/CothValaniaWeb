@@ -34,6 +34,12 @@ Then /^I should see "(.*?)" before "(.*?)"$/ do |arg1, arg2|
   page.body.gsub("\n","").should match("#{arg1}.*#{arg2}")
 end
 
+Then /^I should see "(.*?)" within "(.*?)"$/ do |arg1, section|
+  within("##{section}") do
+    page.should have_text(arg1)
+  end
+end
+
 When /^I (un)?check the box next to "(.*?)"$/ do |uncheck, arg1|
   all('tr', text: arg1 ).each do |row|
     row.find("input[type='checkbox']").set(uncheck.nil?)

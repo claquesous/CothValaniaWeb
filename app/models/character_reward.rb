@@ -3,6 +3,7 @@ class CharacterReward < ActiveRecord::Base
   scope :unobtained, where("obtained=? or obtained is null", false)
   scope :obtained, where(obtained: true)
   scope :active, joins(:member).where("members.active")
+  scope :free_lot, obtained.where(preference: nil)
   belongs_to :member
   belongs_to :character
   belongs_to :reward
@@ -20,8 +21,8 @@ class CharacterReward < ActiveRecord::Base
     obtained.joins(:occurrence).where("occurrences.event_id =?", event.id)
   end
 
-  def self.obtained_by_cycle(cycle)
-    obtained.where("reward_cycle=? and preference is not null", cycle)
+  def self.by_cycle(cycle)
+    where("reward_cycle=? and preference is not null", cycle)
   end
 
   def current_points

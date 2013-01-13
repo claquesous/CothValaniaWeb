@@ -46,7 +46,7 @@ class Member < ActiveRecord::Base
   end
 
   def wishlist_length
-    character_rewards.obtained_by_cycle(reward_cycle).count + available_rewards.count
+    character_rewards.obtained.by_cycle(reward_cycle).count + available_rewards.count
   end
 
   def build_all_character_jobs

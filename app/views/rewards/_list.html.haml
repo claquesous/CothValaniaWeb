@@ -1,9 +1,14 @@
-%ol
+%table.table.table-condensed
+  %tr
+    %th #
+    %th Character
+    %th Points
   - points = {}
   - reward.character_rewards.includes(:character).includes(:member).unobtained.active.each do |cr|
     - points[cr] = cr.current_points
   - points = points.sort_by {|k,v| -v}
-  - points.each do |cr, points|
-    %li
-      = link_to cr.character.name, member_path(cr.member)
-      = points.round(4)
+  - points.each_with_index do |(cr, points), i|
+    %tr
+      %td #{i+1}.
+      %td= link_to cr.character.name, member_path(cr.member)
+      %td= points.round(4)

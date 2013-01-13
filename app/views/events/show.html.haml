@@ -21,7 +21,9 @@
   %b Time:
   = @event.time
 
--@event.rewards.each do |r|
-  %p= link_to r.name, reward_path(r)
-  = render 'rewards/list', :reward => r
+.row
+  -@event.rewards.each do |r|
+    .span4
+      %p= link_to r.name, reward_path(r)
+      = render 'rewards/list', :reward => r
 

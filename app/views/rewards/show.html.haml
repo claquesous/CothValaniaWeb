@@ -10,17 +10,19 @@
 %p
   %b Remarks:
   = @reward.remarks
-%p
-  %b Obtained From:
-  %table.table.table-condensed
-    %tr
-      %th #{@config.events.singularize}
-      %th Drop Rate
-    - @reward.event_rewards.includes(:event).visible.each do |e|
+.row
+  .span4
+    %b Obtained From:
+    %table.table.table-condensed
       %tr
-        %td= link_to e.event.name, event_path(e.event)
-        %td #{(e.drop_rate*100).round(2)}%
+        %th #{@config.events.singularize}
+        %th Drop Rate
+      - @reward.event_rewards.includes(:event).visible.each do |e|
+        %tr
+          %td= link_to e.event.name, event_path(e.event)
+          %td #{(e.drop_rate*100).round(2)}%
 
-
-=render 'list', :reward => @reward
+  .span4
+    %b Wishlist:
+    =render 'list', :reward => @reward
 

@@ -21,3 +21,9 @@ When /^I (un)?check "(.*?)" as obtained by "(.*?)"$/ do |uncheck,reward, char|
   eval("#{uncheck}check 'occurrence_character_reward_ids_#{cr.id}'")
 end
 
+Given /^There are (\d+) rewards$/ do |num|
+  num.to_i.times do
+    FactoryGirl.create :reward
+  end
+end
+

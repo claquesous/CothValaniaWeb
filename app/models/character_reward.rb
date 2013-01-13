@@ -20,6 +20,10 @@ class CharacterReward < ActiveRecord::Base
     obtained.joins(:occurrence).where("occurrences.event_id =?", event.id)
   end
 
+  def self.obtained_by_cycle(cycle)
+    obtained.where("reward_cycle=? and preference is not null", cycle)
+  end
+
   def current_points
     member.current_points.to_f/preference
   end

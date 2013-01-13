@@ -42,7 +42,11 @@ class Member < ActiveRecord::Base
   end
   
   def available_rewards
-     Reward.all - character_rewards.obtained.collect(&:reward)
+     Reward.all - character_rewards.includes(:reward).obtained.collect(&:reward)
+  end
+
+  def wishlist_length
+    character_rewards.obtained_by_cycle(reward_cycle).count + available_rewards.count
   end
 
   def build_all_character_jobs

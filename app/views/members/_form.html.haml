@@ -39,7 +39,7 @@
           %tr
             %td #{i}.
             %td Unavailable (Reward cycle #{@member.reward_cycle})
-        - @rewards.each_with_index do |r, i|
+        - @member.wishlist_length.times do |i|
           %tr
             - idx = i+@member.reward_cycle
             - next_cr = @member.character_rewards.where(reward_cycle: @member.reward_cycle).find{ |cr| cr.preference == idx}

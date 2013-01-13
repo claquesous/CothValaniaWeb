@@ -8,6 +8,7 @@ Feature:
 
    Scenario: Start new reward cycle
      Given "Meze" has received their 1,2,3,4,5 picks
+     And There are 7 rewards
      When I click "My Page"
      And I click "Edit"
      Then I should not be able to set a #1 preference

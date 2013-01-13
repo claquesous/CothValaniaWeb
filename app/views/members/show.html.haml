@@ -41,8 +41,6 @@
       %th Remarks
       %th Sex
       %th #{@config.races.singularize}
-      - @jobs.each do |j|
-        %th= j.name
     - @member.characters.includes(:race).includes(:member).each do |c|
       %tr
         %td= c.name
@@ -50,7 +48,17 @@
         %td= c.remarks
         %td= c.sex
         %td= c.race.try :name
-        - @jobs.each do |j|
+
+#character_jobs
+  %table.table.table-condensed
+    %tr
+      %th= @config.jobs.pluralize
+      - @member.characters.each do |c|
+        %th= c.name
+    - @jobs.each do |j|
+      %tr
+        %td= j.name
+        - @member.characters.includes(:character_jobs).each do |c|
           %td
             -if c.jobs.include?(j)
               %i.icon-ok

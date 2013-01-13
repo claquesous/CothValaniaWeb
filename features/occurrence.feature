@@ -19,8 +19,8 @@ Feature: Manage occurrences
     And I check the obtained "Gorgon's Head" for "Perseus"
     When I click "Save"
     Then I should see "Event occurrence was successfully created"
-    And I should see "Requirements Used: Mirror Shield : Perseus"
-    And I should see "Requirements Obtained: Gorgon's Head : Perseus"
+    And I should see "Mirror Shield Perseus" within "requirements_used"
+    And I should see "Gorgon's Head Perseus" within "requirements_obtained"
     When I am on the new occurrence page for "Cetus"
     Then I check the "Gorgon's Head" requirement for "Perseus"
 
@@ -31,12 +31,12 @@ Feature: Manage occurrences
     When I check "Chrysaor" as obtained by "Perseus"
     And I click "Save"
     Then I should see "Event occurrence was successfully created"
-    And I should see "Rewards: Chrysaor : Perseus"
+    And I should see "Chrysaor Perseus" within "rewards_obtained"
     When I click "Edit"
     When I uncheck "Chrysaor" as obtained by "Perseus"
     And I click "Save"
     Then I should see "Event occurrence was successfully updated"
-    And I should not see "Rewards: Chrysaor : Perseus"
+    And I should not see "Chrysaor Perseus" within "rewards_obtained"
 
   Scenario: Job attendance
     Given There are jobs named "Hero"

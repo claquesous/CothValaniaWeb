@@ -1,3 +1,4 @@
+%h1.valigned #{@event.name} #{@config.occurrences.singularize}
 .pull-right
   - if admin?
     = link_to 'Edit', edit_event_occurrence_path(@event,@occurrence), class: "btn btn-info"
@@ -21,28 +22,44 @@
 %p
   %b Optional:
   = @occurrence.optional
-%p
-  %b Attendees:
-  - @occurrence.characters.includes(:member).order(:name).each do |character|
-    = link_to character.name, member_path(character.member)
 
-%p
-  %b #{@config.rewards.pluralize}:
-  - @occurrence.character_rewards.includes(:reward).includes(:character).includes(:member).each do |reward|
-    = link_to reward.reward.name, reward_path(reward.reward)
-    \:
-    = link_to reward.character.name, member_path(reward.member)
+.row
+  .span3#attendees
+    %b Attendees:
+    %ol
+      - @occurrence.characters.includes(:member).order(:name).each do |character|
+        %li= link_to character.name, member_path(character.member)
 
-%p
-  %b #{@config.requirements.pluralize} Used:
-  - @occurrence.used_requirements.each do |requirement|
-    = link_to requirement.requirement.name, requirement_path(requirement.requirement)
-    \:
-    = link_to requirement.character.name, member_path(requirement.character.member)
-%p
-  %b #{@config.requirements.pluralize} Obtained:
-  - @occurrence.obtained_requirements.each do |requirement|
-    = link_to requirement.requirement.name, requirement_path(requirement.requirement)
-    \:
-    = link_to requirement.character.name, member_path(requirement.character.member)
+  - rewards = @occurrence.character_rewards.includes(:reward).includes(:character).includes(:member)
+  - unless rewards.empty?
+    .span4#rewards_obtained
+      %b #{@config.rewards.pluralize}:
+      %table.table.table-condensed
+        - rewards.each_with_index do |reward, i|
+          %tr
+            %td #{i+1}.
+            %td= link_to reward.reward.name, reward_path(reward.reward)
+            %td= link_to reward.character.name, member_path(reward.member)
+
+  - used_requirements = @occurrence.used_requirements
+  - unless used_requirements.empty?
+    .span4#used_occurrences
+      %b #{@config.requirements.pluralize} Used:
+      %table.table.table-condensed
+        - used_requirements.each_with_index do |requirement, i|
+          %tr
+            %td #{i+1}.
+            %td= link_to requirement.requirement.name, requirement_path(requirement.requirement)
+            %td= link_to requirement.character.name, member_path(requirement.character.member)
+
+  - obtained_requirements = @occurrence.obtained_requirements
+  - unless obtained_requirements.empty?
+    .span4#obtained_requirements
+      %b #{@config.requirements.pluralize} Obtained:
+      %table.table.table-condensed
+        - obtained_requirements.each_with_index do |requirement, i|
+          %tr
+            %td #{i+1}.
+            %td= link_to requirement.requirement.name, requirement_path(requirement.requirement)
+            %td= link_to requirement.character.name, member_path(requirement.character.member)
 

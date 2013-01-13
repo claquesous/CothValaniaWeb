@@ -34,9 +34,13 @@ Then /^I should see "(.*?)" before "(.*?)"$/ do |arg1, arg2|
   page.body.gsub("\n","").should match("#{arg1}.*#{arg2}")
 end
 
-Then /^I should see "(.*?)" within "(.*?)"$/ do |arg1, section|
-  within("##{section}") do
-    page.should have_text(arg1)
+Then /^I should (not )?see "(.*?)" within "(.*?)"$/ do |n,arg1, section|
+  begin
+    within("##{section}") do
+      eval %Q{page.should#{"_not" unless n.nil?} have_text(arg1)}
+    end
+  rescue
+    !n.nil?
   end
 end
 

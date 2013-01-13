@@ -14,7 +14,7 @@
   - @news.each do |news|
     %tr
       %td= news.text
-      %td= news.date
+      %td= news.date.to_date
       %td= link_to news.member.name, member_path(news.member)
       - if admin?
         %td= link_to 'Destroy', news, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"

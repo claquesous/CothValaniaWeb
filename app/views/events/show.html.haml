@@ -25,3 +25,19 @@
       %p= link_to r.name, reward_path(r)
       = render 'rewards/list', :reward => r
 
+  - requirements_for = @event.event_requirements.collect(&:requirement)
+  - unless requirements_for.empty?
+    .span4
+      %b #{@config.requirements.pluralize} For
+      %ol
+      - requirements_for.each do |req|
+        %li= link_to req.name, requirement_path(req)
+
+  - requirements_from = @event.requirement_obtainments.collect(&:requirement)
+  - unless requirements_from.empty?
+    .span4
+      %b #{@config.requirements.pluralize} Obtained From
+      %ol
+      - requirements_from.each do |req|
+        %li= link_to req.name, requirement_path(req)
+

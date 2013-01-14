@@ -2,15 +2,15 @@ require 'spec_helper'
 
 describe "Jobs" do
   describe "GET /requirements" do
-    it "does not allow a normal user" do
+    it "does allow a normal user" do
       login
       get requirements_path
-      response.status.should be(302)
+      response.status.should be(200)
     end
-    it "does not allow an admin" do
+    it "does allow an admin" do
       login :admin
       get requirements_path
-      response.status.should be(302)
+      response.status.should be(200)
     end
     it "does allow the leader" do
       login :leader
@@ -39,15 +39,15 @@ describe "Jobs" do
     before :each do
       @requirement = FactoryGirl.create :requirement
     end
-    it "does not allow a normal user" do
+    it "does allow a normal user" do
       login
       get requirement_path @requirement
-      response.status.should be(302)
+      response.status.should be(200)
     end
-    it "does not allow an admin" do
+    it "does allow an admin" do
       login :admin
       get requirement_path @requirement
-      response.status.should be(302)
+      response.status.should be(200)
     end
     it "does allow the leader" do
       login :leader

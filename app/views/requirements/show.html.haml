@@ -7,3 +7,34 @@
   %b Reusable:
   = @requirement.reusable
 
+%p
+  %b Held by:
+  %ul
+    - @requirement.character_requirements.unused.each do |cr|
+      %li= link_to cr.character.name, member_path(cr.character.member)
+
+- r_from = @requirement.requirement_obtainments.collect(&:event)
+- r_for = @requirement.event_requirements.collect(&:event)
+- unless r_from.empty? && r_for.empty?
+  %p
+    %b Progression:
+  .row
+    - unless r_from.empty?
+      .span2
+        %ul
+          - r_from.each do |e|
+            %li= link_to e.name, event_path(e)
+      .span1
+        %i.icon-arrow-right
+
+      .span2
+        = @requirement.name
+
+    - unless r_for.empty?
+      .span1
+        %i.icon-arrow-right
+      .span2
+        %ul
+          - r_for.each do |e|
+            %li= link_to e.name, event_path(e)
+

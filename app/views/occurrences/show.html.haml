@@ -5,6 +5,12 @@
   = link_to 'Back', event_occurrences_path(@event), class: "btn btn-primary"
 
 %p
+  - if @occurrence.success
+    .badge.badge-success= @event.points
+  - else
+    .badge.badge-danger= @event.failure_points || 0
+
+%p
   %b Entered by:
   = link_to @occurrence.member.name, member_path(@occurrence.member) if @occurrence.member
 %p
@@ -16,9 +22,6 @@
 %p
   %b End time:
   = @occurrence.end_time
-%p
-  %b Success:
-  = @occurrence.success
 %p
   %b Optional:
   = @occurrence.optional

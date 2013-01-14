@@ -5,11 +5,13 @@
   = link_to 'Back', members_path, class: "btn btn-primary"
 
 %p
+  .badge.badge-success= @member.current_points
+  \/
+  .badge.badge-info= @member.points
+
+%p
   %b Join date:
   = @member.join_date
-%p
-  %b Points:
-  = @member.points
 %p
   %b Url:
   = @member.url
@@ -44,7 +46,8 @@
     - @member.characters.includes(:race).includes(:member).each do |c|
       %tr
         %td= c.name
-        %td= c.current_points
+        %td
+          .badge.badge-success= c.current_points
         %td= c.remarks
         %td= c.sex
         %td= c.race.try :name
@@ -92,7 +95,8 @@
           %tr
             %td #{r.preference}.
             %td= link_to r.reward.name, reward_path(r.reward)
-            %td= r.current_points.round(2)
+            %td
+              .badge.badge-info= r.current_points.round(2)
             - if @member.characters.many?
               %td= r.character.name
 
@@ -116,7 +120,8 @@
                   %td= r.preference
                   %td= link_to r.reward.name, reward_path(r.reward)
                   %td= link_to r.occurrence.end_time.to_date, event_occurrence_path(r.occurrence.event, r.occurrence) unless r.occurrence.nil?
-                  %td= r.obtained_points.round(2)
+                  %td
+                    .badge.badge-info= r.obtained_points.round(2)
                   - if @member.characters.many?
                     %td= r.character.name
 

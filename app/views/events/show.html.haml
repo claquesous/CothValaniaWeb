@@ -6,11 +6,9 @@
   = link_to 'Back', events_path, class: "btn btn-primary"
 
 %p
-  %b Points:
-  = @event.points
-%p
-  %b Failure Points:
-  = @event.failure_points
+  .badge.badge-success= @event.points
+  \/
+  .badge.badge-important= @event.failure_points || 0
 %p
   %b Remarks:
   = @event.remarks

@@ -33,7 +33,8 @@
       - if @update_active
         %td= check_box_tag "member_ids[]", member.id, member.active, id: "member_ids_#{member.id}"
       %td= link_to member.name, member
-      %td= member.current_points
+      %td
+        .badge.badge-success= member.current_points
       %td= member.join_date
       %td= member.url
       %td= member.remarks

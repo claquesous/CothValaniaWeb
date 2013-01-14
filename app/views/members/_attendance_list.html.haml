@@ -12,4 +12,8 @@
       %td= link_to a.event.name, event_path(a.event)
       - if @member.characters.many?
         %td= a.character.name
-      %td= a.event.points
+      %td
+        - if a.occurrence.success
+          .badge.badge-success= a.event.points
+        - else
+          .badge.badge-danger= a.event.failure_points

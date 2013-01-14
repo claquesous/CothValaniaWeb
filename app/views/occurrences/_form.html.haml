@@ -67,7 +67,7 @@
               .form-inline
                 = check_box_tag "occurrence[character_reward_ids][]", cr.id, cr.occurrence == @occurrence, id: "occurrence_character_reward_ids_#{cr.id}"
                 = label_tag "occurrence_character_reward_ids_#{cr.id}", cr.character.name
-                = cr.current_points.round(2)
+                .badge.badge-info= cr.current_points.round(2)
   
     - er = @event.event_requirements.includes(:requirement)
     - ro = @event.requirement_obtainments.includes(:requirement)

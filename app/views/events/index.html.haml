@@ -15,8 +15,8 @@
     - if @update_visible
       %th
     %th Name
-    %th Points
-    %th Failure Points
+    %th Success
+    %th Failure
     %th Remarks
     %th Time
     - if leader?
@@ -28,8 +28,10 @@
       - if @update_visible
         %td= check_box_tag "event_ids[]", event.id, !event.hidden, id: "visible_ids_#{event.id}"
       %td= link_to event.name, event
-      %td= event.points
-      %td= event.failure_points
+      %td
+        .badge.badge-success= event.points || 0
+      %td
+        .badge.badge-important= event.failure_points || 0
       %td= event.remarks
       %td= event.time
       - if leader?

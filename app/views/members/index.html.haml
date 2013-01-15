@@ -1,18 +1,24 @@
 - if @update_active
   = form_tag update_active_members_path, method: :put
+- elsif @update_admins
+  = form_tag update_admins_members_path, method: :put
 %h1.valigned= @config.members.pluralize
 .pull-right
   - if admin?
     - if @update_active
       = submit_tag 'Update Active', class: "btn btn-primary"
       = link_to 'Cancel', members_path, class: "btn btn-danger"
+    - elsif @update_admins
+      = submit_tag 'Update Admins', class: "btn btn-primary"
+      = link_to 'Cancel', members_path, class: "btn btn-danger"
     - else
+      = link_to 'Update Admins', members_path(update_admins: 1), class: "btn btn-info"
       = link_to 'Update Active', members_path(update_active: 1), class: "btn btn-info"
       = link_to "New #{@config.members.singularize}", new_member_path, class: "btn btn-success"
 
 %table.table.table-condensed
   %tr
-    - if @update_active
+    - if @update_active || @update_admins
       %th
     %th Name
     %th Points
@@ -32,6 +38,8 @@
     %tr{id: member.name}
       - if @update_active
         %td= check_box_tag "member_ids[]", member.id, member.active, id: "member_ids_#{member.id}"
+      - if @update_admins
+        %td= check_box_tag "member_ids[]", member.id, member.admin, id: "member_ids_#{member.id}"
       %td= link_to member.name, member
       %td
         .badge.badge-success= member.current_points

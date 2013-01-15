@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  before_filter(:only => :destroy) { |a| a.send(:authorize,:leader) }
+  before_filter(:only => [:destroy, :update_admins]) { |a| a.send(:authorize,:leader) }
   before_filter(:only => [:new, :create, :update_active]) { |a| a.send(:authorize,:admin) }
   before_filter :validate_member, :only => [:edit, :update, :begin_new_cycle]
 
@@ -11,6 +11,7 @@ class MembersController < ApplicationController
       @update_active = true
     else
       @members = Member.active
+      @update_admins =  params[:update_admins]
     end
 
     respond_to do |format|
@@ -117,6 +118,16 @@ class MembersController < ApplicationController
     else
       Member.where(id: params[:member_ids]).update_all(active: true)
       Member.where("id not in (?)", params[:member_ids]).update_all(active: false)
+    end
+    redirect_to members_path
+  end
+
+  def update_admins
+    if params[:member_ids].empty?
+      Member.update_all(admin: false)
+    else
+      Member.where(id: params[:member_ids]).update_all(admin: true)
+      Member.where("id not in (?)", params[:member_ids]).update_all(admin: false)
     end
     redirect_to members_path
   end

@@ -66,6 +66,13 @@ describe MembersController do
       get :index, {update_active: true }, valid_session
       assigns(:members).should eq([member, inactive])
     end
+
+    it "assigns only active members normally when passing update_admins" do
+      member = FactoryGirl.create :member
+      inactive = FactoryGirl.create :member, active: false
+      get :index, {update_admins: true}, valid_session
+      assigns(:members).should eq([member])
+    end
   end
 
   describe "GET show" do
@@ -218,6 +225,26 @@ describe MembersController do
       response.should redirect_to(members_url)
     end
   end
+
+  describe "PUT update_admins" do
+    it "demotes members that weren't selected" do
+      member = FactoryGirl.create :member, admin: true
+      put :update_admins, {member_ids: []}, valid_session
+      member.reload.admin.should be(false)
+    end
+
+    it "promotes members that were selected" do
+      member = FactoryGirl.create :member, admin: false
+      put :update_admins, {member_ids: [member.id]}, valid_session
+      member.reload.admin.should be(true)
+    end
+
+    it "redirects to the members list" do
+      put :update_admins, {member_ids: []}, valid_session
+      response.should redirect_to(members_url)
+    end
+  end
+
 
   describe "PUT begin_new_cycle" do
     it "redirects to the member" do

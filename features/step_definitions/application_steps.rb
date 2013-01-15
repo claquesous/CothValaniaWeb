@@ -60,3 +60,18 @@ When /^I choose "(.*)"$/ do |radio|
   choose radio
 end
 
+Then /^I should (not )?see a check in the "(.*?)" column for "(.*?)"$/ do |negative, column_name, row|
+  column = nil
+  page.all('th').each_with_index do |header,i|
+    begin
+      header.should have_content(column_name)
+      column = i
+    rescue
+    end
+  end
+  column.should_not be nil
+  cell = page.find('tr', text: row).all('td')[column]
+  puts cell.value
+  eval %Q{cell.should#{"_not" if negative} have_css('i.icon-ok')}
+end
+

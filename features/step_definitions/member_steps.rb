@@ -21,3 +21,9 @@ Given /^"(.*?)" is (in)?active$/ do |member, inactive|
   member.save!
 end
 
+Given /^"(.*?)" is (not )?an admin$/ do |member,notadmin|
+  member = Member.find_by_name(member)
+  member.admin = !notadmin
+  member.save!
+end
+

@@ -20,6 +20,7 @@ Cvweb::Application.routes.draw do
 
   resources :members do
     put :update_active, on: :collection
+    put :update_admins, on: :collection
     get :attendances, on: :member
     put :begin_new_cycle, on: :member
   end

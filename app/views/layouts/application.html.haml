@@ -13,15 +13,15 @@
         = link_to @config.site_name, home_index_path, class: :brand
         %ul.nav.nav-pills
           %li{class: active_page_controller('members')}
-            %a{href: members_path, id: :members}
+            = link_to members_path, id: :members do
               %i.icon-user
               = @config.members
           %li{class: active_page_controller('events')}
-            %a{href: events_path, id: :events}
+            = link_to events_path, id: :events do
               %i.icon-flag
               = @config.events
           %li{class: active_page_controller('rewards')}
-            %a{href: rewards_path, id: :rewards}
+            = link_to rewards_path, id: :rewards do
               %i.icon-gift
               = @config.rewards
           %li.dropdown{class: active_page_controller('occurrences')}
@@ -33,7 +33,7 @@
               - event_list.each do |event|
                 %li= link_to event.name, event_occurrences_path(event)
           %li{class: active_page_controller('shouts')}
-            %a{href:shouts_path, id: :shouts}
+            = link_to shouts_path, id: :shouts do
               %i.icon-bullhorn
               = 'Shout!'
 

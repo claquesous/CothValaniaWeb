@@ -3,7 +3,9 @@
 
 %h1.valigned Shouts
 .pull-right
-  = link_to 'New Shout', new_shout_path, class: "btn btn-success"
+  = link_to new_shout_path, class: "btn btn-success" do
+    %i.icon-plus-sign.icon-white
+    = 'New Shout'
 
 %table.table.table-condensed
   %tr

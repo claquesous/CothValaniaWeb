@@ -4,7 +4,9 @@
 %h1.valigned= @config.rewards.pluralize
 .pull-right
   - if leader?
-    = link_to "New #{@config.rewards.singularize}", new_reward_path, class: "btn btn-success"
+    = link_to new_reward_path, class: "btn btn-success" do
+      %i.icon-plus-sign.icon-white
+      = "New #{@config.rewards.singularize}"
 
 %table.table.table-condensed
   %tr

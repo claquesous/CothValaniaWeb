@@ -11,7 +11,9 @@
       = link_to 'Cancel', events_path, class: "btn btn-danger"
     - else
       = link_to 'Update Visible', events_path(update_visible: 1), class: "btn btn-info"
-      = link_to "New #{@config.events.singularize}", new_event_path, class: "btn btn-success"
+      = link_to new_event_path, class: "btn btn-success" do
+        %i.icon-plus-sign.icon-white
+        = "New #{@config.events.singularize}"
 
 %table.table.table-condensed
   %tr

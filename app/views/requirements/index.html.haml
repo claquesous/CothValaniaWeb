@@ -3,7 +3,9 @@
 
 %h1.valigned= @config.requirements.pluralize
 .pull-right
-  = link_to "New #{@config.requirements.singularize}", new_requirement_path, class: "btn btn-success"
+  = link_to new_requirement_path, class: "btn btn-success" do
+    %i.icon-plus-sign.icon-white
+    = "New #{@config.requirements.singularize}"
 
 %table.table.table-condensed
   %tr

@@ -17,7 +17,9 @@
     - else
       = link_to 'Update Admins', members_path(update_admins: 1), class: "btn btn-info"
       = link_to 'Update Active', members_path(update_active: 1), class: "btn btn-info"
-      = link_to "New #{@config.members.singularize}", new_member_path, class: "btn btn-success"
+      = link_to new_member_path, class: "btn btn-success" do
+        %i.icon-plus-sign.icon-white
+        = "New #{@config.members.singularize}"
 
 %table.table.table-condensed
   %tr

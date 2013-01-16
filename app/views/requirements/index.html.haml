@@ -1,3 +1,6 @@
+- content_for :title do
+  = @config.requirements.pluralize
+
 %h1.valigned= @config.requirements.pluralize
 .pull-right
   = link_to "New #{@config.requirements.singularize}", new_requirement_path, class: "btn btn-success"

@@ -1,3 +1,6 @@
+- content_for :title do
+  = @config.jobs.pluralize " - Editing " + @job.name
+
 %h1 Editing #{@config.jobs.singularize}
 
 = render 'form'

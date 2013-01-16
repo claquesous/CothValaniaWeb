@@ -1,3 +1,6 @@
+- content_for :title do
+  = @config.rewards.pluralize
+
 %h1.valigned= @config.rewards.pluralize
 .pull-right
   - if leader?

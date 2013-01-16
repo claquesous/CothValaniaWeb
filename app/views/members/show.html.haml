@@ -1,3 +1,6 @@
+- content_for :title do
+  = @config.members.pluralize + " - " + @member.name
+
 %h1.valigned= @member.name
 .pull-right
   - if admin? || @member == current_member

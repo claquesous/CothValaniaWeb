@@ -1,3 +1,6 @@
+- content_for :title do
+  = @config.requirements.pluralize + " - " + @requirement.name
+
 %h1.valigned= @requirement.name
 .pull-right
   = link_to 'Edit', edit_requirement_path(@requirement), class: "btn btn-info"

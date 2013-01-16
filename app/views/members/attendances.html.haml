@@ -1,3 +1,6 @@
+- content_for :title do
+  = @config.members.pluralize + " - " + @member.name + " Attendance"
+
 %h1 #{@member.name} Attendance
 
 = render 'attendance_list', attendances: @member.event_attendances.order_by_date

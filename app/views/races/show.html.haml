@@ -1,3 +1,6 @@
+- content_for :title do
+  = @config.races.pluralize + " - " + @race.name
+
 %h1.valigned= @race.name
 .pull-right
   = link_to 'Edit', edit_race_path(@race), class: "btn btn-info"

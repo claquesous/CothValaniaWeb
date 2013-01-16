@@ -1,3 +1,6 @@
+- content_for :title do
+  = @config.events.pluralize + " - Editing " + @event.name
+
 %h1 Editing #{@config.events.singularize}
 
 = render 'form'

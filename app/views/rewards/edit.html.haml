@@ -1,3 +1,6 @@
+- content_for :title do
+  = @config.rewards.pluralize + " - Editing " + @reward.name
+
 %h1 Editing #{@config.rewards.singularize}
 
 = render 'form'

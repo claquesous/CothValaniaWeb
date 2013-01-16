@@ -1,3 +1,6 @@
+- content_for :title do
+  = @config.members.pluralize
+
 - if @update_active
   = form_tag update_active_members_path, method: :put
 - elsif @update_admins

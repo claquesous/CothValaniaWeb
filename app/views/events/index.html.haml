@@ -1,3 +1,6 @@
+- content_for :title do
+  = @config.events.pluralize
+
 - if @update_visible
   = form_tag update_visible_events_path, method: :put
 %h1.valigned= @config.events.pluralize

@@ -1,3 +1,6 @@
+- content_for :title do
+  = @config.races.pluralize + " - Editing " + @race.name
+
 %h1 Editing #{@config.races.singularize}
 
 = render 'form'

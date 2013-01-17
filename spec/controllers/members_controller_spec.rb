@@ -211,7 +211,7 @@ describe MembersController do
     it "hides members that weren't selected" do
       member = FactoryGirl.create :member, active: true
       put :update_active, {member_ids: []}, valid_session
-      member.reload.active.should be false
+      member.reload.active.should be_false
     end
 
     it "unhides members that were selected" do
@@ -230,7 +230,7 @@ describe MembersController do
     it "demotes members that weren't selected" do
       member = FactoryGirl.create :member, admin: true
       put :update_admins, {member_ids: []}, valid_session
-      member.reload.admin.should be(false)
+      member.reload.admin.should be_false
     end
 
     it "promotes members that were selected" do

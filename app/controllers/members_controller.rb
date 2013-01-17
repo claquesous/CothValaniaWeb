@@ -113,22 +113,12 @@ class MembersController < ApplicationController
   end
 
   def update_active
-    if params[:member_ids].empty?
-      Member.update_all(active: false)
-    else
-      Member.where(id: params[:member_ids]).update_all(active: true)
-      Member.where("id not in (?)", params[:member_ids]).update_all(active: false)
-    end
+    Member.update_all(["active = id in (?)",params[:member_ids]])
     redirect_to members_path
   end
 
   def update_admins
-    if params[:member_ids].empty?
-      Member.update_all(admin: false)
-    else
-      Member.where(id: params[:member_ids]).update_all(admin: true)
-      Member.where("id not in (?)", params[:member_ids]).update_all(admin: false)
-    end
+    Member.update_all(["admin = id in (?)", params[:member_ids]])
     redirect_to members_path
   end
 

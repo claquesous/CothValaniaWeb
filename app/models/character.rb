@@ -41,9 +41,4 @@ class Character < ActiveRecord::Base
   def current_points
     attendances.since(member.cycle_date).points
   end
-
-  def initialize(*args)
-    super
-    build_all_character_jobs(Job.all)
-  end
 end

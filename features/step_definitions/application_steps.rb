@@ -60,18 +60,24 @@ When /^I choose "(.*)"$/ do |radio|
   choose radio
 end
 
+When /^I check "([^\"]+)"$/ do |check|
+  check check
+end
+
 Then /^I should (not )?see a check in the "(.*?)" column for "(.*?)"$/ do |negative, column_name, row|
-  column = nil
-  page.all('th').each_with_index do |header,i|
-    begin
-      header.should have_content(column_name)
-      column = i
-    rescue
+  page.all('table').each do |table|
+    column = nil
+    table.all('th').each_with_index do |header,i|
+      begin
+        header.should have_content(column_name)
+        column = i
+      rescue
+      end
+    end
+    if column
+      cell = table.find('tr', text: row).all('td')[column]
+      eval %Q{cell.should#{"_not" if negative} have_css('i.icon-ok')}
     end
   end
-  column.should_not be nil
-  cell = page.find('tr', text: row).all('td')[column]
-  puts cell.value
-  eval %Q{cell.should#{"_not" if negative} have_css('i.icon-ok')}
 end
 

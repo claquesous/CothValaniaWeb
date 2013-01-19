@@ -12,7 +12,6 @@
 %table.table.table-condensed
   %tr
     %th Date
-    %th Remarks
     %th Start time
     %th Success
     %th Optional
@@ -23,7 +22,6 @@
   - @occurrences.each do |occurrence|
     %tr
       %td= link_to occurrence.end_time.to_date, event_occurrence_path(@event,occurrence)
-      %td= occurrence.remarks
       %td= occurrence.start_time
       %td
         -if occurrence.success

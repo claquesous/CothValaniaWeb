@@ -22,8 +22,6 @@
     %th Name
     %th Success
     %th Failure
-    %th Remarks
-    %th Time
     - if leader?
       %th
       %th
@@ -37,8 +35,6 @@
         .badge.badge-success= event.points || 0
       %td
         .badge.badge-important= event.failure_points || 0
-      %td= event.remarks
-      %td= event.time
       - if leader?
         %td= link_to 'Edit', edit_event_path(event), class: "btn btn-info"
         %td= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"

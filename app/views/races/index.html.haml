@@ -10,14 +10,12 @@
 %table.table.table-condensed
   %tr
     %th Name
-    %th Remarks
     %th
     %th
 
   - @races.each do |race|
     %tr
       %td= link_to race.name, race
-      %td= race.remarks
       %td= link_to 'Edit', edit_race_path(race), class: "btn btn-info"
       %td= link_to 'Destroy', race, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 

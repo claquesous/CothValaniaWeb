@@ -28,11 +28,9 @@
     %th Name
     %th Points
     %th Join date
-    %th Url
-    %th Remarks
     %th Admin
     %th Leader
-    %th Reward cycle
+    %th Cycle
     %th Cycle date
     - if admin?
       %th
@@ -49,8 +47,6 @@
       %td
         .badge.badge-success= member.current_points
       %td= member.join_date
-      %td= member.url
-      %td= member.remarks
       %td
         -if member.admin
           %i.icon-ok

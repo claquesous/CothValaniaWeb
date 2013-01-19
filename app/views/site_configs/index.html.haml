@@ -19,3 +19,14 @@
       %td= link_to 'Edit', edit_site_config_path(site_config), class: "btn btn-info"
       %td= link_to 'Destroy', site_config, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" unless site_config.id == 1
 
+- if @new_leader_list.length != 0
+  .well
+    %h2 Change leader
+    = form_tag change_leader_site_configs_path, method: :put do
+      .form-horizontal
+        .control-group
+          .control-label= label_tag "member_id", "New Leader"
+          .controls= select_tag "member_id", options_from_collection_for_select(@new_leader_list, "id", "name")
+        .controls
+          = button_tag "Change Leader", data: { confirm: 'Changing leader can not be undone. Are you sure you want to do this?' }, class: "btn btn-danger"
+

@@ -64,6 +64,10 @@ When /^I check "([^\"]+)"$/ do |check|
   check check
 end
 
+When /^I select "([^\"]+)"$/ do |select|
+  select select
+end
+
 Then /^I should (not )?see a check in the "(.*?)" column for "(.*?)"$/ do |negative, column_name, row|
   page.all('table').each do |table|
     column = nil

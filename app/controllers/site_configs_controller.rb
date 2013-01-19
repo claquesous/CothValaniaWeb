@@ -6,6 +6,7 @@ class SiteConfigsController < ApplicationController
   # GET /site_configs.json
   def index
     @site_configs = SiteConfig.all
+    @new_leader_list = Member.admins - [Member.leader]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -62,6 +63,7 @@ class SiteConfigsController < ApplicationController
       @site_config.config_comment = "initial configuration"
       @member = Member.new(params[:member])
       @member.leader = true
+      @member.admin = true
       @member.characters.build(name: params[:member][:name])
 
       result = SiteConfig.transaction do
@@ -122,6 +124,30 @@ class SiteConfigsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to site_configs_url }
       format.json { head :no_content }
+    end
+  end
+
+  # PUT /update_leader
+  def change_leader
+    if new = Member.find(params[:member_id])
+      old = Member.leader
+      new.leader = true
+      old.leader = nil
+
+      Member.transaction do
+        old.save
+        new.save
+      end
+
+      respond_to do |format|
+        format.html { redirect_to members_url, notice: "Site leader changed." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to site_configs_url, alert: "No member found." }
+        format.json { head :no_content }
+      end
     end
   end
 

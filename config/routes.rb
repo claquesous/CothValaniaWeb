@@ -1,5 +1,7 @@
 Cvweb::Application.routes.draw do
-  resources :site_configs
+  resources :site_configs do
+    put :change_leader, on: :collection, action: :change_leader
+  end
 
   resources :jobs
 

@@ -31,5 +31,9 @@ describe SiteConfigsController do
       delete("/site_configs/1").should route_to("site_configs#destroy", :id => "1")
     end
 
+    it "routes to #changee_leader" do
+      put("/site_configs/change_leader").should route_to("site_configs#change_leader")
+    end
+
   end
 end

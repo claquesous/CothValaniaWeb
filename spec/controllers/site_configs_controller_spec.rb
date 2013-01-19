@@ -56,6 +56,13 @@ describe SiteConfigsController do
       get :index, {}, valid_session
       assigns(:site_configs).should eq([site_config])
     end
+
+    it "assigns new_leader_list with admins, but not current leader" do
+      admin = FactoryGirl.create :member, admin: true
+      leader = FactoryGirl.create :member, leader: true, admin: true
+      get :index, {}, valid_session
+      assigns(:new_leader_list).should eq([admin])
+    end
   end
 
   describe "GET show" do
@@ -204,4 +211,38 @@ describe SiteConfigsController do
     end
   end
 
+  describe "PUT change_leader" do
+    describe "with valid member" do
+      before :each do
+        @member = FactoryGirl.create :member, leader: nil
+        @leader = FactoryGirl.create :member, leader: true
+      end
+
+      it "should add leader to selected member" do
+        put :change_leader, { member_id: @member.id }
+        @member.reload.leader.should be_true
+      end
+
+      it "should remove leader from old leader" do
+        put :change_leader, { member_id: @member.id }
+        @leader.reload.leader.should be_nil
+      end
+
+      it "should redirect to members index" do
+        put :change_leader, { member_id: @member.id }
+        response.should redirect_to(members_url)
+      end
+    end
+
+    describe "with invalid member" do
+      before :each do
+        Member.should_receive(:find).and_return(nil)
+      end
+
+      it "should redirect to site_configs index" do
+        put :change_leader, { }
+        response.should redirect_to(site_configs_url)
+      end
+    end
+  end
 end

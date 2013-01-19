@@ -16,5 +16,5 @@ Feature: Show jobs for each character
     And I check "Thief"
     And I click "Save"
     Then I should see a check in the "Claquesous" column for "Thief"
-    And I should not see a check in the "Claquesous" column for "Black Mage"
+    And I should not see "Black Mage"
 

@@ -10,6 +10,7 @@ class Member < ActiveRecord::Base
   has_many :news, dependent: :destroy
   has_many :shouts, dependent: :destroy
   has_many :event_attendances, :through => :characters
+  has_many :jobs, :through => :characters
   has_many :attendances, source: :occurrence, through: :event_attendances
   has_many :character_rewards, dependent: :destroy
   has_many :occurrences

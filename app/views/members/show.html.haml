@@ -55,19 +55,21 @@
         %td= c.sex
         %td= c.race.try :name
 
-#character_jobs
-  %table.table.table-condensed
-    %tr
-      %th= @config.jobs.pluralize
-      - @member.characters.each do |c|
-        %th= c.name
-    - @jobs.each do |j|
+- member_jobs = @member.jobs
+- unless member_jobs.empty?
+  #character_jobs
+    %table.table.table-condensed
       %tr
-        %td= j.name
-        - @member.characters.includes(:character_jobs).each do |c|
-          %td
-            -if c.jobs.include?(j)
-              %i.icon-ok
+        %th= @config.jobs.pluralize
+        - @member.characters.each do |c|
+          %th= c.name
+      - member_jobs.each do |j|
+        %tr
+          %td= j.name
+          - @member.characters.includes(:character_jobs).each do |c|
+            %td
+              -if c.jobs.include?(j)
+                %i.icon-ok
 
 .row
   .span5 

@@ -53,7 +53,7 @@ class OccurrencesController < ApplicationController
 
     respond_to do |format|
       if @occurrence.save
-        format.html { redirect_to event_occurrence_url(@event,@occurrence), notice: 'Event occurrence was successfully created.' }
+        format.html { redirect_to event_occurrence_url(@event,@occurrence), notice: "#{@config.occurrences.singularize.capitalize} was successfully created." }
         format.json { render json: @occurrence, status: :created, location: @occurrence }
       else
         @members = Member.active
@@ -71,7 +71,7 @@ class OccurrencesController < ApplicationController
 
     respond_to do |format|
       if @occurrence.update_attributes(params[:occurrence])
-        format.html { redirect_to event_occurrence_url(@event), notice: 'Event occurrence was successfully updated.' }
+        format.html { redirect_to event_occurrence_url(@event), notice: "#{@config.occurrences.singularize.capitalize} was successfully updated." }
         format.json { head :no_content }
       else
         @members = Member.where("active=? or id in (?)",true,@occurrence.characters.joins(:member).select("members.id"))

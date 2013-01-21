@@ -49,6 +49,12 @@ describe SessionsController do
 
   describe "POST create" do
     describe "with valid params" do
+      before :each do 
+        config = mock_model(SiteConfig)
+        config.stub(:members).and_return("")
+        controller.instance_variable_set(:@site_config, config)
+      end
+
       it "creates a new session" do
         @member = FactoryGirl.build(:member)
         Member.stub(:find_by_name).and_return(@member)

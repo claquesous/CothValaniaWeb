@@ -18,7 +18,7 @@ Feature: Manage occurrences
     Then I check the "Mirror Shield" requirement for "Perseus"
     And I check the obtained "Gorgon's Head" for "Perseus"
     When I click "Save"
-    Then I should see "Event occurrence was successfully created"
+    Then I should see "Occurrence was successfully created"
     And I should see "Mirror Shield Perseus" within "requirements_used"
     And I should see "Gorgon's Head Perseus" within "requirements_obtained"
     When I am on the new occurrence page for "Cetus"
@@ -30,12 +30,12 @@ Feature: Manage occurrences
     And I am on the new occurrence page for "Medusa"
     When I check "Chrysaor" as obtained by "Perseus"
     And I click "Save"
-    Then I should see "Event occurrence was successfully created"
+    Then I should see "Occurrence was successfully created"
     And I should see "Chrysaor Perseus" within "rewards_obtained"
     When I click "Edit"
     When I uncheck "Chrysaor" as obtained by "Perseus"
     And I click "Save"
-    Then I should see "Event occurrence was successfully updated"
+    Then I should see "Occurrence was successfully updated"
     And I should not see "Chrysaor Perseus" within "rewards_obtained"
 
   Scenario: Job attendance
@@ -44,5 +44,5 @@ Feature: Manage occurrences
     And I am on the new occurrence page for "Medusa"
     When I choose "Hero"
     And I click "Save"
-    Then I should see "Event occurrence was successfully created"
+    Then I should see "Occurrence was successfully created"
 

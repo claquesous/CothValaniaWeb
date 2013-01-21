@@ -45,7 +45,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        format.html { redirect_to @job, notice: 'Job was successfully created.' }
+        format.html { redirect_to @job, notice: "#{@config.jobs.singularize.capitalize} was successfully created." }
         format.json { render json: @job, status: :created, location: @job }
       else
         format.html { render action: "new" }
@@ -61,7 +61,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
-        format.html { redirect_to @job, notice: 'Job was successfully updated.' }
+        format.html { redirect_to @job, notice: "#{@config.jobs.singularize.capitalize} was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

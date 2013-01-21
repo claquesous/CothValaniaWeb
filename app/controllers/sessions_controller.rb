@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       session[:member_id] = member.id
       redirect_to root_url, :notice => "Logged in"
     else
-      flash[:warning] = "Invalid member or password"
+      flash[:warning] = "Invalid #{@config.members.singularize.downcase} or password"
       render :new
     end
   end

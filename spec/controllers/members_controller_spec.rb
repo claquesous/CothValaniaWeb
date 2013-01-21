@@ -101,6 +101,12 @@ describe MembersController do
 
   describe "POST create" do
     describe "with valid params" do
+      before :each do 
+        config = mock_model(SiteConfig)
+        config.stub(:members).and_return("")
+        controller.instance_variable_set(:@config, config)
+      end
+
       it "creates a new Member" do
         expect {
           post :create, {:member => valid_attributes, :reward_preferences => "" }, valid_session
@@ -138,6 +144,12 @@ describe MembersController do
 
   describe "PUT update" do
     describe "with valid params" do
+      before :each do 
+        config = mock_model(SiteConfig)
+        config.stub(:members).and_return("")
+        controller.instance_variable_set(:@config, config)
+      end
+
       it "updates the requested member" do
         member = Member.create! valid_attributes
         # Assuming there are no other members in the database, this

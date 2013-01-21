@@ -75,6 +75,12 @@ describe RacesController do
 
   describe "POST create" do
     describe "with valid params" do
+      before :each do 
+        config = mock_model(SiteConfig)
+        config.stub(:races).and_return("")
+        controller.instance_variable_set(:@config, config)
+      end
+
       it "creates a new Race" do
         expect {
           post :create, {:race => valid_attributes}, valid_session
@@ -112,6 +118,12 @@ describe RacesController do
 
   describe "PUT update" do
     describe "with valid params" do
+      before :each do 
+        config = mock_model(SiteConfig)
+        config.stub(:races).and_return("")
+        controller.instance_variable_set(:@config, config)
+      end
+
       it "updates the requested race" do
         race = Race.create! valid_attributes
         # Assuming there are no other races in the database, this

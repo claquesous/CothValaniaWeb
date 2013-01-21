@@ -49,7 +49,7 @@ class RewardsController < ApplicationController
 
     respond_to do |format|
       if @reward.save
-        format.html { redirect_to @reward, notice: 'Reward was successfully created.' }
+        format.html { redirect_to @reward, notice: "#{@config.rewards.singularize.capitalize} was successfully created." }
         format.json { render json: @reward, status: :created, location: @reward }
       else
         @events = Event.visible
@@ -67,7 +67,7 @@ class RewardsController < ApplicationController
 
     respond_to do |format|
       if @reward.update_attributes(params[:reward])
-        format.html { redirect_to @reward, notice: 'Reward was successfully updated.' }
+        format.html { redirect_to @reward, notice: "#{@config.rewards.singularize.capitalize} was successfully updated." }
         format.json { head :no_content }
       else
         @events = Event.visible

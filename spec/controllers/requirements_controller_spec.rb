@@ -75,6 +75,12 @@ describe RequirementsController do
 
   describe "POST create" do
     describe "with valid params" do
+      before :each do 
+        config = mock_model(SiteConfig)
+        config.stub(:requirements).and_return("")
+        controller.instance_variable_set(:@config, config)
+      end
+
       it "creates a new Requirement" do
         expect {
           post :create, {:requirement => valid_attributes}, valid_session
@@ -112,6 +118,12 @@ describe RequirementsController do
 
   describe "PUT update" do
     describe "with valid params" do
+      before :each do 
+        config = mock_model(SiteConfig)
+        config.stub(:requirements).and_return("")
+        controller.instance_variable_set(:@config, config)
+      end
+
       it "updates the requested requirement" do
         requirement = Requirement.create! valid_attributes
         # Assuming there are no other requirements in the database, this

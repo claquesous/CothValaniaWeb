@@ -51,7 +51,7 @@ class RequirementsController < ApplicationController
 
     respond_to do |format|
       if @requirement.save
-        format.html { redirect_to @requirement, notice: 'Requirement was successfully created.' }
+        format.html { redirect_to @requirement, notice: "#{@config.requirements.singularize.capitalize} was successfully created." }
         format.json { render json: @requirement, status: :created, location: @requirement }
       else
         @events = Event.all
@@ -70,7 +70,7 @@ class RequirementsController < ApplicationController
 
     respond_to do |format|
       if @requirement.update_attributes(params[:requirement])
-        format.html { redirect_to @requirement, notice: 'Requirement was successfully updated.' }
+        format.html { redirect_to @requirement, notice: "#{@config.requirements.singularize.capitalize} was successfully updated." }
         format.json { head :no_content }
       else
         @events = Event.all

@@ -75,6 +75,12 @@ describe OccurrencesController do
 
   describe "POST create" do
     describe "with valid params" do
+      before :each do 
+        config = mock_model(SiteConfig)
+        config.stub(:occurrences).and_return("")
+        controller.instance_variable_set(:@config, config)
+      end
+
       it "creates a new Occurrence" do
         Occurrence.any_instance.should_receive(:save).and_return(true)
         Occurrence.any_instance.stub(:id).and_return(1)
@@ -123,6 +129,12 @@ describe OccurrencesController do
 
   describe "PUT update" do
     describe "with valid params" do
+      before :each do 
+        config = mock_model(SiteConfig)
+        config.stub(:occurrences).and_return("")
+        controller.instance_variable_set(:@config, config)
+      end
+
       it "updates the requested occurrence" do
         occurrence = FactoryGirl.create(:occurrence)
         # Assuming there are no other occurrences in the database, this

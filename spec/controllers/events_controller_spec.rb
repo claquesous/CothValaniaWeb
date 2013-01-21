@@ -90,6 +90,12 @@ describe EventsController do
 
   describe "POST create" do
     describe "with valid params" do
+      before :each do 
+        config = mock_model(SiteConfig)
+        config.stub(:events).and_return("")
+        controller.instance_variable_set(:@config, config)
+      end
+
       it "creates a new Event" do
         expect {
           post :create, {:event => valid_attributes}, valid_session
@@ -127,6 +133,12 @@ describe EventsController do
 
   describe "PUT update" do
     describe "with valid params" do
+      before :each do 
+        config = mock_model(SiteConfig)
+        config.stub(:events).and_return("")
+        controller.instance_variable_set(:@config, config)
+      end
+
       it "updates the requested event" do
         event = Event.create! valid_attributes
         # Assuming there are no other events in the database, this

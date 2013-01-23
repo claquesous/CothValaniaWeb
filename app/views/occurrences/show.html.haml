@@ -9,7 +9,7 @@
 
 %p
   - if @occurrence.success
-    .badge.badge-success= @event.points
+    .badge.badge-success= @event.points + (@occurrence.bonus_points || 0)
   - else
     .badge.badge-danger= @event.failure_points || 0
 

@@ -46,3 +46,11 @@ Feature: Manage occurrences
     And I click "Save"
     Then I should see "Occurrence was successfully created"
 
+  Scenario: Bonus points
+    Given I am on the new occurrence page for "Medusa"
+    And I fill in "Bonus points" with "42"
+    And I check "Perseus"
+    When I click "Save"
+    Then I should see "42"
+    When I click "Members"
+    Then I should see "Perseus 42"

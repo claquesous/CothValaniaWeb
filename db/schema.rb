@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130109011928) do
+ActiveRecord::Schema.define(:version => 20130123005847) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -165,10 +165,11 @@ ActiveRecord::Schema.define(:version => 20130109011928) do
     t.datetime "end_time"
     t.boolean  "success"
     t.integer  "event_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "member_id"
     t.boolean  "optional"
+    t.integer  "bonus_points"
   end
 
   add_index "occurrences", ["end_time"], :name => "index_occurrences_on_end_time"

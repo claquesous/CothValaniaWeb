@@ -22,6 +22,9 @@
     .control-group.field
       .control-label= f.label :optional
       .controls= f.check_box :optional
+    .control-group.field
+      .control-label= f.label :bonus_points
+      .controls= f.number_field :bonus_points
     %h3 Attendees
     %table.table.table-condensed
       - @members.each_with_index do |m,i|

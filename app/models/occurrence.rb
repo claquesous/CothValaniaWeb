@@ -5,7 +5,7 @@ class Occurrence < ActiveRecord::Base
   scope :failure, where(success: false)
   scope :optional, where(optional: true)
   scope :mandatory, where("optional =? or optional is null", false)
-  attr_accessible :end_time, :remarks, :start_time, :success, :event_attendances_attributes, :obtained_requirements_attributes, :used_requirement_ids, :character_reward_ids, :optional
+  attr_accessible :end_time, :remarks, :start_time, :success, :event_attendances_attributes, :obtained_requirements_attributes, :used_requirement_ids, :character_reward_ids, :optional, :bonus_points
   # An event can have many attendees
   has_many :event_attendances, :dependent => :destroy, :inverse_of => :occurrence
   has_many :characters, :through => :event_attendances
@@ -24,7 +24,7 @@ class Occurrence < ActiveRecord::Base
   accepts_nested_attributes_for :obtained_requirements, :allow_destroy => true
 
   def self.points
-    success.joins(:event).sum(:points).to_i + failure.joins(:event).sum(:failure_points).to_i
+    sum(:bonus_points).to_i + success.joins(:event).sum(:points).to_i + failure.joins(:event).sum(:failure_points).to_i
   end
   
   def self.since(date)

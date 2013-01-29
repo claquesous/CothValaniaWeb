@@ -1,7 +1,7 @@
 class Member < ActiveRecord::Base
-  scope :active, where("active=? or active is null", true)
-  scope :inactive, where("active=?", false)
-  scope :admins, where("admin=? or leader=?", true, true)
+  scope :active, where{(active == true) | (active == nil)}
+  scope :inactive, where(active: false)
+  scope :admins, where{(admin == true) | (leader == true)}
   default_scope order(:name)
   attr_accessible :active, :name, :password, :password_confirmation, :remarks, :url, :characters_attributes, :character_rewards_attributes
   has_secure_password
@@ -65,7 +65,7 @@ class Member < ActiveRecord::Base
 
   private
   def get_last_reward_date
-    character_rewards.obtained.where("preference is not null").joins(:occurrence).maximum("occurrences.end_time")
+    character_rewards.obtained.where{preference.not_eq nil}.joins(:occurrence).maximum("occurrences.end_time")
   end
 
   def has_character?

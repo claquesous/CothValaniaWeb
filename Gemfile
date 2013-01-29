@@ -61,3 +61,4 @@ gem 'bcrypt-ruby'
 gem 'haml'
 gem 'haml-rails'
 
+gem 'squeel'

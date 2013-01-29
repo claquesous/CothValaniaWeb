@@ -4,7 +4,7 @@ class Occurrence < ActiveRecord::Base
   scope :success, where(success: true)
   scope :failure, where(success: false)
   scope :optional, where(optional: true)
-  scope :mandatory, where("optional =? or optional is null", false)
+  scope :mandatory, where{(optional == false) | (optional == nil)}
   attr_accessible :end_time, :remarks, :start_time, :success, :event_attendances_attributes, :obtained_requirements_attributes, :used_requirement_ids, :character_reward_ids, :optional, :bonus_points
   # An event can have many attendees
   has_many :event_attendances, :dependent => :destroy, :inverse_of => :occurrence
@@ -33,7 +33,7 @@ class Occurrence < ActiveRecord::Base
   end
   
   def self.since(date)
-    where("end_time >=?", date)
+    where{end_time >= date}
   end
 
   private

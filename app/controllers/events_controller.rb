@@ -92,7 +92,7 @@ class EventsController < ApplicationController
       Event.update_all(hidden: true)
     else
       Event.where(id: params[:event_ids]).update_all(hidden: false)
-      Event.where("id not in (?)", params[:event_ids]).update_all(hidden: true)
+      Event.where{id.not_in my{params[:event_ids]}}.update_all(hidden: true)
     end
     redirect_to events_path
   end

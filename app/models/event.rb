@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  scope :visible, where("hidden=? or hidden is null", false)
+  scope :visible, where{(hidden == false) | (hidden == nil)}
   default_scope order(:name)
   attr_accessible :hidden, :name, :points, :failure_points, :remarks, :time
   validates_presence_of :name, :points

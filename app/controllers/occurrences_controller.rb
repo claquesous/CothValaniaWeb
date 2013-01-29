@@ -41,7 +41,7 @@ class OccurrencesController < ApplicationController
   def edit
     @event = Event.find_by_name(CGI.unescape params[:event_id])
     @occurrence = Occurrence.find(params[:id])
-    @members = Member.where("active=? or id in (?)",true,@occurrence.characters.joins(:member).select("members.id"))
+    @members = Member.where{(active == true) | (id.in my{@occurrence.characters.joins(:member).select("members.id")})}
   end
 
   # POST /occurrences
@@ -74,7 +74,7 @@ class OccurrencesController < ApplicationController
         format.html { redirect_to event_occurrence_url(@event), notice: "#{@config.occurrences.singularize.capitalize} was successfully updated." }
         format.json { head :no_content }
       else
-        @members = Member.where("active=? or id in (?)",true,@occurrence.characters.joins(:member).select("members.id"))
+        @members = Member.where{(active == true) | (id.in my{@occurrence.characters.joins(:member).select("members.id")})}
         format.html { render action: "edit" }
         format.json { render json: @occurrence.errors, status: :unprocessable_entity }
       end

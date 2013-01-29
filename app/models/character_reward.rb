@@ -1,8 +1,8 @@
 class CharacterReward < ActiveRecord::Base
   before_save :set_obtained, :set_obtained_points, :set_reward_cycle
-  scope :unobtained, where("obtained=? or obtained is null", false)
+  scope :unobtained, where{(obtained == false) | (obtained == nil)}
   scope :obtained, where(obtained: true)
-  scope :active, joins(:member).where("members.active")
+  scope :active, joins(:member).where{member.active == true}
   scope :free_lot, obtained.where(preference: nil)
   belongs_to :member
   belongs_to :character
@@ -18,11 +18,11 @@ class CharacterReward < ActiveRecord::Base
   end
 
   def self.obtained_from(event)
-    obtained.joins(:occurrence).where("occurrences.event_id =?", event.id)
+    obtained.joins(:occurrence).where{occurrences.event_id == event.id}
   end
 
   def self.by_cycle(cycle)
-    where("reward_cycle=? and preference is not null", cycle)
+    where(reward_cycle: cycle).where{preference.not_eq nil}
   end
 
   def current_points

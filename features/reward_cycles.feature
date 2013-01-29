@@ -27,4 +27,19 @@ Feature:
      When I click "Begin New Reward Cycle"
      Then I should see "Cycle date: 2012-12-12"
 
-
+  Scenario: Delete attendance from before new cycle
+    Given There is an event named "Varond's Birthday" which is worth 20 points
+    And "Meze" attended "Varond's Birthday" 5 days ago
+    And "Meze" attended "Varond's Birthday" 2 days ago
+    And "Meze" has received their 1,2 picks
+    When I click "My Page"
+    Then I should see "40 / 40"
+    And I click "Edit"
+    And I click "Begin New Reward Cycle"
+    Then I should see "0 / 40"
+    When "Meze" no longer attended "Varond's Birthday" 5 days ago
+    And I click "My Page"
+    Then I should see "0 / 20"
+    And "Meze" attended "Varond's Birthday"
+    When I click "My Page"
+    Then I should see "20 / 40"

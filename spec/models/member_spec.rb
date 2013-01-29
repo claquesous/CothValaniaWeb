@@ -72,9 +72,47 @@ describe Member do
       }.to change(@member, :cycle_date).to @time
     end
 
+    it "should set current_points to 0" do
+      @member.current_points = 1
+      expect {
+        @member.begin_new_cycle
+      }.to change(@member, :current_points).to 0
+    end
+
+    it "should set current_points to 0 for characters" do
+      @member.characters.first.current_points = 1
+      expect {
+        @member.begin_new_cycle
+      }.to change(@member.characters.first, :current_points).to 0
+    end
+
     it "should save" do
       @member.should_receive :save!
       @member.begin_new_cycle
+    end
+  end
+
+  describe "current_occurrence?" do
+    before :each do
+      @member = FactoryGirl.create(:member)
+      @occurrence = mock_model(Occurrence)
+    end
+
+    it "should call cycle_date" do
+      @occurrence.stub(:to_date).and_return(Date.new)
+      @member.should_receive(:cycle_date).and_return(Date.new)
+      @member.current_occurrence? @occurrence
+    end
+
+    it "should call to_date on occurrence" do
+      @occurrence.should_receive(:to_date).and_return(Date.new)
+      @member.current_occurrence? @occurrence
+    end
+
+    it "should compare current_cycle with occurrence date" do
+      @occurrence.stub(:to_date).and_return(Date.new)
+      @member.cycle_date.should_receive(:<=).with(@occurrence.to_date)
+      @member.current_occurrence? @occurrence
     end
   end
 end

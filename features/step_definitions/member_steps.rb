@@ -9,10 +9,12 @@ Then /^I should see "(.*?)" has (\d+) points$/ do |member, points|
 end
 
 Given /^Member "(.*?)" has (\d+) points$/ do |member, points|
-  step(%Q{I have a member named "#{member}"})
-  step(%Q{There is an event named "#{member}" which is worth #{points} points})
-  step(%Q{"#{member}" has a character named "#{member}"})
-  step(%Q{"#{member}" attended "#{member}"})
+  member = FactoryGirl.create(:member, name: member)
+  member.total_points = points
+  member.current_points = points
+  member.characters.first.total_points = points
+  member.characters.first.current_points = points
+  member.save!
 end
 
 Given /^"(.*?)" is (in)?active$/ do |member, inactive|

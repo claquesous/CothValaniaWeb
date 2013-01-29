@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123005847) do
+ActiveRecord::Schema.define(:version => 20130126022551) do
 
   create_table "character_jobs", :force => true do |t|
     t.integer  "character_id"
@@ -62,10 +62,12 @@ ActiveRecord::Schema.define(:version => 20130123005847) do
     t.string   "name"
     t.string   "remarks"
     t.integer  "member_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "race_id"
     t.integer  "sex"
+    t.integer  "current_points", :default => 0
+    t.integer  "total_points",   :default => 0
   end
 
   add_index "characters", ["member_id"], :name => "index_characters_on_member_id"
@@ -141,6 +143,8 @@ ActiveRecord::Schema.define(:version => 20130123005847) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.boolean  "leader"
+    t.integer  "current_points",  :default => 0
+    t.integer  "total_points",    :default => 0
   end
 
   add_index "members", ["active"], :name => "index_members_on_active"

@@ -31,7 +31,7 @@ Then /^I should see an? "([^\"]+)" link$/ do |l|
 end
 
 Then /^I should see "(.*?)" before "(.*?)"$/ do |arg1, arg2|
-  page.body.gsub("\n","").should match("#{arg1}.*#{arg2}")
+  page.text.should match("#{arg1}.*#{arg2}")
 end
 
 Then /^I should (not )?see "(.*?)" within "(.*?)"$/ do |n,arg1, section|

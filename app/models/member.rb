@@ -26,20 +26,12 @@ class Member < ActiveRecord::Base
     where(leader: true).first
   end
 
-  def points
-    attendances.points
-  end
-  
-  def current_points
-    attendances.since(cycle_date).points
-  end
-
   def attendance_rate(since_date = join_date)
     100 * (attendances.since(since_date).mandatory.points.to_f / Occurrence.since(since_date).mandatory.points)
   end
 
   def attendance_percentage
-     100 * (points.to_f / EventAttendance.points)
+     100 * (total_points.to_f / EventAttendance.points)
   end
   
   def available_rewards
@@ -59,7 +51,16 @@ class Member < ActiveRecord::Base
   def begin_new_cycle
     self.reward_cycle += 1
     self.cycle_date = get_last_reward_date
+    self.current_points = 0
+    characters.each do |character|
+      character.current_points = 0
+      character.save!
+    end
     save!
+  end
+
+  def current_occurrence?(occurrence)
+    cycle_date <= occurrence.to_date
   end
 
   private
@@ -78,7 +79,7 @@ class Member < ActiveRecord::Base
   end
 
   def set_dates
-    self.join_date = Time.now
-    self.cycle_date = Time.now
+    self.join_date ||= Time.now
+    self.cycle_date ||= Time.now
   end
 end

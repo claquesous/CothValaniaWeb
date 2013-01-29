@@ -22,9 +22,14 @@ class Occurrence < ActiveRecord::Base
   validates_presence_of :event
   accepts_nested_attributes_for :event_attendances, :allow_destroy => true
   accepts_nested_attributes_for :obtained_requirements, :allow_destroy => true
+  delegate :to_date, to: :end_time
 
   def self.points
     sum(:bonus_points).to_i + success.joins(:event).sum(:points).to_i + failure.joins(:event).sum(:failure_points).to_i
+  end
+
+  def points
+    (bonus_points || 0) + (success ? event.points : (event.failure_points || 0 ))
   end
   
   def self.since(date)

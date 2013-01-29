@@ -34,11 +34,27 @@ class Character < ActiveRecord::Base
     end
   end
 
-  def points
-    attendances.points
+  def add_occurrence(occurrence)
+    points = occurrence.points
+    self.total_points += points
+    member.total_points += points
+    if (member.current_occurrence? occurrence)
+      self.current_points += points
+      member.current_points += points
+    end
+    member.save!
+    save!
   end
 
-  def current_points
-    attendances.since(member.cycle_date).points
+  def destroy_occurrence(occurrence)
+    points = occurrence.points
+    self.total_points -= points
+    member.total_points -= points
+    if (member.current_occurrence? occurrence)
+      self.current_points -= points
+      member.current_points -= points
+    end
+    member.save!
+    save!
   end
 end

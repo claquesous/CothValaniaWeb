@@ -23,8 +23,8 @@ describe Occurrence do
     end
 
     it "should delete attendance" do
-      EventAttendance.any_instance.stub(:valid?).and_return(true)
-      attendance = @occurrence.event_attendances.create!
+      member = FactoryGirl.create(:member)
+      attendance = @occurrence.event_attendances.create(character_id: member.characters.first.id,)
       expect {
         @occurrence.destroy
       }.to change(EventAttendance, :count).by(-1)
@@ -52,6 +52,36 @@ describe Occurrence do
       expect {
         @occurrence.destroy
       }.to change(character_reward, :occurrence_id).from(@occurrence.id).to(nil)
+    end
+  end
+
+  describe "points" do
+    before :each do
+      @occurrence = FactoryGirl.create(:occurrence)
+    end
+
+    it "should call bonus_points" do
+      @occurrence.should_receive(:bonus_points)
+      @occurrence.points
+    end
+
+    it "should call success" do
+      @occurrence.should_receive(:success)
+      @occurrence.points
+    end
+
+    it "should sum bonus_points and event.points on success" do
+      @occurrence.stub(:success).and_return true
+      @occurrence.event.stub(:points).and_return 3
+      @occurrence.stub(:bonus_points).and_return 4
+      @occurrence.points.should eq 7
+    end
+
+    it "should sum bonus_points and event.failure_points on failure" do
+      @occurrence.stub(:success).and_return false
+      @occurrence.event.stub(:failure_points).and_return 3
+      @occurrence.stub(:bonus_points).and_return 4
+      @occurrence.points.should eq 7
     end
   end
 end

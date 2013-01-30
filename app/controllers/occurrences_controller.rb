@@ -4,7 +4,7 @@ class OccurrencesController < ApplicationController
   # GET /occurrences.json
   def index
     @event = Event.find_by_name(CGI.unescape params[:event_id])
-    @occurrences = @event.occurrences
+    @occurrences = @event.occurrences.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

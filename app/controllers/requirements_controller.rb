@@ -3,7 +3,7 @@ class RequirementsController < ApplicationController
   # GET /requirements
   # GET /requirements.json
   def index
-    @requirements = Requirement.all
+    @requirements = Requirement.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

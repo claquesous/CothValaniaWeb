@@ -30,3 +30,5 @@
         .controls
           = button_tag "Change Leader", data: { confirm: 'Changing leader can not be undone. Are you sure you want to do this?' }, class: "btn btn-danger"
 
+= paginate @site_configs
+

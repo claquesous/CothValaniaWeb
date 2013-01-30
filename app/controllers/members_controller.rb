@@ -11,6 +11,7 @@ class MembersController < ApplicationController
       @update_active = true
     else
       @members = Member.active
+      @members = @members.page(params[:page]) unless params[:update_admins]
       @update_admins =  params[:update_admins]
     end
 
@@ -134,6 +135,7 @@ class MembersController < ApplicationController
   # GET /members/1/attendances.json
   def attendances
     @member = Member.find_by_name(CGI.unescape params[:id])
+    @attendances = @member.event_attendances.order_by_date.page(params[:page])
 
     respond_to do |format|
       format.html # attendances.html.erb

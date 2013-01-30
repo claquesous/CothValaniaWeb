@@ -5,7 +5,7 @@ class SiteConfigsController < ApplicationController
   # GET /site_configs
   # GET /site_configs.json
   def index
-    @site_configs = SiteConfig.all
+    @site_configs = SiteConfig.page(params[:page])
     @new_leader_list = Member.admins - [Member.leader]
 
     respond_to do |format|

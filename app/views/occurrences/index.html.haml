@@ -33,5 +33,5 @@
         %td= link_to 'Edit', edit_event_occurrence_path(@event,occurrence), class: "btn btn-info"
         %td= link_to 'Destroy', event_occurrence_path(@event,occurrence), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 
-%br
+= paginate @occurrences
 

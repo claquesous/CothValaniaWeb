@@ -7,7 +7,7 @@ class EventsController < ApplicationController
       @events = Event.all
       @update_visible = true
     else
-      @events = Event.visible
+      @events = Event.visible.page(params[:page])
     end
 
     respond_to do |format|

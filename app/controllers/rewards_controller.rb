@@ -3,7 +3,7 @@ class RewardsController < ApplicationController
   # GET /rewards
   # GET /rewards.json
   def index
-    @rewards = Reward.all
+    @rewards = Reward.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

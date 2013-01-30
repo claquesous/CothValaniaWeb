@@ -60,5 +60,6 @@
       - if leader?
         %td= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger"
 
-%br
+- unless @update_active || @update_admins
+  = paginate @members
 

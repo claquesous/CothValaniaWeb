@@ -62,3 +62,5 @@ gem 'haml'
 gem 'haml-rails'
 
 gem 'squeel'
+
+gem 'kaminari'

@@ -1,9 +1,15 @@
 - content_for :title do
   = @config.members.pluralize + " - " + @member.name + " Attendance"
 
-%h1 #{@member.name} Attendance
+%h1.valigned #{@member.name} Attendance
 
-= render 'attendance_list', attendances: @member.event_attendances.order_by_date
+.pull-right
+  = link_to 'Back', member_path(@member), class: "btn btn-primary"
 
-= link_to 'Back', member_path(@member), class: "btn btn-primary"
+%p
+
+= render 'attendance_list', attendances: @attendances
+
+= paginate @attendances
+
 

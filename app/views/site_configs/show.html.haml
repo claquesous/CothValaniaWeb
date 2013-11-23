@@ -34,5 +34,5 @@
   %b Description:
   = @site_config.description
 
-= link_to 'Edit', edit_site_config_path(@site_config), class: "btn btn-info"
+= link_to 'Edit', [:edit, @site_config], class: "btn btn-info"
 = link_to 'Back', site_configs_path, class: "btn btn-primary"

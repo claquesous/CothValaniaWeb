@@ -5,7 +5,7 @@
 .pull-right
   = link_to "#{@config.occurrences}", event_occurrences_path(@event), class: "btn btn-success"
   - if leader?
-    = link_to 'Edit', edit_event_path(@event), class: "btn btn-info"
+    = link_to 'Edit', [:edit, @event], class: "btn btn-info"
   = link_to 'Back', events_path, class: "btn btn-primary"
 
 %p
@@ -25,7 +25,7 @@
 .row
   -@event.rewards.each do |r|
     .span4
-      %p= link_to r.name, reward_path(r)
+      %p= link_to r.name, r
       = render 'rewards/list', :reward => r
 
   - requirements_for = @event.event_requirements.includes(:requirement).collect(&:requirement)
@@ -34,7 +34,7 @@
       %b #{@config.requirements.pluralize} For
       %ol
       - requirements_for.each do |req|
-        %li= link_to req.name, requirement_path(req)
+        %li= link_to req.name, req
 
   - requirements_from = @event.requirement_obtainments.collect(&:requirement)
   - unless requirements_from.empty?
@@ -42,5 +42,5 @@
       %b #{@config.requirements.pluralize} Obtained From
       %ol
       - requirements_from.each do |req|
-        %li= link_to req.name, requirement_path(req)
+        %li= link_to req.name, req
 

@@ -4,7 +4,7 @@
 %h1.valigned #{@event.name} #{@config.occurrences.singularize}
 .pull-right
   - if admin?
-    = link_to 'Edit', edit_event_occurrence_path(@event,@occurrence), class: "btn btn-info"
+    = link_to 'Edit', [:edit, @event,@occurrence], class: "btn btn-info"
   = link_to 'Back', event_occurrences_path(@event), class: "btn btn-primary"
 
 %p
@@ -15,7 +15,7 @@
 
 %p
   %b Entered by:
-  = link_to @occurrence.member.name, member_path(@occurrence.member) if @occurrence.member
+  = link_to @occurrence.member.name, @occurrence.member if @occurrence.member
 %p
   %b Remarks:
   = @occurrence.remarks
@@ -34,7 +34,7 @@
     %b Attendees:
     %ol
       - @occurrence.characters.includes(:member).order(:name).each do |character|
-        %li= link_to character.name, member_path(character.member)
+        %li= link_to character.name, character.member
 
   - rewards = @occurrence.character_rewards.includes(:reward).includes(:character).includes(:member)
   - unless rewards.empty?
@@ -44,8 +44,8 @@
         - rewards.each_with_index do |reward, i|
           %tr
             %td #{i+1}.
-            %td= link_to reward.reward.name, reward_path(reward.reward)
-            %td= link_to reward.character.name, member_path(reward.member)
+            %td= link_to reward.reward.name, reward.reward
+            %td= link_to reward.character.name, reward.member
 
   - used_requirements = @occurrence.used_requirements
   - unless used_requirements.empty?
@@ -55,8 +55,8 @@
         - used_requirements.each_with_index do |requirement, i|
           %tr
             %td #{i+1}.
-            %td= link_to requirement.requirement.name, requirement_path(requirement.requirement)
-            %td= link_to requirement.character.name, member_path(requirement.character.member)
+            %td= link_to requirement.requirement.name, requirement.requirement
+            %td= link_to requirement.character.name, requirement.character.member
 
   - obtained_requirements = @occurrence.obtained_requirements
   - unless obtained_requirements.empty?
@@ -66,6 +66,6 @@
         - obtained_requirements.each_with_index do |requirement, i|
           %tr
             %td #{i+1}.
-            %td= link_to requirement.requirement.name, requirement_path(requirement.requirement)
-            %td= link_to requirement.character.name, member_path(requirement.character.member)
+            %td= link_to requirement.requirement.name, requirement.requirement
+            %td= link_to requirement.character.name, requirement.character.member
 

@@ -18,7 +18,7 @@
     %tr
       %td= link_to job.name, job
       %td= job.short_name
-      %td= link_to 'Edit', edit_job_path(job), class: "btn btn-info"
+      %td= link_to 'Edit', [:edit, job], class: "btn btn-info"
       %td= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 
 = paginate @jobs

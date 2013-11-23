@@ -10,6 +10,6 @@
   - points.each_with_index do |(cr, points), i|
     %tr
       %td #{i+1}.
-      %td= link_to cr.character.name, member_path(cr.member)
+      %td= link_to cr.character.name, cr.member
       %td
         .badge.badge-info= points.round(4)

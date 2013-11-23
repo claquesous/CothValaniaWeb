@@ -16,7 +16,7 @@
       %td= site_config.config_comment
       %td= site_config.created_at
       %td= link_to 'Show', site_config, class: "btn btn-success"
-      %td= link_to 'Edit', edit_site_config_path(site_config), class: "btn btn-info"
+      %td= link_to 'Edit', [:edit, site_config], class: "btn btn-info"
       %td= link_to 'Destroy', site_config, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" unless site_config.id == 1
 
 - if @new_leader_list.length != 0

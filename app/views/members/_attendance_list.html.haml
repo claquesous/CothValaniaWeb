@@ -8,8 +8,8 @@
     %th Points
   - attendances.includes(:occurrence).includes(:event).includes(:character).each do |a|
     %tr
-      %td= link_to a.occurrence.end_time.to_date, event_occurrence_path(a.event, a.occurrence)
-      %td= link_to a.event.name, event_path(a.event)
+      %td= link_to a.occurrence.end_time.to_date, [a.event, a.occurrence]
+      %td= link_to a.event.name, a.event
       - if @member.characters.many?
         %td= a.character.name
       %td

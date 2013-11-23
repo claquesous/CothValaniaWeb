@@ -20,7 +20,7 @@
       %td
         -if requirement.reusable
           %i.icon-ok
-      %td= link_to 'Edit', edit_requirement_path(requirement), class: "btn btn-info"
+      %td= link_to 'Edit', [:edit, requirement], class: "btn btn-info"
       %td= link_to 'Destroy', requirement, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 
 = paginate @requirements

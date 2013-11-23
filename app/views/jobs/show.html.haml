@@ -3,7 +3,7 @@
 
 %h1.valigned= @job.name
 .pull-right
-  = link_to 'Edit', edit_job_path(@job), class: "btn btn-info"
+  = link_to 'Edit', [:edit, @job], class: "btn btn-info"
   = link_to 'Back', jobs_path, class: "btn btn-primary"
 
 %p

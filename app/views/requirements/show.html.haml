@@ -3,7 +3,7 @@
 
 %h1.valigned= @requirement.name
 .pull-right
-  = link_to 'Edit', edit_requirement_path(@requirement), class: "btn btn-info"
+  = link_to 'Edit', [:edit, @requirement], class: "btn btn-info"
   = link_to 'Back', requirements_path, class: "btn btn-primary"
 
 %p
@@ -14,7 +14,7 @@
   %b Held by:
   %ul
     - @requirement.character_requirements.unused.each do |cr|
-      %li= link_to cr.character.name, member_path(cr.character.member)
+      %li= link_to cr.character.name, cr.character.member
 
 - r_from = @requirement.requirement_obtainments.collect(&:event)
 - r_for = @requirement.event_requirements.collect(&:event)
@@ -26,7 +26,7 @@
       .span2
         %ul
           - r_from.each do |e|
-            %li= link_to e.name, event_path(e)
+            %li= link_to e.name, e
       .span1
         %i.icon-arrow-right
 
@@ -39,5 +39,5 @@
       .span2
         %ul
           - r_for.each do |e|
-            %li= link_to e.name, event_path(e)
+            %li= link_to e.name, e
 

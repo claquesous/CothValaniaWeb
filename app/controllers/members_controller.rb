@@ -127,8 +127,7 @@ class MembersController < ApplicationController
   def begin_new_cycle
     @member = Member.find_by_name(CGI.unescape params[:id])
     @member.begin_new_cycle
-    flash[:notice] = 'New Reward Cycle started.'
-    redirect_to @member
+    redirect_to @member, notice: 'New Reward Cycle started.'
   end
 
   # GET /members/1/attendances

@@ -39,10 +39,10 @@ describe MembersController do
   end
 
   before :each do
-    controller.stub!(:check_config_and_login).and_return(:true)
-    controller.stub!(:leader?).and_return(:true)
-    controller.stub!(:admin?).and_return(:true)
-    controller.stub!(:validate_member).and_return(:true)
+    controller.stub(:check_config_and_login).and_return(:true)
+    controller.stub(:leader?).and_return(:true)
+    controller.stub(:admin?).and_return(:true)
+    controller.stub(:validate_member).and_return(:true)
     Member.any_instance.stub(:set_rewards)
   end
 

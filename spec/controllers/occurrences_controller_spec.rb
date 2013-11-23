@@ -36,10 +36,10 @@ describe OccurrencesController do
 
   before :each do
     @event = FactoryGirl.create(:event)
-    Event.stub!(:find).and_return(@event)
-    controller.stub!(:check_config_and_login).and_return(:true)
-    controller.stub!(:leader?).and_return(:true)
-    controller.stub!(:admin?).and_return(:true)
+    Event.stub(:find).and_return(@event)
+    controller.stub(:check_config_and_login).and_return(:true)
+    controller.stub(:leader?).and_return(:true)
+    controller.stub(:admin?).and_return(:true)
   end
 
   describe "GET index" do

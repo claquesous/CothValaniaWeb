@@ -37,9 +37,9 @@ describe RacesController do
   end
 
   before :each do
-    controller.stub!(:check_config_and_login).and_return(:true)
-    controller.stub!(:leader?).and_return(:true)
-    controller.stub!(:admin?).and_return(:true)
+    controller.stub(:check_config_and_login).and_return(:true)
+    controller.stub(:leader?).and_return(:true)
+    controller.stub(:admin?).and_return(:true)
   end
 
   describe "GET index" do

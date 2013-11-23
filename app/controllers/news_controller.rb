@@ -4,7 +4,7 @@ class NewsController < ApplicationController
   # GET /news
   # GET /news.json
   def index
-    @news = News.page(params[:page])
+    @news = News.includes(:member).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

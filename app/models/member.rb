@@ -42,6 +42,10 @@ class Member < ActiveRecord::Base
     character_rewards.obtained.by_cycle(reward_cycle).count + available_rewards.count
   end
 
+  def cycle_list(cycle)
+    character_rewards.includes(:reward).by_cycle(cycle).includes(:occurrence => :event).order(:preference)
+  end
+
   def build_all_character_jobs
     characters.each do |character|
       character.build_all_character_jobs(Job.all)

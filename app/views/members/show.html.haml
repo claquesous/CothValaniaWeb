@@ -85,7 +85,7 @@
       %b Attendance percentage:
       = @member.attendance_percentage.round(2)
 
-  - wishlist = @member.character_rewards.unobtained.by_cycle(@member.reward_cycle).includes(:reward).order(:preference)
+  - wishlist = @member.cycle_list(@member.reward_cycle).unobtained
   - unless wishlist.empty?
     .span5
       %b Wishlist
@@ -107,7 +107,7 @@
 
   #obtained_list
     - (1..@member.reward_cycle).each do |cycle|
-      - cycle_list = @member.character_rewards.obtained.by_cycle(cycle).includes(:occurrence => :event).order(:preference)
+      - cycle_list = @member.cycle_list(cycle).obtained
       - unless cycle_list.empty?
         .span5
           %b #{@config.rewards.pluralize} Obtained Cycle #{cycle}
@@ -130,7 +130,7 @@
                   - if @member.characters.many?
                     %td= r.character.name
 
-    - freelots = @member.character_rewards.free_lot.includes(:occurrence => :event)
+    - freelots = @member.character_rewards.includes(:reward).free_lot.includes(:occurrence => :event)
     - unless freelots.empty?
       .span4
         %b Free lots

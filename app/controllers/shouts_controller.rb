@@ -3,7 +3,7 @@ class ShoutsController < ApplicationController
   # GET /shouts
   # GET /shouts.json
   def index
-    @shouts = Shout.page(params[:page])
+    @shouts = Shout.includes(:member).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

@@ -28,7 +28,7 @@
       %p= link_to r.name, reward_path(r)
       = render 'rewards/list', :reward => r
 
-  - requirements_for = @event.event_requirements.collect(&:requirement)
+  - requirements_for = @event.event_requirements.includes(:requirement).collect(&:requirement)
   - unless requirements_for.empty?
     .span4
       %b #{@config.requirements.pluralize} For

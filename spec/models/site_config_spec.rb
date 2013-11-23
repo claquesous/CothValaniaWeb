@@ -24,4 +24,13 @@ describe SiteConfig do
       sc2.errors.count.should be(1)
     end
   end
+
+  describe "save" do
+    it "scrubs the description" do
+      description = "something to be scrubbed"
+      sc1 = FactoryGirl.create :site_config, description: description
+      Loofah.should_receive(:scrub_fragment).with(description, :whitewash)
+      sc1.save
+    end
+  end
 end

@@ -64,3 +64,4 @@ gem 'haml-rails'
 gem 'squeel'
 
 gem 'kaminari'
+gem 'loofah'

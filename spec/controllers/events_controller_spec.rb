@@ -124,7 +124,7 @@ describe EventsController do
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Event.any_instance.stub(:save).and_return(false)
+        Event.stub(:new) { mock_model(Event, save: false, errors: {}) }
         post :create, {:event => {}}, valid_session
         response.should render_template("new")
       end
@@ -174,7 +174,7 @@ describe EventsController do
       it "re-renders the 'edit' template" do
         event = Event.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Event.any_instance.stub(:save).and_return(false)
+        Event.stub(:find_by_name) { mock_model(Event, update_attributes: false, errors: {}) }
         put :update, {:id => event.to_param, :event => {}}, valid_session
         response.should render_template("edit")
       end

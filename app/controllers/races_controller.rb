@@ -1,84 +1,41 @@
 class RacesController < ApplicationController
   before_filter { |a| a.send(:authorize,:leader) }
-  # GET /races
-  # GET /races.json
+  respond_to :html, :json
+
   def index
     @races = Race.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @races }
-    end
+    respond_with @races
   end
 
-  # GET /races/1
-  # GET /races/1.json
   def show
     @race = Race.find_by_name(CGI.unescape params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @race }
-    end
+    respond_with @race
   end
 
-  # GET /races/new
-  # GET /races/new.json
   def new
     @race = Race.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @race }
-    end
+    respond_with @race
   end
 
-  # GET /races/1/edit
   def edit
     @race = Race.find_by_name(CGI.unescape params[:id])
   end
 
-  # POST /races
-  # POST /races.json
   def create
     @race = Race.new(params[:race])
-
-    respond_to do |format|
-      if @race.save
-        format.html { redirect_to @race, notice: "#{@config.races.singularize.capitalize} was successfully created." }
-        format.json { render json: @race, status: :created, location: @race }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @race.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = "#{@config.races.singularize.capitalize} was successfully created." if @race.save
+    respond_with @race
   end
 
-  # PUT /races/1
-  # PUT /races/1.json
   def update
     @race = Race.find_by_name(CGI.unescape params[:id])
-
-    respond_to do |format|
-      if @race.update_attributes(params[:race])
-        format.html { redirect_to @race, notice: "#{@config.races.singularize.capitalize} was successfully updated." }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @race.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = "#{@config.races.singularize.capitalize} was successfully updated." if @race.update_attributes(params[:race])
+    respond_with @race
   end
 
-  # DELETE /races/1
-  # DELETE /races/1.json
   def destroy
     @race = Race.find_by_name(CGI.unescape params[:id])
     @race.destroy
-
-    respond_to do |format|
-      format.html { redirect_to races_url }
-      format.json { head :no_content }
-    end
+    respond_with @race
   end
 end

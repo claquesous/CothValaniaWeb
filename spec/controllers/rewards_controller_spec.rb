@@ -109,7 +109,7 @@ describe RewardsController do
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Reward.any_instance.stub(:save).and_return(false)
+        Reward.stub(:new) { mock_model(Reward, save: false, errors: {}, build_all_event_rewards: []) }
         post :create, {:reward => {}}, valid_session
         response.should render_template("new")
       end
@@ -159,7 +159,7 @@ describe RewardsController do
       it "re-renders the 'edit' template" do
         reward = Reward.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Reward.any_instance.stub(:save).and_return(false)
+        Reward.stub(:find_by_name) { mock_model(Reward, update_attributes: false, errors: {}, build_all_event_rewards: []) }
         put :update, {:id => reward.to_param, :reward => {}}, valid_session
         response.should render_template("edit")
       end

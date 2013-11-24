@@ -104,7 +104,7 @@ describe ShoutsController do
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Shout.any_instance.stub(:save).and_return(false)
+        Shout.stub(:new) { mock_model(Shout, save: false, errors: {}, :member= => true) }
         post :create, {:shout => {}}, valid_session
         response.should render_template("new")
       end
@@ -148,7 +148,7 @@ describe ShoutsController do
       it "re-renders the 'edit' template" do
         shout = FactoryGirl.create(:shout)
         # Trigger the behavior that occurs when invalid params are submitted
-        Shout.any_instance.stub(:save).and_return(false)
+        Shout.stub(:find) { mock_model(Shout, update_attributes: false, errors: {}) }
         put :update, {:id => shout.to_param, :shout => {}}, valid_session
         response.should render_template("edit")
       end

@@ -1,85 +1,42 @@
 class ShoutsController < ApplicationController
   before_filter(only: [:destroy, :edit, :update]) { |a| a.send(:authorize,:admin) }
-  # GET /shouts
-  # GET /shouts.json
+  respond_to :html, :json
+
   def index
     @shouts = Shout.includes(:member).page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @shouts }
-    end
+    respond_with @shouts
   end
 
-  # GET /shouts/1
-  # GET /shouts/1.json
   def show
     @shout = Shout.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @shout }
-    end
+    respond_with @shout
   end
 
-  # GET /shouts/new
-  # GET /shouts/new.json
   def new
     @shout = Shout.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @shout }
-    end
+    respond_with @shout
   end
 
-  # GET /shouts/1/edit
   def edit
     @shout = Shout.find(params[:id])
   end
 
-  # POST /shouts
-  # POST /shouts.json
   def create
     @shout = Shout.new(params[:shout])
     @shout.member = current_member
-
-    respond_to do |format|
-      if @shout.save
-        format.html { redirect_to @shout, notice: 'Shout was successfully created.' }
-        format.json { render json: @shout, status: :created, location: @shout }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @shout.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Shout was successfully created.' if @shout.save
+    respond_with @shout
   end
 
-  # PUT /shouts/1
-  # PUT /shouts/1.json
   def update
     @shout = Shout.find(params[:id])
-
-    respond_to do |format|
-      if @shout.update_attributes(params[:shout])
-        format.html { redirect_to @shout, notice: 'Shout was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @shout.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Shout was successfully updated.' if @shout.update_attributes(params[:shout])
+    respond_with @shout
   end
 
-  # DELETE /shouts/1
-  # DELETE /shouts/1.json
   def destroy
     @shout = Shout.find(params[:id])
     @shout.destroy
-
-    respond_to do |format|
-      format.html { redirect_to shouts_url }
-      format.json { head :no_content }
-    end
+    respond_with @shout
   end
 end

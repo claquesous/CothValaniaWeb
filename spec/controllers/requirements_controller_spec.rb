@@ -109,7 +109,7 @@ describe RequirementsController do
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Requirement.any_instance.stub(:save).and_return(false)
+        Requirement.stub(:new) { mock_model(Requirement, save: false, errors: {}, build_all_event_requirements: [], build_all_requirement_obtainments: []) }
         post :create, {:requirement => {}}, valid_session
         response.should render_template("new")
       end
@@ -159,7 +159,7 @@ describe RequirementsController do
       it "re-renders the 'edit' template" do
         requirement = Requirement.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Requirement.any_instance.stub(:save).and_return(false)
+        Requirement.stub(:find_by_name) { mock_model(Requirement, update_attributes: false, errors: {}, build_all_event_requirements: [], build_all_requirement_obtainments: []) }
         put :update, {:id => requirement.to_param, :requirement => {}}, valid_session
         response.should render_template("edit")
       end

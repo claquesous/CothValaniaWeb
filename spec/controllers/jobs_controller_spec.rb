@@ -109,7 +109,7 @@ describe JobsController do
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Job.any_instance.stub(:save).and_return(false)
+        Job.stub(:new) { mock_model(Job, save: false, errors: {}) }
         post :create, {:job => {}}, valid_session
         response.should render_template("new")
       end
@@ -159,7 +159,7 @@ describe JobsController do
       it "re-renders the 'edit' template" do
         job = Job.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Job.any_instance.stub(:save).and_return(false)
+        Job.stub(:find_by_name) { mock_model(Job, update_attributes: false, errors: {}) }
         put :update, {:id => job.to_param, :job => {}}, valid_session
         response.should render_template("edit")
       end

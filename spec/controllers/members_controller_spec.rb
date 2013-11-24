@@ -135,7 +135,7 @@ describe MembersController do
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Member.any_instance.stub(:save).and_return(false)
+        Member.stub(:new) { mock_model(Member, save: false, errors: {}, characters: [mock_model(Character)], build_all_character_jobs: []) }
         post :create, {:member => {}, :reward_preferences => "" }, valid_session
         response.should render_template("new")
       end
@@ -189,7 +189,7 @@ describe MembersController do
       it "re-renders the 'edit' template" do
         member = Member.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Member.any_instance.stub(:save).and_return(false)
+        Member.stub(:find_by_name) { mock_model(Member, update_attributes: false, errors: {}, build_all_character_jobs: [], available_rewards: []) }
         put :update, {:id => member.to_param, :member => {}, :reward_preferences => "" }, valid_session
         response.should render_template("edit")
       end

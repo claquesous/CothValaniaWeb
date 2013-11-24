@@ -1,32 +1,19 @@
 class SiteConfigsController < ApplicationController
   skip_before_filter :check_config_and_login, only: [:new, :create]
   before_filter(except: [:new, :create]) { |a| a.send(:authorize,:leader) }
+  respond_to :html, :json
 
-  # GET /site_configs
-  # GET /site_configs.json
   def index
     @site_configs = SiteConfig.page(params[:page])
     @new_leader_list = Member.admins - [Member.leader]
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @site_configs }
-    end
+    respond_with @site_configs
   end
 
-  # GET /site_configs/1
-  # GET /site_configs/1.json
   def show
     @site_config = SiteConfig.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @site_config }
-    end
+    respond_with @site_config
   end
 
-  # GET /site_configs/new
-  # GET /site_configs/new.json
   def new
     if SiteConfig.count != 0
       respond_to do |format|
@@ -45,13 +32,10 @@ class SiteConfigsController < ApplicationController
     end
   end
 
-  # GET /site_configs/1/edit
   def edit
     @site_config = SiteConfig.find(params[:id])
   end
 
-  # POST /site_configs
-  # POST /site_configs.json
   def create
     if SiteConfig.count != 0
       respond_to do |format|
@@ -84,8 +68,6 @@ class SiteConfigsController < ApplicationController
     end
   end
 
-  # PUT /site_configs/1
-  # PUT /site_configs/1.json
   def update
     old_password = params[:site][:password] if params[:site]
 
@@ -115,16 +97,10 @@ class SiteConfigsController < ApplicationController
     end
   end
 
-  # DELETE /site_configs/1
-  # DELETE /site_configs/1.json
   def destroy
     @site_config = SiteConfig.find(params[:id])
     @site_config.destroy
-
-    respond_to do |format|
-      format.html { redirect_to site_configs_url }
-      format.json { head :no_content }
-    end
+    respond_with @site_config
   end
 
   # PUT /update_leader

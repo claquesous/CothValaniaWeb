@@ -2,9 +2,8 @@ class MembersController < ApplicationController
   before_filter(:only => [:destroy, :update_admins]) { |a| a.send(:authorize,:leader) }
   before_filter(:only => [:new, :create, :update_active]) { |a| a.send(:authorize,:admin) }
   before_filter :validate_member, :only => [:edit, :update, :begin_new_cycle]
+  respond_to :html, :json
 
-  # GET /members
-  # GET /members.json
   def index
     if params[:update_active]
       @members = Member.all
@@ -14,27 +13,15 @@ class MembersController < ApplicationController
       @members = @members.page(params[:page]) unless params[:update_admins]
       @update_admins =  params[:update_admins]
     end
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @members }
-    end
+    respond_with @members
   end
 
-  # GET /members/1
-  # GET /members/1.json
   def show
     @member = Member.find_by_name(CGI.unescape params[:id])
     @jobs = Job.all
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @member }
-    end
+    respond_with @member
   end
 
-  # GET /members/new
-  # GET /members/new.json
   def new
     @member = Member.new
     @member.characters.build
@@ -42,14 +29,9 @@ class MembersController < ApplicationController
     @races = Race.all
     @rewards = Reward.all
     @available_rewards = Reward.all
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @member }
-    end
+    respond_with @member
   end
 
-  # GET /members/1/edit
   def edit
     @member = Member.find_by_name(CGI.unescape params[:id])
     @races = Race.all
@@ -58,59 +40,41 @@ class MembersController < ApplicationController
     @available_rewards = @member.available_rewards
   end
 
-  # POST /members
-  # POST /members.json
   def create
     @member = Member.new(params[:member])
 
-    respond_to do |format|
-      if @member.save
-        format.html { redirect_to @member, notice: "#{@config.members.singularize.capitalize} was successfully created." }
-        format.json { render json: @member, status: :created, location: @member }
-      else
-        @races = Race.all
-        @rewards = Reward.all
-        @available_rewards = Reward.all
-        if @member.characters.length == 0
-          @member.characters.build
-        end
-        @member.build_all_character_jobs
-        format.html { render action: "new" }
-        format.json { render json: @member.errors, status: :unprocessable_entity }
+    if @member.save
+      flash[:notice] = "#{@config.members.singularize.capitalize} was successfully created."
+    else
+      @races = Race.all
+      @rewards = Reward.all
+      @available_rewards = Reward.all
+      if @member.characters.length == 0
+        @member.characters.build
       end
+      @member.build_all_character_jobs
     end
+    respond_with @member
   end
 
-  # PUT /members/1
-  # PUT /members/1.json
   def update
     @member = Member.find_by_name(CGI.unescape params[:id])
 
-    respond_to do |format|
-      if @member.update_attributes(params[:member])
-        format.html { redirect_to @member, notice: "#{@config.members.singularize.capitalize} was successfully updated." }
-        format.json { head :no_content }
-      else
-        @races = Race.all
-        @member.build_all_character_jobs
-        @rewards = Reward.all
-        @available_rewards = @member.available_rewards
-        format.html { render action: "edit" }
-        format.json { render json: @member.errors, status: :unprocessable_entity }
-      end
+    if @member.update_attributes(params[:member])
+      flash[:notice] = "#{@config.members.singularize.capitalize} was successfully updated."
+    else
+      @races = Race.all
+      @member.build_all_character_jobs
+      @rewards = Reward.all
+      @available_rewards = @member.available_rewards
     end
+    respond_with @member
   end
 
-  # DELETE /members/1
-  # DELETE /members/1.json
   def destroy
     @member = Member.find_by_name(CGI.unescape params[:id])
     @member.destroy
-
-    respond_to do |format|
-      format.html { redirect_to members_url }
-      format.json { head :no_content }
-    end
+    respond_with @member
   end
 
   def update_active

@@ -1,42 +1,25 @@
 class RequirementsController < ApplicationController
   before_filter(except: [:index, :show]) { |a| a.send(:authorize,:leader) }
-  # GET /requirements
-  # GET /requirements.json
+  respond_to :html, :json
+
   def index
     @requirements = Requirement.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @requirements }
-    end
+    respond_with @requirements
   end
 
-  # GET /requirements/1
-  # GET /requirements/1.json
   def show
     @requirement = Requirement.find_by_name(CGI.unescape params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @requirement }
-    end
+    respond_with @requirement
   end
 
-  # GET /requirements/new
-  # GET /requirements/new.json
   def new
     @requirement = Requirement.new
     @events = Event.all
     @requirement.build_all_event_requirements(@events)
     @requirement.build_all_requirement_obtainments(@events)
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @requirement }
-    end
+    respond_with @requirement
   end
 
-  # GET /requirements/1/edit
   def edit
     @requirement = Requirement.find_by_name(CGI.unescape params[:id])
     @events = Event.all
@@ -44,53 +27,35 @@ class RequirementsController < ApplicationController
     @requirement.build_all_requirement_obtainments(@events)
   end
 
-  # POST /requirements
-  # POST /requirements.json
   def create
     @requirement = Requirement.new(params[:requirement])
 
-    respond_to do |format|
-      if @requirement.save
-        format.html { redirect_to @requirement, notice: "#{@config.requirements.singularize.capitalize} was successfully created." }
-        format.json { render json: @requirement, status: :created, location: @requirement }
-      else
-        @events = Event.all
-        @requirement.build_all_event_requirements(@events)
-        @requirement.build_all_requirement_obtainments(@events)
-        format.html { render action: "new" }
-        format.json { render json: @requirement.errors, status: :unprocessable_entity }
-      end
+    if @requirement.save
+      flash[:notice] = "#{@config.requirements.singularize.capitalize} was successfully created."
+    else
+      @events = Event.all
+      @requirement.build_all_event_requirements(@events)
+      @requirement.build_all_requirement_obtainments(@events)
     end
+    respond_with @requirement
   end
 
-  # PUT /requirements/1
-  # PUT /requirements/1.json
   def update
     @requirement = Requirement.find_by_name(CGI.unescape params[:id])
 
-    respond_to do |format|
-      if @requirement.update_attributes(params[:requirement])
-        format.html { redirect_to @requirement, notice: "#{@config.requirements.singularize.capitalize} was successfully updated." }
-        format.json { head :no_content }
-      else
-        @events = Event.all
-        @requirement.build_all_event_requirements(@events)
-        @requirement.build_all_requirement_obtainments(@events)
-        format.html { render action: "edit" }
-        format.json { render json: @requirement.errors, status: :unprocessable_entity }
-      end
+    if @requirement.update_attributes(params[:requirement])
+      flash[:notice] = "#{@config.requirements.singularize.capitalize} was successfully updated."
+    else
+      @events = Event.all
+      @requirement.build_all_event_requirements(@events)
+      @requirement.build_all_requirement_obtainments(@events)
     end
+    respond_with @requirement
   end
 
-  # DELETE /requirements/1
-  # DELETE /requirements/1.json
   def destroy
     @requirement = Requirement.find_by_name(CGI.unescape params[:id])
     @requirement.destroy
-
-    respond_to do |format|
-      format.html { redirect_to requirements_url }
-      format.json { head :no_content }
-    end
+    respond_with @requirement
   end
 end

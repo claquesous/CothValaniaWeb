@@ -120,7 +120,7 @@ describe OccurrencesController do
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Occurrence.any_instance.stub(:save).and_return(false)
+        Occurrence.stub(:new) { mock_model(Occurrence, save: false, errors: {}, :member= => true) }
         post :create, {:event_id => @event.to_param, :occurrence => {}}, valid_session
         response.should render_template("new")
       end
@@ -170,7 +170,8 @@ describe OccurrencesController do
       it "re-renders the 'edit' template" do
         occurrence = FactoryGirl.create(:occurrence)
         # Trigger the behavior that occurs when invalid params are submitted
-        Occurrence.any_instance.stub(:save).and_return(false)
+        Occurrence.stub(:find) { occurrence }
+        occurrence.stub(:update_attributes).and_return(false)
         put :update, {:event_id => @event.to_param, :id => occurrence.to_param, :occurrence => {}}, valid_session
         response.should render_template("edit")
       end

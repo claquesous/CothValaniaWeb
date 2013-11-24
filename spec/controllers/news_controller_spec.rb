@@ -104,7 +104,7 @@ describe NewsController do
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        News.any_instance.stub(:save).and_return(false)
+        News.stub(:new) { mock_model(News, save: false, errors: {}, :member= => true) }
         post :create, {:news => {}}, valid_session
         response.should render_template("new")
       end
@@ -148,7 +148,7 @@ describe NewsController do
       it "re-renders the 'edit' template" do
         news = FactoryGirl.create(:news)
         # Trigger the behavior that occurs when invalid params are submitted
-        News.any_instance.stub(:save).and_return(false)
+        News.stub(:find) { mock_model(News, update_attributes: false, errors: {}) }
         put :update, {:id => news.to_param, :news => {}}, valid_session
         response.should render_template("edit")
       end

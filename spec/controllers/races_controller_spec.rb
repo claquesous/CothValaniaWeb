@@ -109,7 +109,7 @@ describe RacesController do
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Race.any_instance.stub(:save).and_return(false)
+        Race.stub(:new) { mock_model(Race, save: false, errors: {}) }
         post :create, {:race => {}}, valid_session
         response.should render_template("new")
       end
@@ -159,7 +159,7 @@ describe RacesController do
       it "re-renders the 'edit' template" do
         race = Race.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Race.any_instance.stub(:save).and_return(false)
+        Race.stub(:find_by_name) { mock_model(Race, update_attributes: false, errors: {}) }
         put :update, {:id => race.to_param, :race => {}}, valid_session
         response.should render_template("edit")
       end

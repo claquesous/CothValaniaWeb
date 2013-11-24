@@ -9,4 +9,5 @@ class Event < ActiveRecord::Base
   has_many :event_requirements, dependent: :destroy
   has_many :requirement_obtainments, dependent: :destroy
   validates_uniqueness_of :name
+  validates :name, uri_eligibility: true
 end

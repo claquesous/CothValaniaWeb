@@ -7,5 +7,6 @@ class Requirement < ActiveRecord::Base
   accepts_nested_attributes_for :event_requirements, :allow_destroy => true
   validates_uniqueness_of :name
   validates_presence_of :name
+  validates :name, uri_eligibility: true
   has_many :character_requirements, dependent: :destroy
 end

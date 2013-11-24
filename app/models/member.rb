@@ -18,6 +18,7 @@ class Member < ActiveRecord::Base
   validates_uniqueness_of :leader, allow_nil: true
   accepts_nested_attributes_for :characters, :reject_if => lambda { |a| a[:name].blank? }
   validate :has_character?
+  validates :name, uri_eligibility: true
   accepts_nested_attributes_for :character_rewards
   before_validation :destroy_unset_character_rewards
   before_create :set_dates

@@ -9,6 +9,7 @@ class Character < ActiveRecord::Base
   has_many :character_jobs, :inverse_of => :character, dependent: :destroy
   has_many :jobs, :through => :character_jobs
   validates_uniqueness_of :name
+  validates :name, uri_eligibility: true
   belongs_to :race
   accepts_nested_attributes_for :character_jobs, :reject_if => :all_blank, :allow_destroy => true
 

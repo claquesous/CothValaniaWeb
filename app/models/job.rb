@@ -3,4 +3,5 @@ class Job < ActiveRecord::Base
   has_many :character_jobs, dependent: :destroy
   validates_uniqueness_of :name
   validates_presence_of :name
+  validates :name, uri_eligibility: true
 end

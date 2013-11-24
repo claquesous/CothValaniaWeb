@@ -6,5 +6,6 @@ class Reward < ActiveRecord::Base
   has_many :events, :through => :event_rewards
   has_many :character_rewards, dependent: :destroy
   validates_uniqueness_of :name
+  validates :name, uri_eligibility: true
   accepts_nested_attributes_for :event_rewards, :allow_destroy => true
 end

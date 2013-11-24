@@ -37,6 +37,12 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  config.before(:each, logged_in: true) do
+    controller.stub(:check_config_and_login).and_return(:true)
+    controller.stub(:leader?).and_return(:true)
+    controller.stub(:admin?).and_return(:true)
+  end
 end
 
 def build_attributes(*args)

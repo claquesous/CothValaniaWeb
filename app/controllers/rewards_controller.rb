@@ -14,15 +14,13 @@ class RewardsController < ApplicationController
 
   def new
     @reward = Reward.new
-    @events = Event.visible
-    @reward.build_all_event_rewards(@events)
+    load_related
     respond_with @reward
   end
 
   def edit
     @reward = Reward.find_by_name(CGI.unescape params[:id])
-    @events = Event.visible
-    @reward.build_all_event_rewards(@events)
+    load_related
   end
 
   def create
@@ -31,8 +29,7 @@ class RewardsController < ApplicationController
     if @reward.save
       flash[:notice] = "#{@config.rewards.singularize.capitalize} was successfully created."
     else
-      @events = Event.visible
-      @reward.build_all_event_rewards(@events)
+      load_related
     end
     respond_with @reward
   end
@@ -43,8 +40,7 @@ class RewardsController < ApplicationController
     if @reward.update_attributes(params[:reward])
       flash[:notice] = "#{@config.rewards.singularize.capitalize} was successfully updated."
     else
-      @events = Event.visible
-      @reward.build_all_event_rewards(@events)
+      load_related
     end
     respond_with @reward
   end
@@ -53,5 +49,12 @@ class RewardsController < ApplicationController
     @reward = Reward.find_by_name(CGI.unescape params[:id])
     @reward.destroy
     respond_with @reward
+  end
+
+  private
+
+  def load_related
+    @events = Event.visible
+    @reward.build_all_event_rewards(@events)
   end
 end

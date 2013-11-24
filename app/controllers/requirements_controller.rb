@@ -14,17 +14,13 @@ class RequirementsController < ApplicationController
 
   def new
     @requirement = Requirement.new
-    @events = Event.all
-    @requirement.build_all_event_requirements(@events)
-    @requirement.build_all_requirement_obtainments(@events)
+    load_related
     respond_with @requirement
   end
 
   def edit
     @requirement = Requirement.find_by_name(CGI.unescape params[:id])
-    @events = Event.all
-    @requirement.build_all_event_requirements(@events)
-    @requirement.build_all_requirement_obtainments(@events)
+    load_related
   end
 
   def create
@@ -33,9 +29,7 @@ class RequirementsController < ApplicationController
     if @requirement.save
       flash[:notice] = "#{@config.requirements.singularize.capitalize} was successfully created."
     else
-      @events = Event.all
-      @requirement.build_all_event_requirements(@events)
-      @requirement.build_all_requirement_obtainments(@events)
+      load_related
     end
     respond_with @requirement
   end
@@ -46,9 +40,7 @@ class RequirementsController < ApplicationController
     if @requirement.update_attributes(params[:requirement])
       flash[:notice] = "#{@config.requirements.singularize.capitalize} was successfully updated."
     else
-      @events = Event.all
-      @requirement.build_all_event_requirements(@events)
-      @requirement.build_all_requirement_obtainments(@events)
+      load_related
     end
     respond_with @requirement
   end
@@ -57,5 +49,13 @@ class RequirementsController < ApplicationController
     @requirement = Requirement.find_by_name(CGI.unescape params[:id])
     @requirement.destroy
     respond_with @requirement
+  end
+
+  private
+
+  def load_related
+    @events = Event.all
+    @requirement.build_all_event_requirements(@events)
+    @requirement.build_all_requirement_obtainments(@events)
   end
 end

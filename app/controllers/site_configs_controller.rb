@@ -126,7 +126,4 @@ class SiteConfigsController < ApplicationController
       end
     end
   end
-
-  private
-
 end

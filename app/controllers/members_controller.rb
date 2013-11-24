@@ -25,18 +25,14 @@ class MembersController < ApplicationController
   def new
     @member = Member.new
     @member.characters.build
-    @member.build_all_character_jobs
-    @races = Race.all
-    @rewards = Reward.all
+    load_related
     @available_rewards = Reward.all
     respond_with @member
   end
 
   def edit
     @member = Member.find_by_name(CGI.unescape params[:id])
-    @races = Race.all
-    @member.build_all_character_jobs
-    @rewards = Reward.all
+    load_related
     @available_rewards = @member.available_rewards
   end
 
@@ -46,13 +42,9 @@ class MembersController < ApplicationController
     if @member.save
       flash[:notice] = "#{@config.members.singularize.capitalize} was successfully created."
     else
-      @races = Race.all
-      @rewards = Reward.all
+      load_related
       @available_rewards = Reward.all
-      if @member.characters.length == 0
-        @member.characters.build
-      end
-      @member.build_all_character_jobs
+      @member.characters.build if @member.characters.length == 0
     end
     respond_with @member
   end
@@ -63,9 +55,7 @@ class MembersController < ApplicationController
     if @member.update_attributes(params[:member])
       flash[:notice] = "#{@config.members.singularize.capitalize} was successfully updated."
     else
-      @races = Race.all
-      @member.build_all_character_jobs
-      @rewards = Reward.all
+      load_related
       @available_rewards = @member.available_rewards
     end
     respond_with @member
@@ -113,5 +103,11 @@ class MembersController < ApplicationController
       flash[:warning] = 'You may only edit yourself!'
       redirect_to Member.find_by_name(CGI.unescape params[:id])
     end
+  end
+
+  def load_related
+    @races = Race.all
+    @rewards = Reward.all
+    @member.build_all_character_jobs
   end
 end

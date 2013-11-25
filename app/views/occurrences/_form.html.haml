@@ -31,7 +31,7 @@
         - if (new_ea = f.object.event_attendances.includes(:member).find{|s| s.member == m}).nil?
           - new_ea = EventAttendance.new
         = f.fields_for :event_attendances, new_ea, :child_index => i do |ea|
-          %tr
+          %tr.attendee{ data: {member_id: m.id } }
             %td
               .form-inline
                 = ea.check_box :_destroy, {:checked => new_ea.persisted?}, 0, 1
@@ -67,7 +67,7 @@
           .span3.well
             %b= r.name
             - r.character_rewards.includes(:character).includes(:occurrence).unobtained_or_occurrence(@occurrence).each do |cr|
-              .form-inline
+              .form-inline.reward-checkbox{data: {member_id: cr.member.id}}
                 = check_box_tag "occurrence[character_reward_ids][]", cr.id, cr.occurrence == @occurrence, id: "occurrence_character_reward_ids_#{cr.id}"
                 = label_tag "occurrence_character_reward_ids_#{cr.id}", cr.character.name
                 .badge.badge-info= cr.current_points.round(2)
@@ -75,31 +75,32 @@
     - er = @event.event_requirements.includes(:requirement)
     - ro = @event.requirement_obtainments.includes(:requirement)
     - if er.count>0 || ro.count>0
-      %h3 #{@config.requirements.pluralize}
-      = hidden_field_tag "occurrence[used_requirement_ids][]"
-      %table.table.table-hover
-        %tr
-          - er.each do |r|
-            %th= r.requirement.name
-          %th Character
-          - ro.each do |r|
-            %th= r.requirement.name
-        - @members.each do |m|
-          - m.characters.each do |c|
-            %tr
-              - er.each do |r|
-                %td
-                  -unless (new_ur = get_requirements(r.requirement.character_requirements.includes(:character).includes(:used_occurrence),c)).nil?
-                    = check_box_tag "occurrence[used_requirement_ids][]", new_ur.id, new_ur.used_occurrence == @occurrence, id: "occurrence_used_requirement_ids_#{new_ur.id}"
-              %td= c.name
-              - ro.each do |r|
-                - if (new_ocr = f.object.obtained_requirements.find{|s| s.character == c}).nil?
-                  - new_ocr = CharacterRequirement.new
-                = f.fields_for :obtained_requirements, new_ocr, :child_index => c.name do |ocr|
+      #requirements-table
+        %h3 #{@config.requirements.pluralize}
+        = hidden_field_tag "occurrence[used_requirement_ids][]"
+        %table.table.table-hover
+          %tr
+            - er.each do |r|
+              %th= r.requirement.name
+            %th Character
+            - ro.each do |r|
+              %th= r.requirement.name
+          - @members.each do |m|
+            - m.characters.each do |c|
+              %tr.requirement-row{ data: {member_id: m.id} }
+                - er.each do |r|
                   %td
-                    = ocr.check_box :_destroy, {:checked => new_ocr.persisted?}, 0, 1
-                    = ocr.hidden_field :character_id, :value => c.id
-                    = ocr.hidden_field :requirement_id, :value => r.requirement.id
+                    -unless (new_ur = get_requirements(r.requirement.character_requirements.includes(:character).includes(:used_occurrence),c)).nil?
+                      = check_box_tag "occurrence[used_requirement_ids][]", new_ur.id, new_ur.used_occurrence == @occurrence, id: "occurrence_used_requirement_ids_#{new_ur.id}"
+                %td= c.name
+                - ro.each do |r|
+                  - if (new_ocr = f.object.obtained_requirements.find{|s| s.character == c}).nil?
+                    - new_ocr = CharacterRequirement.new
+                  = f.fields_for :obtained_requirements, new_ocr, :child_index => c.name do |ocr|
+                    %td
+                      = ocr.check_box :_destroy, {:checked => new_ocr.persisted?}, 0, 1
+                      = ocr.hidden_field :character_id, :value => c.id
+                      = ocr.hidden_field :requirement_id, :value => r.requirement.id
   
     .form-actions
       = f.submit 'Save', class: "btn btn-primary"

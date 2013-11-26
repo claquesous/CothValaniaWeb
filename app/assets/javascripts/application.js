@@ -14,4 +14,4 @@
 //= require jquery_ujs
 // Loads all Bootstrap javascripts
 //= require bootstrap
-//= require_tree .
+//= require_tree ./shared

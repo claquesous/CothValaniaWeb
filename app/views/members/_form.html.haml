@@ -28,7 +28,7 @@
       = f.fields_for :characters do |c|
         = render 'character', :f => c
       = link_to_add_fields "Add Character", f, :characters
-    .control-group.field
+    #wishlist.control-group.field
       %table.table.table-condensed
         %tr
           %th
@@ -64,3 +64,5 @@
         = link_to 'Cancel', @member, class: "btn btn-danger"
       - else
         = link_to 'Cancel', members_path, class: "btn btn-danger"
+
+= javascript_include_tag "member"

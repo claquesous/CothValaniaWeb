@@ -1,5 +1,6 @@
 class CharacterReward < ActiveRecord::Base
   before_save :set_obtained, :set_obtained_points, :set_reward_cycle
+  before_validation :set_member
   scope :unobtained, where{(obtained == false) | (obtained == nil)}
   scope :obtained, where(obtained: true)
   scope :active, joins(:member).where{member.active == true}
@@ -29,10 +30,19 @@ class CharacterReward < ActiveRecord::Base
     member.current_points.to_f/preference
   end
 
+  def display_points
+    return obtained_points.try(:round,2) || "Free" if obtained
+    current_points.round(2)
+  end
+
   private
   def set_obtained
     self.obtained = !self.occurrence_id.nil?
     true
+  end
+
+  def set_member
+    self.member = character.member
   end
 
   def set_obtained_points

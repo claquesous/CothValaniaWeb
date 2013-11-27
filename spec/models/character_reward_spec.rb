@@ -120,4 +120,29 @@ describe CharacterReward do
       end
     end 
   end
+
+  describe "display points" do
+    let (:cr) { CharacterReward.new }
+    it "should return 'Free' if obtained without preference" do
+      cr.should_receive(:obtained).and_return(true)
+      cr.should_receive(:obtained_points).and_return(nil)
+      cr.display_points.should eq("Free")
+    end
+
+    it "should return rounded value if obtained with preference" do
+      value = double
+      cr.should_receive(:obtained).and_return(true)
+      cr.should_receive(:obtained_points).and_return(value)
+      value.should_receive(:round).with(2)
+      cr.display_points
+    end
+
+    it "should return current rounded value if not obtained" do
+      value = double
+      cr.should_receive(:obtained).and_return(false)
+      cr.should_receive(:current_points).and_return(value)
+      value.should_receive(:round).with(2)
+      cr.display_points
+    end
+  end
 end

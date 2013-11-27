@@ -54,3 +54,16 @@ Feature: Manage occurrences
     Then I should see "42"
     When I click "Members"
     Then I should see "Perseus 42"
+
+  Scenario: Add and remove free lot rewards
+    Given "Medusa" has reward "Chrysaor"
+    And I am on the new occurrence page for "Medusa"
+    When I select "Perseus"
+    And I click "Save"
+    Then I should see "Occurrence was successfully created"
+    And I should see "Chrysaor Perseus" within "rewards_obtained"
+    When I click "Edit"
+    When I uncheck "Chrysaor" as obtained by "Perseus"
+    And I click "Save"
+    Then I should see "Occurrence was successfully updated"
+    And I should not see "Chrysaor Perseus" within "rewards_obtained"

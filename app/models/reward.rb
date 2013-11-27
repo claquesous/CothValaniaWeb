@@ -8,4 +8,12 @@ class Reward < ActiveRecord::Base
   validates_uniqueness_of :name
   validates :name, uri_eligibility: true
   accepts_nested_attributes_for :event_rewards, :allow_destroy => true
+
+  def eligible(occurrence)
+    character_rewards.includes(:character).includes(:occurrence).unobtained_or_occurrence(occurrence)
+  end
+
+  def freelot
+    (Member.active - character_rewards.obtained.collect(&:member)).collect(&:characters).flatten
+  end
 end

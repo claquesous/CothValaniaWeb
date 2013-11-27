@@ -66,11 +66,18 @@
         - event_rewards.each do |r|
           .span3.well
             %b= r.name
-            - r.character_rewards.includes(:character).includes(:occurrence).unobtained_or_occurrence(@occurrence).each do |cr|
+            - r.eligible(@occurrence).each do |cr|
               .form-inline.reward-checkbox{data: {member_id: cr.member.id}}
                 = check_box_tag "occurrence[character_reward_ids][]", cr.id, cr.occurrence == @occurrence, id: "occurrence_character_reward_ids_#{cr.id}"
                 = label_tag "occurrence_character_reward_ids_#{cr.id}", cr.character.name
-                .badge.badge-info= cr.current_points.round(2)
+                .badge.badge-info= cr.display_points #"Free" #cr.current_points ? cr.current_points.round(2) : "Free"
+            - free = r.freelot
+            - if free.count > 0
+              = f.fields_for :character_rewards, CharacterReward.new do |cr|
+                .free
+                  Free:
+                  = cr.collection_select :character_id, free, :id, :name, include_blank: true
+                  = cr.hidden_field :reward_id, value: r.id
   
     - er = @event.event_requirements.includes(:requirement)
     - ro = @event.requirement_obtainments.includes(:requirement)
